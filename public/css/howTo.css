@@ -1,0 +1,16 @@
+/*!
+. = classes 
+# is for ids 
+blank is when it's entire tag
+ */
+
+#intro { 
+    padding-top: 70px; 
+}
+
+#howTo {
+    background-color: #4E4A4A;
+    padding-bottom: 10px;
+}
+
+
