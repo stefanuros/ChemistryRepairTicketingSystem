@@ -17,64 +17,65 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="public/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
 
-    <!--Font Awesome for icons-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">   
+    <!--FontAwesome stylesheet(s)-->
+    <link rel="stylesheet" href="public/font/fontawesome-5.7.1/css/all.css">
       
     <!--Custom stylesheet(s)-->
     <link href="public/css/style.css" rel="stylesheet">
     <link href="public/css/login.css" rel="stylesheet">
-
+      
+    <!--Custom javascript-->
+    <script src="public/js/main.js"></script>
+      
     <!--favicon image-->
     <link rel="shortcut icon" href="public/images/favicon.ico">
   </head>
 
-  <body id="page-top">
-      <div class="container" id="loginInfo">
-          <div class="col-lg">
-            <div class="row">
-                <img src="public/images/ChemistryRepairTicketLogo.png" alt="logo" height="100" width="250">  
-            </div>
-          </div>
-      </div>
-      
-      
-    <!-- Footer -->
-    <footer class="page-footer">
-      <hr width="95%">
-      <!--Footer elements-->
-      <div class="container">
-          <div class="row">
-            <div class="col-lg py-5" id="footerInfo">
-                <img src="public/images/QueensLogo.png" height="100" width="130">  
-                <br><span>Department of Chemistry</span><br>
-                <span title="Address to Queen's Dept. of Chemistry" style="vertical-align:top"><i class="fas fa-map-marker-alt"></i> 90 Bader Lane, Chernoff Hall</span><br>
-                <span>Kingston, Ontario, Canada</span><br>
-                <span>K7L 3N6</span><br>
-                <span title="Queen's Chemistry Dept. Phone #"><i class="fas fa-phone"></i> 613-533-2616
-                    
-                <!--Facebook icon-->
-                <a id="facebook" href="https://www.facebook.com/QueensChemistry" target="_blank">
-                    <span title="Dept. of Chemistry's facebook link" style="color: #F5F5F5;"><i class="fab fa-facebook-f fa-3x"></i></span>
-                </a>
+  <body>
+  	<div class="limiter">
+		<div class="container-login100" style="background-image: url(public/images/main.jpg)">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form">
+					<span class="login100-form-logo">
+						<img src="public/images/ChemistryRepairTicketLogo.png" alt="logo">
+					</span>
 
-                <!--LinkedIn icon-->
-                <a id="linkedin" href="https://www.linkedin.com/groups/?gid=4130753&mostPopular=&trk=tyah&trkInfo=tarId%3A1402424657430%2Ctas%3Aqueens%20chemistry%2Cidx%3A1-1-1" target="_blank">
-                    <span title="LinkedIn Group link" style="color: #F5F5F5;"><i class="fab fa-linkedin-in fa-3x"></i></span>
-                </a>
-                    
-                <!--Mail icon (using Ben's email)-->
-                <a id="mail" href="mailto:bsg3@queensu.ca?Subject=Equipment Repair" target="_top">
-                    <span title="Technician email" style="color: #F5F5F5;"><i class="far fa-envelope fa-3x"></i></span>
-                </a> 
-                
-                <a id="website" href="https://www.chem.queensu.ca/" target="_blank">
-                    <span title="Chemistry Dept. Website" style="color: #F5F5F5;"><i class="fas fa-info-circle fa-3x"></i></span>
-                </a>    
-                </span>
-            </div>
-          </div>
-        </div>
-    </footer>  
-      
+					<span class="login100-form-title p-b-34 p-t-27">
+						Log in
+					</span>
+
+					<div class="wrap-input100 validate-input" data-validate = "Enter username">
+						<input class="input100" type="text" name="username" placeholder="Username">
+						<span class="focus-input100" id="icon" placeholder="&#xf007;"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Enter password">
+						<input class="input100" type="password" name="pass" placeholder="Password" >
+						<span class="focus-input100" id="icon" placeholder="&#xf084;"></span>
+					</div>
+
+					<div class="contact100-form-checkbox">
+						<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+						<label class="label-checkbox100" for="ckb1">
+							Remember me
+						</label>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Login
+						</button>
+					</div>
+
+					<div class="text-center p-t-90">
+						<a class="txt1" href="#">
+							Forgot Password?
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
   </body>
 </html>
