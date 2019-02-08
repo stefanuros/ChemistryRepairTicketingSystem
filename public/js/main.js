@@ -2,6 +2,7 @@
 //Function called by the login button on the login form
 //Either redirects the user to the appropriate page or gives error message
 //For some reason this didnt work below the function($) part
+//Written by Stefan
 $(document).ready(function() {
 	//On login button click
 	$(".validate-form").submit( function() {
