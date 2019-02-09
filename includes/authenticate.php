@@ -2,7 +2,6 @@
 //Script to authenticate the currently logged in user
 //Written by stefan
 
-
 // required headers
 header("Access-Control-Allow-Origin: http://localhost/chemTicket/");
 header("Content-Type: application/json; charset=UTF-8");
@@ -21,16 +20,22 @@ use \Firebase\JWT\JWT;
 
 include_once '../config.php';
 
+//This is the error/success message created. It is not sent in this file in case
+//this file is called by another php script. If it will be called by a js function,
+// then that script should send the response code from in there. Look at createTicket.php
+// for an example
 $jsonMsg = "";
-$uid = "";
-$isAdmin = "";
-$auth = false;
+
+//This is information that the jwt gives
+$uid = ""; //Unique user id
+$isAdmin = ""; //whether the user is an admin or not
+$auth = false; //Whether the authentication succeeded or not
 
 //If the jwt cookie is set
 if(isset($_COOKIE['jwt']))
 {
 	//Get the data from the cookie
-	$data = json_decode($_COOKIE['jwt']);
+	$data = $_COOKIE['jwt'];
 
 	//If the cookie is empty
 	if($data == "")
@@ -48,18 +53,21 @@ if(isset($_COOKIE['jwt']))
 		try
 		{
 			//Get the jwt from the data
-			$decoded = JWT::decode($jwt, $jwtkey, array('HS256'));
+			$decoded = JWT::decode($data, $jwtkey, array('HS256'));
 
 			//Return the success response
+			//This will probably never be sent based on how I made the rest of the code
+			//If this is true, other response messages are created related to where authenticate.php
+			// is called. Only the error messages in this file will be sent
 			$jsonMsg = json_encode(
 				array(
 					"msg" => "200 OK",
-					"data" => $decoded->data
+					"data" => json_encode(array($decoded->data)[0])
 				)
 			);
 			// Get the results from the jwt
-			$uid = $decoded->data['uid'];
-			$isAdmin = $decoded->data['isAdmin'];
+			$uid = array($decoded->data)[0]->uid;
+			$isAdmin = array($decoded->data)[0]->isAdmin;
 
 			$auth = true;
 		}

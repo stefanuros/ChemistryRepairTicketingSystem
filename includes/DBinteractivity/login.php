@@ -67,8 +67,6 @@ if (isset($_POST['username']) && isset($_POST['password']))
 		}
 
 		//Create an authentication token
-		//TODO figure out how to create an authentication token
-
 		$iat = time(); //Isued at
 		$jti = uniqid(); //Unique token id
 		$iss = 'chemRepair'; //Token issuer
@@ -126,7 +124,6 @@ else
 		)
 	);
 }
-
 
 //Function to check if the user exists in the database
 //Returns the user info
