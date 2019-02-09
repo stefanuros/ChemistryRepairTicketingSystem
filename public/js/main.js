@@ -19,6 +19,8 @@ $(document).ready(function() {
 			username: getUser,
 			password: getPass
 		}, function(data){
+			//TODO remove this when logging in works. Currently only being used as feedback
+			console.log(data);
 			//If the login was successful
 			if(data['msg'] === "200 OK")
 			{	
