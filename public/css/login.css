@@ -16,8 +16,8 @@ a {
 	margin: 0px;
 	transition: all 0.4s;
 	-webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
 }
 
 a:focus {
@@ -26,7 +26,7 @@ a:focus {
 
 a:hover {
 	text-decoration: none;
-  color: #fff;
+    color: #7BAA4A;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -252,6 +252,13 @@ limiter {
 
 .has-val.input100 {
   padding-left: 5px;
+}
+
+/*Additional info hover*/
+#additionalInfo {
+    background: transparent; 
+    font-size: 13px; 
+    border: none;
 }
 
 /*Login Button*/

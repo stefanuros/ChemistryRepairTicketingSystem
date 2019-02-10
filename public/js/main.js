@@ -23,6 +23,8 @@
         input.removeClass('empty');
     }
 });
+    
+window.parent.$('#myModal').modal('show');
   
     /*==================================================================
     [ Validate ]
