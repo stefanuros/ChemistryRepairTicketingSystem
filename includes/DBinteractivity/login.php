@@ -32,87 +32,106 @@ if (isset($_POST['username']) && isset($_POST['password']))
 	// @ suppesses the invalid credentials message
 	$correctCred = @ldap_bind($ldap_con, $ldap_dn, $password);
 
-	//If the credentials are correct
-	if($correctCred)
+
+	//Checking if cookies are enabled
+	setcookie("test_cookie", "test", time() + 3600, '/');
+	if(count($_COOKIE) > 0)
 	{
+		//If cookies are enabled, delete the test cookie
+		setcookie("test_cookie", "", time() - 3600);
 
-		//Check if they already exist in our db
-		$user = getUser($conn, $username);
-
-		
-		//If $user is empty, the user is new, so create a row for them
-		if(!$user)
+		//If the credentials are correct
+		if($correctCred)
 		{
-			//Get the user info from active directory
-			//Set the filter
-			$filter = "(uid=$username)";
-			//Set the scope and search
-			$result = ldap_search($ldap_con, $dc, $filter) or exit("Unable to search");
-			$entries = ldap_get_entries($ldap_con, $result);
-			
-			//Create unique user id with no prefix and extra entropy
-			$uid = uniqid('', true);
 
-			//Create the user in the database
-			createUser($conn, $entries[0], $username, $uid);
+			//Check if they already exist in our db
+			$user = getUser($conn, $username);
+
 			
-			//If a new user is created, theyre not an admin by default
-			$isAdmin = false;
+			//If $user is empty, the user is new, so create a row for them
+			if(!$user)
+			{
+				//Get the user info from active directory
+				//Set the filter
+				$filter = "(uid=$username)";
+				//Set the scope and search
+				$result = ldap_search($ldap_con, $dc, $filter) or exit("Unable to search");
+				$entries = ldap_get_entries($ldap_con, $result);
+				
+				//Create unique user id with no prefix and extra entropy
+				$uid = uniqid('', true);
+
+				//Create the user in the database
+				createUser($conn, $entries[0], $username, $uid);
+				
+				//If a new user is created, theyre not an admin by default
+				$isAdmin = false;
+			}
+			else
+			{
+				//Is the user an admin
+				$isAdmin = $user['admin'];
+				$uid = $user['unique_id'];
+			}
+
+			//Create an authentication token
+			$iat = time(); //Isued at
+			$jti = uniqid(); //Unique token id
+			$iss = 'chemRepair'; //Token issuer
+			$nbf = $iat + 10; //not before time
+			$exp = $nbf + (60*60*24*30); // expires after 30 days
+
+			//Creating the token array
+			$token = array(
+				"iss" => $iss,
+				"iat" => $iat,
+				"nbf" => $nbf,
+				"jti" => $jti,
+				"exp" => $exp,
+				"data" => array(
+					"uid" => $uid, //User ID
+					"isAdmin" => $isAdmin //boolean on whether user is an admin
+				)
+			);
+
+			//Generate the jwt
+			$jwt = JWT::encode($token, $jwtkey);
+
+			//put the jwt into a cookie
+			//Cookie expires in 31 days
+			//TODO make the cookie httponly when https is set up
+			// ^ this prevents XSS attacks on the jwt
+			setcookie("jwt", $jwt, time() + (60*60*24*31));
+
+			//Return the success response
+			echo json_encode(
+				array(
+					"msg" => "200 OK",
+					"isAdmin" => $isAdmin
+				)
+			);
 		}
 		else
 		{
-			//Is the user an admin
-			$isAdmin = $user['admin'];
-			$uid = $user['unique_id'];
-		}
-
-		//Create an authentication token
-		$iat = time(); //Isued at
-		$jti = uniqid(); //Unique token id
-		$iss = 'chemRepair'; //Token issuer
-		$nbf = $iat + 10; //not before time
-		$exp = $nbf + (60*60*24*30); // expires after 30 days
-
-		//Creating the token array
-		$token = array(
-			"iss" => $iss,
-			"iat" => $iat,
-			"nbf" => $nbf,
-			"jti" => $jti,
-			"exp" => $exp,
-			"data" => array(
-				"uid" => $uid, //User ID
-				"isAdmin" => $isAdmin //boolean on whether user is an admin
-			)
-		);
-
-		//Generate the jwt
-		$jwt = JWT::encode($token, $jwtkey);
-
-		//put the jwt into a cookie
-		//Cookie expires in 31 days
-		//TODO make the cookie httponly when https is set up
-		// ^ this prevents XSS attacks on the jwt
-		setcookie("jwt", $jwt, time() + (60*60*24*31));
-
-		//Return the success response
-		echo json_encode(
-			array(
-				"msg" => "200 OK",
-				"isAdmin" => $isAdmin
-			)
-		);
+			//Return the failure response
+			echo json_encode(
+				array(
+					"msg" => "401 Unauthorized",
+					"err" => "Incorrect username or password"
+				)
+			);
+		}	
 	}
 	else
 	{
-		//Return the failure response
+		//Cookies are not enabled
 		echo json_encode(
 			array(
-				"msg" => "401 Unauthorized",
-				"err" => "Incorrect username or password"
+				"msg" => "403 Forbidden",
+				"err" => "Cookies not enabled"
 			)
 		);
-	}	
+	}
 }
 else
 {
