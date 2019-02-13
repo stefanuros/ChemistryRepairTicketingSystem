@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 13, 2019 at 10:19 PM
+-- Generation Time: Feb 13, 2019 at 10:37 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -75,8 +75,8 @@ CREATE TABLE `tickets` (
   `room` varchar(256) NOT NULL,
   `status` varchar(64) NOT NULL,
   `comment` text NOT NULL,
-  `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `closed_time` datetime DEFAULT NULL,
+  `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `closed_time` timestamp NULL DEFAULT NULL,
   `requested_by` varchar(23) DEFAULT NULL,
   `assigned_tech` varchar(23) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -86,7 +86,7 @@ CREATE TABLE `tickets` (
 --
 
 INSERT INTO `tickets` (`ticket_id`, `machine_name`, `room`, `status`, `comment`, `created_time`, `closed_time`, `requested_by`, `assigned_tech`) VALUES
-(5, 'Test', 'Test', 'Unassigned', 'Test', '2019-02-08 21:08:36', NULL, '5c5b667156ce33.07558401', NULL);
+(5, 'Test', 'Test', 'Unassigned', 'Test', '2019-02-09 02:08:36', NULL, '5c5b667156ce33.07558401', NULL);
 
 --
 -- Indexes for dumped tables
