@@ -37,12 +37,14 @@
     <nav class="navbar navbar-expand-md navbar-dark" id="mainNav">
             
         <a class="navbar-brand" href="myTickets.html">
-            <img src="public/images/ChemistryRepairTicketLogo.png" alt="Queen's Department of Chemistry Logo" alt="logo" height="105" width="280">
+            <img src="public/images/ChemistryRepairTicketLogo.png" alt="Queen's Department of Chemistry Logo" alt="logo" height="115" width="280">
         </a>
-          
+        
+        <div class="row">
         <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+            </div>
        
 
         <div class="collapse navbar-collapse" id="navbarResponsive">

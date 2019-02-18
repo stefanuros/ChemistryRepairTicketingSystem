@@ -19,10 +19,6 @@ body {
     min-height: 140px;
 }
 
-.navbar-brand {
-    position: absolute;
-}
-
 .navbar-toggler {
     border-color: #F5F5F5;
 }
