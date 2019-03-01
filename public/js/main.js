@@ -38,6 +38,39 @@ $(document).ready(function() {
 			}
 		});
 	}); 
+    //On ticket submit button click
+    $(".validate-form").submit( function() {
+        event.preventDefault();
+        
+        //Make a post request to createTicket.php
+        var getMachineName = $('#inputMachineName')[0].value;
+        var getRoom = $('#inputRoom')[0].value;
+        
+        $.post("./includes/DBInteractivity/createTicket.php", 
+        {
+            machineName: getMachineName,
+            room: inputRoom
+        }, function(data){
+			console.log(data); //TODO Remove this eventually
+			//If the login was successful
+			if(data['msg'] === "200 OK")
+			{	
+				//Check if the user is an admin or not
+				if(data['isAdmin'])
+				{
+					//If the user is an admin
+				}
+				else
+				{
+					//If the user is not an admin
+				}
+			}
+			else
+			{
+				//Give error feedback to user here since login was not successful
+			}
+		});
+    })
 });
 
 
