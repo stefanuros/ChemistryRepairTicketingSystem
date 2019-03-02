@@ -1,0 +1,34 @@
+/*Column One (Left most side) */
+.TicketSearchMenu{
+    float: left;
+    width: 10%;
+    border: 1px solid #c80000;
+}
+
+/*Column Two (Beside Colomn One, rest of the space)*/
+.TicketTableColumn{
+    float: right;
+    width: 88%; /* Leave ~2% for border widths ect.*/
+}
+
+.ticketTable, .ticketHeader{
+    border: 1px solid black;
+}
+.ticketCell{
+    border: 1px solid black;
+    max-width: 180px;
+    max-height: 90px;
+    min-height: 60px;
+    overflow: auto;
+    text-align: center;
+}
+
+/*input boxes*/
+.searchInput {
+    /*color: #FFFF;*/
+    display: block;
+    width: 100%;
+    height: 25px;
+    background: transparent;
+    padding: 0 5px 0 38px;
+}
