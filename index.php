@@ -3,10 +3,12 @@
 // in already and will send them to the right page
 //Written by stefan
 
-include_once '../authenticate.php';
+//TODO get authenticate working
+// include_once './includes/authenticate.php';
 
 //If user is not authenticated
-if(!$auth)
+//TODO if(!$auth)
+if(true)
 {
 	//Send them to the login page
 	//TODO redirect to the php version
