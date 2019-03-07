@@ -20,7 +20,10 @@ function main(){
     //    echo $jsonMsg;
     //    exit();
     //}
-    
+
+    date_default_timezone_set('America/Toronto');
+    echo date('Y-m-d h:m:s');
+
     //parse the POST data.
     parse_str($_POST['data'],$output);
     //print_r($output); //TODO: Remove. Used for testing purposes.
@@ -41,8 +44,8 @@ function main(){
         //If the user has just closed a ticket, update the closed_time aswell as the status.
         //TODO: $sqlUpdate = "UPDATE `tickets` set `assigned_tech` = '" . $techRef . "', `status` = '" . $newStatus . "'";
         if($oldStatus != 'Closed' && $newStatus == 'Closed'){
-            $sqlUpdate = "UPDATE `tickets` set `status` = '" . $newStatus . "', `closed_time` = '" . date("Y-m-d h:i:sa") . "' where `ticket_id` = " . $ticketID . ";";
-            //TODO: $sqlUpdate = $sqlUpdate . ", `closed_time` = '" . date("Y-m-d h:i:sa") . "' where `ticket_id` = " . $ticketID . ";";
+            $sqlUpdate = "UPDATE `tickets` set `status` = '" . $newStatus . "', `closed_time` = '" . date("Y-m-d h:i:s") . "' where `ticket_id` = " . $ticketID . ";";
+            //TODO: $sqlUpdate = $sqlUpdate . ", `closed_time` = '" . date("Y-m-d h:i:s") . "' where `ticket_id` = " . $ticketID . ";";
         }
         //Otherwise only update the status.
         else{

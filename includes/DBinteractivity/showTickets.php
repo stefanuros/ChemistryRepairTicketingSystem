@@ -6,9 +6,21 @@ This will be used for the database access for showTickets.html.
 On a search submit button this will create a SQL select statement based off of the search criteria and send that table to showTickets.js
 */
 
-//TODO: Fix the requested_by and assigned_tech sections. They need to use a different table. (This is for drop down + for table info.)
 
-/* Just for organizational purposes. */
+/* 
+The following array is used in showTickets.js (as it is the echo of this file).
+array(
+    "tableInfo" => $tableInfo, //Used to write all of the table information.
+    "roomOptions" => $roomOptions, //Used for drop down options
+    "machineOptions" => $machineName,  //Used for drop down options
+    "statusOptions" => $statusOptions, //Used for drop down options
+    "requestedByOptions" => $requestedByOptions, //Used for drop down options
+    "assignedTechOptions" => $assignedTechOptions, //Used for drop down options
+    "tableHeight" => $tableHeightOutput, //Thrown into a hidden int on the front page, which will be later used in the saveTickets.php file.
+    "colCount" => $colCountOutput, //TODO: REMOVE. No longer in use.
+    "testOutput" => $testOutput //Used for console.log();
+)
+*/
 function main(){
     include_once '../config.php';
     include_once '../connect.php';
@@ -97,7 +109,7 @@ function main(){
                     else{ //TODO: Ask everyone if this is how they want the backend error to be handled.
                         $tableInfo = $tableInfo . 
                         "<td class='ticketCell'><select name='value" . $i . "a" .  $height . "'>
-                            <option value='$value'>$value Please choose one of the below options</option>
+                            <option value='$value'>Your Value:$value Please choose one of the below options</option>
                             <option value='Unassigned'>Unassigned</option>
                             <option value='In Progress'>In Progress</option>
                             <option value='Closed'>Closed</option>
@@ -177,14 +189,24 @@ function appendSearchInfo($sql,$sqlWhereSet,$postName,$attributeName){
     if (isset($_POST[$postName]) && $_POST[$postName] != null){
         if ($sqlWhereSet == false){
             $sqlWhereSet = true;
-            //TODO: I think i need to use like, just so date created/closed dont have to give the hh:mm:ss
-            $sql = $sql . " where `$attributeName` LIKE '" . $_POST[$postName] . "'"; 
-        }
+            if ($attributeName == 'created_time' || $attributeName == 'closed_time'){
+                //As its generalized it will search for a LIKE VALUE% as this allows the user to write YYYY-mm-dd and not add the hh:mm:ss
+                $sql = $sql . " where `$attributeName` LIKE '" . $_POST[$postName] . "%'";
+            }
+            else{
+                $sql = $sql . " where `$attributeName` = '" . $_POST[$postName] . "'"; 
+            }
+        }//end if ($sqlWhereSet == true)
         else{
-            //TODO: I think i need to use like, just so date created/closed dont have to give the hh:mm:ss
-            $sql = $sql . " and `$attributeName` LIKE '" . $_POST[$postName] . "'";
-        }
-    }
+            if ($attributeName == 'created_time' || $attributeName == 'closed_time'){
+                //As its generalized it will search for a LIKE VALUE% as this allows the user to write YYYY-mm-dd and not add the hh:mm:ss
+                $sql = $sql . " and `$attributeName` = '" . $_POST[$postName] . "%'";
+            }//end if date format
+            else{
+                $sql = $sql . " and `$attributeName` = '" . $_POST[$postName] . "'";
+            }//end else date format
+        }//end else (sqlWhereSet == True)
+    }//end if the POST is set and not null.
     return array($sql,$sqlWhereSet);
 }//end appendSearchInfo
 
