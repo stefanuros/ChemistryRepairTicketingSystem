@@ -1,55 +1,59 @@
-<!--By: Tiffany Chan-->
+<!-- Created on March 7th, 2019. --> 
+<!--By: Tiffany C-->
+<!--howTo.php: webpage that provides a step-by-step guide for user on how to use the ticketing system-->
+<!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="Queen's Chemistry Department's Repair Ticketing System">
-        <meta name="author" content="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Queen's Chemistry Department's Repair Ticketing System">
+    <meta name="author" content="">
 
-        <title>QU Chemistry Repair</title>
+    <title>QU Chemistry Repair</title>
 
-        <!--Bootstrap core CSS-->
-        <link rel="stylesheet" type="text/css" href="css/bootstrap-4.0.0-dist/css/bootstrap.min.css">
+    <!--Bootstrap core CSS-->
+    <link rel="stylesheet" type="text/css" href="/public/bootstrap-4.0.0-dist/css/bootstrap.min.css"> 
+      
+    <!--Bootstrap core JavaScript-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/public/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
 
-        <!--Custom stylesheet-->
-        <link href="public/css/style.css" rel="stylesheet">
-        <link href="public/css/HowTo.css" rel="stylesheet">
+    <!--FontAwesome stylesheet(s)-->
+    <link rel="stylesheet" href="public/font/fontawesome-5.7.1/css/all.css">
+    <link rel="stylesheet" type="text/css" href="public/font/fontawesome-5.7.1/css/fontawesome.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+      
+    <!--Custom stylesheet(s)-->
+    <link href="public/css/style.css" rel="stylesheet">
+    <link href="public/css/login.css" rel="stylesheet">
+      
+    <!--Custom javascript-->
+    <script src="./public/js/main.js"></script>
+      
+    <!--favicon image-->
+    <link rel="shortcut icon" href="public/images/favicon.ico">
+  </head>
 
-      <!--favicon image-->
-        <link rel="shortcut icon" href="images/favicon.ico">
-    </head>
-  
-    <body>
-        
-        <?php include('user.php');?>
-        
-        <section id="intro">
-            <div class="container">
-                <div class="row justify-content-md-center" id="intro">
-                    <p>Welcome to the Department of Chemistry's Repair Ticketing System!</p>
-             </div>
-            </div>
-            <section id="howTo">
-                <div class="row justify-content-md-center">
-                    <h3>How it works</h3>
-                </div>
-                <div class="row justify-content-md-center">
-                    <img style="padding-bottom: 10px" src="images/wrench.png" alt="repairing wrench icon" height="60" width="40">
-                </div>
-                <div class="row justify-content-md-center">
-                    <!--****MAKE BUTTON DIRECT TO CREATE TICKET SCREEN***-->
-                    <button type="button">Create Repair Ticket</button>
-                </div>
-                <div class="row">
-                    <div class="col-sm">
-                        <img src="images/openTicket.png" alt="Create Ticket Icon" height="100" width="100">
-                    </div>
-                </div>
-            </section>        
-        </section>
-        
-        <!--Bootstrap core JavaScript--> 
-        <script src="css/bootstrap-4.0.0-dist/js/"></script>
-    </body>
+  <body>
+
+    <!-- Loads the user's version of the header -->
+    <!-- howTo page is only available on user's version -->
+      <?php include('headerUser.php');?>
+      <div class="col">
+          <div class="row-xs">
+          
+          </div>
+          <div class="row-xs">
+          
+          </div>
+          <div class="row-xs">
+          
+          </div>
+      </div>
+      
+    <!-- Loads the footer -->
+    <?php include('footer.php');?>    
+  </body> 
+    
 </html>
