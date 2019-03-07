@@ -101,7 +101,7 @@ if (isset($_POST['username']) && isset($_POST['password']))
 			//Cookie expires in 31 days
 			//TODO make the cookie httponly when https is set up
 			// ^ this prevents XSS attacks on the jwt
-			setcookie("jwt", $jwt, time() + (60*60*24*31));
+			setcookie("jwt", $jwt, time() + (60*60*24*31), '/');
 
 			//Return the success response
 			echo json_encode(

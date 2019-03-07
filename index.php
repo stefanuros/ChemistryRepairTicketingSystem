@@ -21,14 +21,14 @@ else
 	{
 		//Send them to the admin home
 		//TODO redirect to the proper page
-		header("Location: login.html");
+		header("Location: showTickets.html");
 		die();
 	}
 	else
 	{
 		//Send them to the user home
 		//TODO redirect to the proper page
-		header("Location: login.html");
+		header("Location: showTickets.html");
 		die();
 	}
 }

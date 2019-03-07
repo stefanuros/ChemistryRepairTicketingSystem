@@ -3,6 +3,7 @@
 //For some reason this didnt work below the function($) part
 //Written by Stefan
 $(document).ready(function() {
+
 	//On login button click
 	$(".validate-form").submit( function() {
 		event.preventDefault();
@@ -18,6 +19,14 @@ $(document).ready(function() {
 			username: getUser,
 			password: getPass
 		}, function(data){
+			try
+			{
+				data = JSON.parse(data);
+			}
+			catch(e)
+			{
+				console.log(e);
+			}
 			console.log(data); //TODO Remove this eventually
 			//If the login was successful
 			if(data['msg'] === "200 OK")
@@ -26,10 +35,13 @@ $(document).ready(function() {
 				if(data['isAdmin'])
 				{
 					//If the user is an admin
+					window.location.replace("createTicket.php");
 				}
 				else
 				{
+					
 					//If the user is not an admin
+					window.location.replace("createTicket.php");
 				}
 			}
 			else
@@ -38,39 +50,44 @@ $(document).ready(function() {
 			}
 		});
 	}); 
-    //On ticket submit button click
-    $(".validate-form").submit( function() {
-        event.preventDefault();
-        
-        //Make a post request to createTicket.php
-        var getMachineName = $('#inputMachineName')[0].value;
-        var getRoom = $('#inputRoom')[0].value;
-        
-        $.post("./includes/DBInteractivity/createTicket.php", 
-        {
-            machineName: getMachineName,
-            room: inputRoom
-        }, function(data){
+
+	//On ticket submit button click
+	$(".create-ticket-form").submit( function() {
+		event.preventDefault();
+		//Make a post request to createTicket.php
+		var getMachineName = $('#inputMachineName')[0].value;
+		var getRoom = $('#inputRoom')[0].value;
+		var comment = $('#inputComments')[0].value;
+		
+		$.get("./includes/DBInteractivity/createTicket.php", 
+		{
+			machine_name: getMachineName,
+			room: getRoom,
+			comments: comment
+
+		}, function(data){
+			try
+			{
+				data = JSON.parse(data);
+			}
+			catch(e)
+			{
+				console.log(e);
+			}
 			console.log(data); //TODO Remove this eventually
 			//If the login was successful
 			if(data['msg'] === "200 OK")
-			{	
-				//Check if the user is an admin or not
-				if(data['isAdmin'])
-				{
-					//If the user is an admin
-				}
-				else
-				{
-					//If the user is not an admin
-				}
+			{
+				console.log("Successful ticket creation");
 			}
 			else
 			{
 				//Give error feedback to user here since login was not successful
+				console.log("Error with ticket creation");
+				
 			}
 		});
-    })
+	})
 });
 
 

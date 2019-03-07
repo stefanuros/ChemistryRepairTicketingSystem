@@ -31,9 +31,11 @@
     </head>
   
     <body>
+
+
         <div class="containter m-5">
             <h3>Create Ticket </h3>
-            <form action="./includes/DBInteractivity/createTicket.php" method="GET">
+            <form class="create-ticket-form">
                 <!--Row 1-->
                 <div class="form-row w-50">
                     <div class="form-group col-md-6">
@@ -56,6 +58,6 @@
 	   </div>
         
         <!--Bootstrap core JavaScript--> 
-        <script src="css/bootstrap-4.0.0-dist/js/"></script>
+        <!-- <script src="./public/css/bootstrap-4.0.0-dist/js/"></script> -->
     </body>
 </html>
