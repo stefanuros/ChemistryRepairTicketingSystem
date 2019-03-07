@@ -66,14 +66,6 @@ $(document).ready(function() {
 			comments: comment
 
 		}, function(data){
-			try
-			{
-				data = JSON.parse(data);
-			}
-			catch(e)
-			{
-				console.log(e);
-			}
 			console.log(data); //TODO Remove this eventually
 			//If the login was successful
 			if(data['msg'] === "200 OK")
