@@ -40,7 +40,10 @@
       <div class="container">
           <div class="row">
             <div class="col-lg py-5" id="footerInfo">
-                <img src="public/images/QueensLogo.png" height="100" width="130">  
+                <!-- Queen's logo -->
+                <a href="https://www.queensu.ca/" target="_blank">
+                    <img src="public/images/QueensLogo.png" height="100" width="130"> 
+                </a>
                 <br><span>Department of Chemistry</span><br>
                 <span title="Address to Queen's Dept. of Chemistry" style="vertical-align:top"><i class="fas fa-map-marker-alt"></i> 90 Bader Lane, Chernoff Hall</span><br>
                 <span>Kingston, Ontario, Canada</span><br>
