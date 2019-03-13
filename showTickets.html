@@ -18,10 +18,9 @@ TODO: Ask stef about checking admin. so i can set <submit button display=none> t
 -->
 <html>
     <head>
-        <!--TODO Bootstrap core CSS
+        <!--TODO Bootstrap core CSS-->
         <link rel="stylesheet" type="text/css" href="./public/bootstrap-4.0.0-dist/css/bootstrap.min.css"> 
-        -->
-
+        
         <!--Bootstrap core JavaScript-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="public/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
@@ -31,16 +30,15 @@ TODO: Ask stef about checking admin. so i can set <submit button display=none> t
         <link rel="stylesheet" type="text/css" href="public/font/fontawesome-5.7.1/css/fontawesome.min.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
         -->
-
-        <!--TODO
+       
         <link href="public/css/style.css" rel="stylesheet">
-        -->
+       
         <link href="./public/css/showTickets.css" rel="stylesheet">
         
         <!--Custom javascript-->
         <script src="./public/js/showTickets.js"></script>
     </head>
-
+<h1>All Tickets</h1>
 <div class='TicketSearchMenu'>
     <form id='showTicketForm'>
         <input class="searchInput" type="number" id="getTicketID" placeholder="Ticket ID">
@@ -51,16 +49,16 @@ TODO: Ask stef about checking admin. so i can set <submit button display=none> t
         <input class="searchInput" type="text" id="getClosed" placeholder="Closed Date YYYY-MM-DD">
         <select class="searchInput" id="getRequestedBy" placeholder="Requested By"> </select>
         <select class="searchInput" id="getAssignedTech" placeholder="Assigned Tech"> </select>
-        <button>Search</button>
+        <button class="btn btn-primary">Search</button>
     </form>
 </div>
 
 <!-- This form is used to submit the changes made by an admin -->
 <form class=TicketTableColumn id='saveTicketForm'>
-    <button>Submit Changes</button>
     <!-- class='TicketTableColumn'  This is used as to fill in the table information on the loading of the page, and after the user clicks Search. -->
     <div id='TicketTable'></div>
     <input class=tableDimension id=tableHeight name=tableHeight type=hidden>
     <input class=tableDimension id=colCount name=colCount type=hidden>
+    <button class="btn btn-primary">Submit Changes</button>
 </form>
 </html>

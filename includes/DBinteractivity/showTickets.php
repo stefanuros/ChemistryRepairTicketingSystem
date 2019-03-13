@@ -44,7 +44,7 @@ function main(){
         <th class='ticketHeader'>Machine Name</th>
         <th class='ticketHeader'>Room</th>
         <th class='ticketHeader'>Status</th>
-        <th class='ticketHeader'>comments</th>
+        <th class='ticketHeader'>Comments</th>
         <th class='ticketHeader'>Created</th>
         <th class='ticketHeader'>Closed</th>
         <th class='ticketHeader'>Requested By</th>

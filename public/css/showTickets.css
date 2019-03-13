@@ -2,7 +2,7 @@
 .TicketSearchMenu{
     float: left;
     width: 10%;
-    border: 1px solid #c80000;
+    border: 1px solid whitesmoke;
 }
 
 /*Column Two (Beside Colomn One, rest of the space)*/
@@ -12,10 +12,10 @@
 }
 
 .ticketTable, .ticketHeader{
-    border: 1px solid black;
+    border: 1px solid whitesmoke;
 }
 .ticketCell{
-    border: 1px solid black;
+    border: 1px solid whitesmoke;
     max-width: 180px;
     max-height: 90px;
     min-height: 60px;
@@ -25,10 +25,11 @@
 
 /*input boxes*/
 .searchInput {
-    /*color: #FFFF;*/
+    color: whitesmoke;
     display: block;
     width: 100%;
     height: 25px;
-    background: transparent;
+    background: #292929;
     padding: 0 5px 0 38px;
+    border: 1px solid whitesmoke;
 }
