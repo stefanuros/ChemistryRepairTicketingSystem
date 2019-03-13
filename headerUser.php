@@ -57,7 +57,7 @@
                 <a class="nav-link" href="createTicket.html">Create Ticket</a>
                 </li>
             <li class="nav-item">
-                <a class="nav-link" href="#howTo.html">How To</a>
+                <a class="nav-link" href="howTo.php">How To</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#profile.html">Profile</a>
