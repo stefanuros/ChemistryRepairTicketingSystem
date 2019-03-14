@@ -9,37 +9,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Queen's Chemistry Department's Repair Ticketing System">
     <meta name="author" content="">
-
-    <title>QU Chemistry Repair</title>
-
+      
     <!--Bootstrap core CSS-->
-    <link rel="stylesheet" type="text/css" href="/public/bootstrap-4.0.0-dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" type="text/css" href="./public/bootstrap-4.0.0-dist/css/bootstrap.min.css">
       
     <!--Bootstrap core JavaScript-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="/public/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
-
-    <!--FontAwesome stylesheet(s)-->
-    <link rel="stylesheet" href="public/font/fontawesome-5.7.1/css/all.css">
-    <link rel="stylesheet" type="text/css" href="public/font/fontawesome-5.7.1/css/fontawesome.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-      
-    <!--Custom stylesheet(s)-->
-    <link href="public/css/style.css" rel="stylesheet">
-    <link href="public/css/login.css" rel="stylesheet">
-      
-    <!--Custom javascript-->
-    <script src="./public/js/main.js"></script>
+    <script src="./public/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
       
     <!--favicon image-->
-    <link rel="shortcut icon" href="public/images/favicon.ico">
+    <link rel="shortcut icon" href="./public/images/favicon.ico">
   </head>
 
   <body>
 
     <!-- Loads the user's version of the header -->
     <!-- howTo page is only available on user's version -->
-      <?php include('headerUser.php');?>
+      <?php include("headerUser.php");?>
       <div class="col">
           <div class="row-xs">
           
@@ -53,7 +39,7 @@
       </div>
       
     <!-- Loads the footer -->
-    <?php include('footer.php');?>    
+    <?php include("footer.php");?>    
   </body> 
     
 </html>
