@@ -78,7 +78,7 @@ if (isset($_POST['username']) && isset($_POST['password']))
 			$iat = time(); //Isued at
 			$jti = uniqid(); //Unique token id
 			$iss = 'chemRepair'; //Token issuer
-			$nbf = $iat + 10; //not before time
+			$nbf = $iat + 1; //not before time
 			$exp = $nbf + (60*60*24*30); // expires after 30 days
 
 			//Creating the token array
@@ -95,6 +95,7 @@ if (isset($_POST['username']) && isset($_POST['password']))
 			);
 
 			//Generate the jwt
+			JWT::$leeway = 15;
 			$jwt = JWT::encode($token, $jwtkey);
 
 			//put the jwt into a cookie
