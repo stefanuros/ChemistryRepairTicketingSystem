@@ -11,13 +11,13 @@ include_once '../config.php';
 
 //Check if the user is authenticated
 //$auth is a variable from authenticate.php
-// if(!$auth)
-// {
-// 	// User is not authenticated
-// 	//Send an error message that was created in authenticate.php
-// 	echo $jsonMsg;
-// 	exit();
-// }
+if(!$auth)
+{
+	// User is not authenticated
+	//Send an error message that was created in authenticate.php
+	echo $jsonMsg;
+	exit();
+}
 
 // User is authenticated so create the ticket
 //Connect to the database
