@@ -20,6 +20,8 @@ array(
     "colCount" => $colCountOutput, //TODO: REMOVE. No longer in use.
     "testOutput" => $testOutput //Used for console.log();
 )
+
+TODO resizeable text box. SEE ~LINE 124
 */
 function main(){
     include_once '../config.php';
@@ -34,7 +36,7 @@ function main(){
     $machineName = getOptions($conn, 'machine_name', 'Machines');
     $statusOptions = getOptions($conn, 'status', 'Status');
     $requestedByOptions = getOptions($conn, 'requested_by', 'Requested By');
-    $assignedTechOptions = getOptions($conn, 'assigned_tech', 'Tech');
+    $assignedTechOptions = getOptions($conn, 'assigned_tech', 'Assigned Tech');
     $testOutput = "";
     $isAdmin = true; //TODO: for testing purposes. I believe this information will be taken fron authenticate?
 
@@ -52,7 +54,19 @@ function main(){
     ";
     //Create the SQL select.
     $sqlWhereSet = false; //Is set to true when the first "where" in the select to ensure theres only 1.
-    $sql = "select * from `Tickets`"; 
+    $sql = "select ticket_id,machine_name,room,status,comment,created_time,closed_time,
+    CASE 
+        WHEN userP.username IS NULL THEN '  '
+        ELSE userP.username 
+    END,
+    CASE 
+        WHEN techP.username IS NULL THEN '  '
+        ELSE techP.username 
+    END
+    from 
+    ((tickets
+    LEFT JOIN profile userP ON tickets.requested_by = userP.unique_id)
+    LEFT JOIN profile techP ON tickets.assigned_tech = techP.unique_id)"; 
     //Add all the required search fields to $sql
     list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'ticketID','ticket_id');
     list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'machineName','machine_name');
@@ -85,7 +99,7 @@ function main(){
                 if ($isAdmin == true && $i == 8){
                     $tableInfo = $tableInfo . 
                     "<td class='ticketCell'>
-                        <input type='text' value='$value' name='value" . $i . "a" .  $height . "'>
+                        <input class='ticketInput' type='text' value='$value' name='value" . $i . "a" .  $height . "'>
                     </td>";
                 }
                 //Admin can change the value for closed using a drop box, if closed == null
@@ -120,8 +134,14 @@ function main(){
                 //Else: The column cannot be edited. It should display a value and have a hidden input of the value aswell so 
                 //      The information can be used in a $_POST for saving changes.
                 else{
-                    $tableInfo = $tableInfo . "<td class='ticketCell'>$value ";
-                    $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value=$value></td>";
+                    if ($i == 4){ //TODO resizeable text box.
+                        $tableInfo = $tableInfo . "<td class='ticketCommentCell'> $value";
+                        $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value=$value></td>";
+                    }
+                    else{
+                        $tableInfo = $tableInfo . "<td class='ticketCell'>$value ";
+                        $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value=$value></td>";
+                    }
                 }//end isAdmin, editable column
                 $i = $i + 1;
             }//end foreach
@@ -164,8 +184,16 @@ Returns $givenOption. This being a string containing html for a single drop down
 function getOptions($conn,$attributeName,$nullMessage){
     $givenOption = "<option value=''>$nullMessage</option>";
     //select all drop down menu options.
-    //,`Status`,`Created_time`,`Closed_time`,`requested_by`,`assigned_tech`
-    $sqlRoom = "SELECT DISTINCT `$attributeName` FROM `tickets`;";
+    
+    if ($attributeName == 'requested_by'){ //`requested_by`
+        $sqlRoom = "SELECT DISTINCT username FROM `profile`;";
+    }
+    elseif ($attributeName == 'assigned_tech'){ //`assigned_tech`
+        $sqlRoom = "SELECT DISTINCT username FROM `profile`;";
+    }
+    else{ //`Status`,`Created_time`,`Closed_time`
+        $sqlRoom = "SELECT DISTINCT `$attributeName` FROM `tickets`;";
+    }
     $sqlRoomPrep = $conn->prepare($sqlRoom);
     if(!$sqlRoomPrep->execute()) {
         echo('Error: The command could not be executed, and the information could not be read.');
@@ -193,6 +221,12 @@ function appendSearchInfo($sql,$sqlWhereSet,$postName,$attributeName){
                 //As its generalized it will search for a LIKE VALUE% as this allows the user to write YYYY-mm-dd and not add the hh:mm:ss
                 $sql = $sql . " where `$attributeName` LIKE '" . $_POST[$postName] . "%'";
             }
+            elseif ($attributeName == 'requested_by'){
+                $sql = $sql . " where userP.username = '" . $_POST[$postName] . "'";
+            }
+            elseif ($attributeName == 'assigned_tech'){
+                $sql = $sql . " where techP.username = '" . $_POST[$postName] . "'";
+            }
             else{
                 $sql = $sql . " where `$attributeName` = '" . $_POST[$postName] . "'"; 
             }
@@ -202,6 +236,12 @@ function appendSearchInfo($sql,$sqlWhereSet,$postName,$attributeName){
                 //As its generalized it will search for a LIKE VALUE% as this allows the user to write YYYY-mm-dd and not add the hh:mm:ss
                 $sql = $sql . " and `$attributeName` = '" . $_POST[$postName] . "%'";
             }//end if date format
+            elseif ($attributeName == 'requested_by'){
+                $sql = $sql . " and userP.username = '" . $_POST[$postName] . "'";
+            }
+            elseif ($attributeName == 'assigned_tech'){
+                $sql = $sql . " and techP.username = '" . $_POST[$postName] . "'";
+            }
             else{
                 $sql = $sql . " and `$attributeName` = '" . $_POST[$postName] . "'";
             }//end else date format

@@ -11,8 +11,22 @@
     width: 88%; /* Leave ~2% for border widths ect.*/
 }
 
+.ticketInput{
+    width: 100%; /* Prevents an awkward interaction with a scroll bar when unnecessary*/
+}
+
 .ticketTable, .ticketHeader{
     border: 1px solid whitesmoke;
+}
+
+.ticketCommentCell{
+    border: 1px solid whitesmoke;
+    max-width: 180px;
+    max-height: 90px;
+    min-height: 60px;
+    overflow: auto;
+    text-align: center;
+    resize: both;
 }
 .ticketCell{
     border: 1px solid whitesmoke;

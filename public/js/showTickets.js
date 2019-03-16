@@ -9,9 +9,11 @@ This will grab the table given from showTickets.php and send it to the paragraph
 //Returns a "show all" table to display
 $(document).ready(function(){  
     $.post("./includes/DBinteractivity/showTickets.php",{}, 
-    //data = echo in showtickets.php
+    // data = echo in showtickets.php
     function(data){
-        //throw all the given information into a <div></div> (creating a table with all the requested information)
+        // throw all the given information into a <div></div> (creating a table with all the requested information)
+        
+        // console.log(data);
         var temp = jQuery.parseJSON(data);
         document.getElementById('TicketTable').innerHTML = temp["tableInfo"];
         document.getElementById('getRoom').innerHTML = temp["roomOptions"];
