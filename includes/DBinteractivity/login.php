@@ -3,15 +3,28 @@
 //Once login is authenticated, open a cookie
 //Written by Stefan
 
+// Getting the path to the folder
+$topLayer = str_replace($_SERVER['DOCUMENT_ROOT'], "", $_SERVER['SCRIPT_FILENAME']);
+$path = $_SERVER['DOCUMENT_ROOT'] . "/" . explode("/", $topLayer)[1];
+
 //php-jwt related files
-include_once '../libs/php-jwt-master/src/BeforeValidException.php';
-include_once '../libs/php-jwt-master/src/ExpiredException.php';
-include_once '../libs/php-jwt-master/src/SignatureInvalidException.php';
-include_once '../libs/php-jwt-master/src/JWT.php';
+// include_once '../libs/php-jwt-master/src/BeforeValidException.php';
+// include_once '../libs/php-jwt-master/src/ExpiredException.php';
+// include_once '../libs/php-jwt-master/src/SignatureInvalidException.php';
+// include_once '../libs/php-jwt-master/src/JWT.php';
+// use \Firebase\JWT\JWT;
+
+// include_once '../config.php';
+// include_once '../connect.php';
+
+include_once $path . '/includes/libs/php-jwt-master/src/BeforeValidException.php';
+include_once $path . '/includes/libs/php-jwt-master/src/ExpiredException.php';
+include_once $path . '/includes/libs/php-jwt-master/src/SignatureInvalidException.php';
+include_once $path . '/includes/libs/php-jwt-master/src/JWT.php';
 use \Firebase\JWT\JWT;
 
-include_once '../config.php';
-include_once '../connect.php';
+include_once $path . '/includes/config.php';
+include_once $path . '/includes/connect.php';
 
 //Check if the username and password are set
 if (isset($_POST['username']) && isset($_POST['password']))
@@ -78,7 +91,7 @@ if (isset($_POST['username']) && isset($_POST['password']))
 			$iat = time(); //Isued at
 			$jti = uniqid(); //Unique token id
 			$iss = 'chemRepair'; //Token issuer
-			$nbf = $iat + 1; //not before time
+			$nbf = $iat + 10; //not before time
 			$exp = $nbf + (60*60*24*30); // expires after 30 days
 
 			//Creating the token array
@@ -95,7 +108,6 @@ if (isset($_POST['username']) && isset($_POST['password']))
 			);
 
 			//Generate the jwt
-			JWT::$leeway = 15;
 			$jwt = JWT::encode($token, $jwtkey);
 
 			//put the jwt into a cookie

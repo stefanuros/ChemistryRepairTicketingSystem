@@ -2,12 +2,16 @@
 // Script to add a ticket to the database
 //Written by stefan
 
+// Getting the path to the folder
+$topLayer = str_replace($_SERVER['DOCUMENT_ROOT'], "", $_SERVER['SCRIPT_FILENAME']);
+$path = $_SERVER['DOCUMENT_ROOT'] . "/" . explode("/", $topLayer)[1];
+
 // include('secure.php'); Implement this maybe???
-include_once '../authenticate.php';
+include_once $path . '/includes/authenticate.php';
 
 //Call the config file to get access to the needed info
 //This is already called in authenticate but it shouldnt be an issue cause of the include_once
-include_once '../config.php';
+include_once $path . '/includes/config.php';
 
 //Check if the user is authenticated
 //$auth is a variable from authenticate.php
@@ -21,7 +25,7 @@ if(!$auth)
 
 // User is authenticated so create the ticket
 //Connect to the database
-include_once '../connect.php';
+include_once $path . '/includes/connect.php';
 
 //Check if all the needed information is set
 if(isset($_GET['machine_name']) && 
@@ -54,7 +58,9 @@ if(isset($_GET['machine_name']) &&
 		//Return the success response
 		echo json_encode(
 			array(
-				"msg" => "200 OK"
+				"msg" => "200 OK",
+				"m" => $_SERVER['DOCUMENT_ROOT'],
+				"fn" => $_SERVER['SCRIPT_FILENAME']
 			)
 		);
 

@@ -17,5 +17,6 @@ $adurl = "ldap.forumsys.com";
 //The key for the JWT
 $jwtkey = "B1A81966AD5E4724A649D3F227875";
 
-
+// Turn on errors (0 for off, 1 for on)
+error_reporting(1);
 ?>
