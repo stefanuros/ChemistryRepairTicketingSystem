@@ -91,7 +91,7 @@ if (isset($_POST['username']) && isset($_POST['password']))
 			$iat = time(); //Isued at
 			$jti = uniqid(); //Unique token id
 			$iss = 'chemRepair'; //Token issuer
-			$nbf = $iat + 10; //not before time
+			$nbf = $iat; //not before time
 			$exp = $nbf + (60*60*24*30); // expires after 30 days
 
 			//Creating the token array

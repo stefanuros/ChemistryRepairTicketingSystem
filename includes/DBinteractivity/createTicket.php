@@ -58,9 +58,7 @@ if(isset($_GET['machine_name']) &&
 		//Return the success response
 		echo json_encode(
 			array(
-				"msg" => "200 OK",
-				"m" => $_SERVER['DOCUMENT_ROOT'],
-				"fn" => $_SERVER['SCRIPT_FILENAME']
+				"msg" => "200 OK"
 			)
 		);
 

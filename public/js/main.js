@@ -35,13 +35,13 @@ $(document).ready(function() {
 				if(data['isAdmin'])
 				{
 					//If the user is an admin
-					window.location.replace("createTicket.php");
+					window.location.replace("createTicketPage.php");
 				}
 				else
 				{
 					
 					//If the user is not an admin
-					window.location.replace("createTicket.php");
+					window.location.replace("createTicketPage.php");
 				}
 			}
 			else
@@ -67,6 +67,9 @@ $(document).ready(function() {
 
 		}, function(data){
 			console.log(data); //TODO Remove this eventually
+
+			data = JSON.parse(data);
+
 			//If the login was successful
 			if(data['msg'] === "200 OK")
 			{
