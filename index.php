@@ -3,12 +3,13 @@
 // in already and will send them to the right page
 //Written by stefan
 
-//TODO get authenticate working
-// include_once './includes/authenticate.php';
+$topLayer = str_replace($_SERVER['DOCUMENT_ROOT'], "", $_SERVER['SCRIPT_FILENAME']);
+$path = $_SERVER['DOCUMENT_ROOT'] . "/" . explode("/", $topLayer)[1];
+
+include_once $path . '/includes/authenticate.php';
 
 //If user is not authenticated
-//TODO if(!$auth)
-if(true)
+if(!$auth)
 {
 	//Send them to the login page
 	//TODO redirect to the php version
@@ -23,14 +24,16 @@ else
 	{
 		//Send them to the admin home
 		//TODO redirect to the proper page
-		header("Location: showTickets.html");
+		// header("Location: showTickets.html");
+		header("Location: createTicketPage.php");
+
 		die();
 	}
 	else
 	{
 		//Send them to the user home
 		//TODO redirect to the proper page
-		header("Location: showTickets.html");
+		header("Location: createTicketPage.php");
 		die();
 	}
 }
