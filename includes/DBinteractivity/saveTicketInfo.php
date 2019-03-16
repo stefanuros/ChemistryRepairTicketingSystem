@@ -6,9 +6,6 @@ This will be called by showTickets.js and be used to save the information in a d
 to the database.
 */
 
-
-//TODO: Due to timezone? difference, date(Y-m-d h:m:sa) is giving a time thats off by 6 hours.
-
 /* for orginizational purposes. */
 
 function main(){
@@ -22,17 +19,21 @@ function main(){
     //}
 
     date_default_timezone_set('America/Toronto');
-    echo date('Y-m-d h:m:s');
 
     //parse the POST data.
     parse_str($_POST['data'],$output);
-    //print_r($output); //TODO: Remove. Used for testing purposes.
 
+    //Updates Ticket table with new information.
     for ($i = 1; $i < $output['tableHeight']; $i++){
         //get the row's ticketID, the oldStatus (before change/in database) and newStatus (what is on the current page.)
         $ticketID = $output['value0a' . $i];
         $newStatus = $output['value3a' . $i];
-        $techRef = $output['value8a' . $i];
+        if ($output['value9a' . $i] != ''){
+            $techRef = getRefNumber($conn,$output['value9a' . $i]);
+        }
+        else{
+            $techRef = '';
+        }
         $sqlSelect = "SELECT `status` from `tickets` where ticket_id = $ticketID;";
         $sqlPrep = $conn->query($sqlSelect);
         if(!$sqlPrep->execute()) {
@@ -42,15 +43,13 @@ function main(){
         $oldStatusFetch = $sqlPrep->fetch(PDO::FETCH_NUM);
         $oldStatus = $oldStatusFetch[0];
         //If the user has just closed a ticket, update the closed_time aswell as the status.
-        //TODO: $sqlUpdate = "UPDATE `tickets` set `assigned_tech` = '" . $techRef . "', `status` = '" . $newStatus . "'";
+        echo "----------- Row: $i Ticket: $ticketID assigned_tech: $techRef ---------";
         if($oldStatus != 'Closed' && $newStatus == 'Closed'){
-            $sqlUpdate = "UPDATE `tickets` set `status` = '" . $newStatus . "', `closed_time` = '" . date("Y-m-d h:i:s") . "' where `ticket_id` = " . $ticketID . ";";
-            //TODO: $sqlUpdate = $sqlUpdate . ", `closed_time` = '" . date("Y-m-d h:i:s") . "' where `ticket_id` = " . $ticketID . ";";
+            $sqlUpdate = "UPDATE `tickets` set `status` = '" . $newStatus . "', `closed_time` = '" . date("Y-m-d h:i:s") . "', assigned_tech = '$techRef' where `ticket_id` = " . $ticketID . ";";
         }
         //Otherwise only update the status.
         else{
-            $sqlUpdate = "UPDATE `tickets` set `status` = '" . $newStatus . "' where `ticket_id` = " . $ticketID . ";";
-            //TODO: $sqlUpdate = $sqlUpdate .  " where `ticket_id` = " . $ticketID . ";";
+            $sqlUpdate = "UPDATE `tickets` set `status` = '" . $newStatus . "', assigned_tech = '$techRef' where `ticket_id` = " . $ticketID . ";";
         }
         echo $sqlUpdate;
         try{
@@ -61,5 +60,22 @@ function main(){
         }
     }//end i,tableHeight
 }//end main
+
+/* Helper function, used to turn a username into a reference number. This will help organize when updating assigned_tech
+inputs: $username: the username given, this will be the username in the table profile.
+outputs: $refNumber: reference number. This will be the unique_id in profile, or the requested_by/assigned_tech for tickets.
+*/
+function getRefNumber($conn,$username){
+    $sql = "SELECT DISTINCT unique_id FROM `profile` WHERE `username` = '" . $username . "';";
+    $sqlPrepared = $conn->prepare($sql);
+    if(!$sqlPrepared->execute()){
+        echo "The given username: $username 's unique id could not be found.";
+        $refNumber = '';
+    }
+    $row = $sqlPrepared->fetch(PDO::FETCH_NUM);
+    $refNumber = $row[0];
+    return $refNumber;
+}
+
 main();
 ?>
