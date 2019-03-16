@@ -21,7 +21,6 @@ array(
     "testOutput" => $testOutput //Used for console.log();
 )
 
-TODO resizeable text box. SEE ~LINE 124
 */
 function main(){
     include_once '../config.php';
@@ -50,11 +49,16 @@ function main(){
         <th class='ticketHeader'>Created</th>
         <th class='ticketHeader'>Closed</th>
         <th class='ticketHeader'>Requested By</th>
+        <th class='ticketHeader'>Requested By</th>
         <th class='ticketHeader'>Assigned Tech</th>
     ";
     //Create the SQL select.
     $sqlWhereSet = false; //Is set to true when the first "where" in the select to ensure theres only 1.
     $sql = "select ticket_id,machine_name,room,status,comment,created_time,closed_time,
+    CASE 
+        WHEN userP.email IS NULL THEN '  '
+        ELSE userP.email 
+    END,
     CASE 
         WHEN userP.username IS NULL THEN '  '
         ELSE userP.username 
@@ -96,7 +100,7 @@ function main(){
         $i = 0;
             foreach($row as $value) {
                 //Admin can change the values for Status, Assigned Tech
-                if ($isAdmin == true && $i == 8){
+                if ($isAdmin == true && $i == 9){ 
                     $tableInfo = $tableInfo . 
                     "<td class='ticketCell'>
                         <input class='ticketInput' type='text' value='$value' name='value" . $i . "a" .  $height . "'>
@@ -134,7 +138,7 @@ function main(){
                 //Else: The column cannot be edited. It should display a value and have a hidden input of the value aswell so 
                 //      The information can be used in a $_POST for saving changes.
                 else{
-                    if ($i == 4){ //TODO resizeable text box.
+                    if ($i == 4){ 
                         $tableInfo = $tableInfo . "<td class='ticketCommentCell'> $value";
                         $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value=$value></td>";
                     }

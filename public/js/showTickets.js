@@ -7,6 +7,8 @@ This will grab the table given from showTickets.php and send it to the paragraph
 
 //Function called at the loading of showTicket.html
 //Returns a "show all" table to display
+//TODO: Refresh after submit.
+
 $(document).ready(function(){  
     $.post("./includes/DBinteractivity/showTickets.php",{}, 
     // data = echo in showtickets.php
@@ -79,5 +81,6 @@ $(document).ready(function(){
         function(data){
             console.log(data);
         });//end $.post
+        window.refresh(); //TODO FIX
     });//end showTicketForm lambda function.
 }); //end $(document).ready(function(){}); 
