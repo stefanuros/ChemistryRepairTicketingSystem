@@ -13,4 +13,16 @@ blank is when it's entire tag
     padding-bottom: 10px;
 }
 
+.square {
+    background-color: #f5f5f5;
+    position: relative;
+    height: 180px; 
+    width: 900px; 
+    border-radius: 10px; 
+    margin-bottom: 5px;
+}
 
+#button {
+    background-color: #292929;
+    border: none;
+}

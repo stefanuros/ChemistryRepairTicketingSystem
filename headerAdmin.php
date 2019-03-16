@@ -20,11 +20,7 @@
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item active">
                     <!--change the href's to corresponding pages-->
-                    <a class="nav-link" href="#">My Tickets</a>
-                </li>
-                <li class="nav-item">
-                    <!--change the href's to corresponding pages-->
-                    <a class="nav-link" href="#">All Tickets</a>
+                    <a class="nav-link" href="#">Tickets</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="#">Inventory</a>
@@ -36,7 +32,7 @@
                 <a class="nav-link" href="#">Create Ticket</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Profile</a>
+                    <input class="nav-link" id="button" type="button" onclick='logout();' value='Logout'/>
                 </li>
             </ul>
         </div>

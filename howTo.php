@@ -30,6 +30,9 @@
     <!--Custom stylesheet(s)-->
     <link href="public/css/style.css" rel="stylesheet">
     <link href="public/css/howTo.css" rel="stylesheet">
+    
+    <!--Custom javascript(s)-->
+    <script src="public/js/main.js"></script>
 
     <!--favicon image-->
     <link rel="shortcut icon" href="public/images/favicon.ico">
