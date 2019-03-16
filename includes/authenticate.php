@@ -11,14 +11,26 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 // files for decoding jwt will be here
 
-//php-jwt related files
-include_once '../libs/php-jwt-master/src/BeforeValidException.php';
-include_once '../libs/php-jwt-master/src/ExpiredException.php';
-include_once '../libs/php-jwt-master/src/SignatureInvalidException.php';
-include_once '../libs/php-jwt-master/src/JWT.php';
+// Getting the path to the folder
+$topLayer = str_replace($_SERVER['DOCUMENT_ROOT'], "", $_SERVER['SCRIPT_FILENAME']);
+$path = $_SERVER['DOCUMENT_ROOT'] . "/" . explode("/", $topLayer)[1];
+
+// //php-jwt related files
+// include_once '../libs/php-jwt-master/src/BeforeValidException.php';
+// include_once '../libs/php-jwt-master/src/ExpiredException.php';
+// include_once '../libs/php-jwt-master/src/SignatureInvalidException.php';
+// include_once '../libs/php-jwt-master/src/JWT.php';
+// use \Firebase\JWT\JWT;
+
+// include_once '../config.php';
+
+include_once $path . '/includes/libs/php-jwt-master/src/BeforeValidException.php';
+include_once $path . '/includes/libs/php-jwt-master/src/ExpiredException.php';
+include_once $path . '/includes/libs/php-jwt-master/src/SignatureInvalidException.php';
+include_once $path . '/includes/libs/php-jwt-master/src/JWT.php';
 use \Firebase\JWT\JWT;
 
-include_once '../config.php';
+include_once $path . '/includes/config.php';
 
 //This is the error/success message created. It is not sent in this file in case
 //this file is called by another php script. If it will be called by a js function,
