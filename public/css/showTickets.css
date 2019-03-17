@@ -19,7 +19,7 @@
     border: 1px solid whitesmoke;
 }
 
-.ticketCommentCell{
+.ticketCommentCellEven{
     border: 1px solid whitesmoke;
     max-width: 180px;
     max-height: 90px;
@@ -28,7 +28,26 @@
     text-align: center;
     resize: both;
 }
-.ticketCell{
+.ticketCommentCellOdd{
+    border: 1px solid whitesmoke;
+    max-width: 180px;
+    max-height: 90px;
+    min-height: 60px;
+    overflow: auto;
+    text-align: center;
+    resize: both;
+    background-color: black;
+}
+.ticketCellOdd{
+    border: 1px solid whitesmoke;
+    max-width: 180px;
+    max-height: 90px;
+    min-height: 60px;
+    overflow: auto;
+    text-align: center;
+    background-color: black;
+}
+.ticketCellEven{
     border: 1px solid whitesmoke;
     max-width: 180px;
     max-height: 90px;
@@ -36,7 +55,6 @@
     overflow: auto;
     text-align: center;
 }
-
 /*input boxes*/
 .searchInput {
     color: whitesmoke;

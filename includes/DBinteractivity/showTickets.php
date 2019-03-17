@@ -36,6 +36,7 @@ function main(){
     $statusOptions = getOptions($conn, 'status', 'Status');
     $requestedByOptions = getOptions($conn, 'requested_by', 'Requested By');
     $assignedTechOptions = getOptions($conn, 'assigned_tech', 'Assigned Tech');
+    $listOfAdmins = getAdmins($conn);
     $testOutput = "";
     $isAdmin = true; //TODO: for testing purposes. I believe this information will be taken fron authenticate?
 
@@ -95,22 +96,43 @@ function main(){
     //$i still needs to be initalized to tell <p id=colCount> how many columns there are
     $i = 0; 
     //While there are rows left in the SQL
-    while($row = $sqlPrepared->fetch(PDO::FETCH_ASSOC)) {
+    while($row = $sqlPrepared->fetch(PDO::FETCH_NUM)) {
         $tableInfo = $tableInfo . "<tr>";
         $i = 0;
             foreach($row as $value) {
+                if ($height % 2 == 0){
+                    if($i == 4){
+                        $tableInfo = $tableInfo . "<td class='ticketCommentCellEven'> $value";
+                        $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value=$value></td>";
+                    }
+                    else{
+                        $tableInfo = $tableInfo . "<td class='ticketCellEven'>";
+                    }
+                }
+                else{
+                    if($i == 4){
+                        $tableInfo = $tableInfo . "<td class='ticketCommentCellOdd'> $value";
+                        $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value=$value></td>";
+                    }
+                    else{
+                        $tableInfo = $tableInfo . "<td class='ticketCellOdd'>";
+                    }
+                }
                 //Admin can change the values for Status, Assigned Tech
                 if ($isAdmin == true && $i == 9){ 
                     $tableInfo = $tableInfo . 
-                    "<td class='ticketCell'>
-                        <input class='ticketInput' type='text' value='$value' name='value" . $i . "a" .  $height . "'>
+                    "
+                        <select class='ticketInput' type='text' name='value" . $i . "a" .  $height . "'>
+                        <option value='$value'>$value</option>
+                        $listOfAdmins 
+                        </select>
                     </td>";
                 }
                 //Admin can change the value for closed using a drop box, if closed == null
                 elseif ($isAdmin == true && $i == 3 && $value != 'Closed'){
                     if($value == 'Unassigned'){
                         $tableInfo = $tableInfo .
-                        "<td class='ticketCell'><select name='value" . $i . "a" .  $height . "'>
+                        "<select name='value" . $i . "a" .  $height . "'>
                             <option value='Unassigned'>Unassigned</option>
                             <option value='In Progress'>In Progress</option>
                             <option value='Closed'>Closed</option>
@@ -118,7 +140,7 @@ function main(){
                     }
                     elseif($value == 'In Progress'){
                         $tableInfo = $tableInfo .
-                        "<td class='ticketCell'><select name='value" . $i . "a" .  $height . "'>
+                        "<select name='value" . $i . "a" .  $height . "'>
                             <option value='In Progress'>In Progress</option>
                             <option value='Unassigned'>Unassigned</option>
                             <option value='Closed'>Closed</option>
@@ -126,7 +148,7 @@ function main(){
                     }
                     else{ //TODO: Ask everyone if this is how they want the backend error to be handled.
                         $tableInfo = $tableInfo . 
-                        "<td class='ticketCell'><select name='value" . $i . "a" .  $height . "'>
+                        "<select name='value" . $i . "a" .  $height . "'>
                             <option value='$value'>Your Value:$value Please choose one of the below options</option>
                             <option value='Unassigned'>Unassigned</option>
                             <option value='In Progress'>In Progress</option>
@@ -138,17 +160,11 @@ function main(){
                 //Else: The column cannot be edited. It should display a value and have a hidden input of the value aswell so 
                 //      The information can be used in a $_POST for saving changes.
                 else{
-                    if ($i == 4){ 
-                        $tableInfo = $tableInfo . "<td class='ticketCommentCell'> $value";
-                        $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value=$value></td>";
-                    }
-                    else{
-                        $tableInfo = $tableInfo . "<td class='ticketCell'>$value ";
-                        $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value=$value></td>";
-                    }
+                    $tableInfo = $tableInfo . "$value ";
+                    $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value=$value></td>";
                 }//end isAdmin, editable column
                 $i = $i + 1;
-            }//end foreach
+            }//end fore loop
             $height = $height + 1;
             $tableInfo = $tableInfo . "</tr>";
     }//End While (There is a row to fetch)
@@ -254,6 +270,21 @@ function appendSearchInfo($sql,$sqlWhereSet,$postName,$attributeName){
     return array($sql,$sqlWhereSet);
 }//end appendSearchInfo
 
+/* */
+function getAdmins($conn){
+    $sqlRoom = "SELECT DISTINCT `username` FROM `profile` where admin=1;";
+    $sqlRoomPrep = $conn->prepare($sqlRoom);
+    if(!$sqlRoomPrep->execute()) {
+        echo('Error: The command could not be executed, and the information could not be read.');
+        exit();
+    }
+    $height = 1;
+    //While there are rows left in the SQL
+    while($row = $sqlRoomPrep->fetch(PDO::FETCH_NUM)) {
+        $givenOption = $givenOption . "<option value="  . $row[0] . ">" . $row[0] . " </option>";
+    }//end while
+    return $givenOption;
+}//end getAdmins
 main();
 
 ?>
