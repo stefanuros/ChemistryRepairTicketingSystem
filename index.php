@@ -12,7 +12,6 @@ include_once $path . '/includes/authenticate.php';
 if(!$auth)
 {
 	//Send them to the login page
-	//TODO redirect to the php version
 	header("Location: login.html");
 	//idk what die() does but its suggested
 	die();
@@ -32,7 +31,6 @@ else
 	else
 	{
 		//Send them to the user home
-		//TODO redirect to the proper page
 		header("Location: createTicketPage.php");
 		die();
 	}
