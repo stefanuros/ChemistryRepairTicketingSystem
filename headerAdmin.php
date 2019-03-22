@@ -20,16 +20,16 @@
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item active">
                     <!--change the href's to corresponding pages-->
-                    <a class="nav-link" href="#">Tickets</a>
+                    <a class="nav-link" href="showTickets.html">Tickets</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="#">Inventory</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="#">Statistics</a>
+                <a class="nav-link" href="statsPage.php">Statistics</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="#">Create Ticket</a>
+                <a class="nav-link" href="createTicketPage.php">Create Ticket</a>
                 </li>
                 <li class="nav-item">
                     <input class="nav-link" id="button" type="button" onclick='logout();' value='Logout'/>
