@@ -21,6 +21,12 @@
 	border: none;
 }
 
+.card-deck {
+	min-width: 350px;
+	max-width: 1750px;
+	margin: auto;
+}
+
 canvas {
 	width: 100%;
 	height: auto;
