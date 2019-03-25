@@ -5,8 +5,10 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-md navbar-dark" id="mainNav">
             
-        <a class="navbar-brand" href="myTickets.html">
-            <img src="public/images/ChemistryRepairTicketLogo.png" alt="Queen's Department of Chemistry Logo" alt="logo" height="115" width="280">
+        <a class="navbar-brand" href="showTickets.html">
+            <a href="showTickets.html">
+                <img src="public/images/ChemistryRepairTicketLogo.png" alt="Queen's Department of Chemistry Logo" alt="logo" height="115" width="280">
+            </a>
         </a>
         
         <div class="row">
