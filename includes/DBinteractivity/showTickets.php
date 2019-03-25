@@ -17,10 +17,12 @@ array(
     "requestedByOptions" => $requestedByOptions, //Used for drop down options
     "assignedTechOptions" => $assignedTechOptions, //Used for drop down options
     "tableHeight" => $tableHeightOutput, //Thrown into a hidden int on the front page, which will be later used in the saveTickets.php file.
-    "colCount" => $colCountOutput, //TODO: REMOVE. No longer in use.
     "testOutput" => $testOutput //Used for console.log();
 )
 
+
+
+TODO: THIS SQL FETCH IS NOT WORKING (creating the bottom display message)
 */
 function main(){
     include_once '../config.php';
@@ -39,6 +41,16 @@ function main(){
     $listOfAdmins = getAdmins($conn);
     $testOutput = "";
     $isAdmin = true; //TODO: for testing purposes. I believe this information will be taken fron authenticate?
+    if (isset($_POST['fromRow']) && $_POST['fromRow'] != null){
+        $fromRow = $_POST['fromRow'];
+    }
+    else{
+        $fromRow = 0;
+    }
+    $rowStep = 10;
+
+    $totalRows = getTotalRows($conn);
+    $tablePageMessage = "Showing: " . $fromRow . " to " . ($fromRow + $rowStep) . " out of: " . $totalRows;
 
     $tableInfo =  "
         <table class=ticketTable>
@@ -81,7 +93,7 @@ function main(){
     list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'closedBy','closed_time');
     list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'requestedBy','requested_by');
     list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'assignedTech','assigned_tech');
-    $sql = $sql . " order by `Ticket_ID`;";
+    $sql = $sql . " order by `Ticket_ID` LIMIT $fromRow, $rowStep;";
 
     //fill the table with ALL information.
     $testOutput = $testOutput .  $sql;
@@ -103,7 +115,6 @@ function main(){
                 if ($height % 2 == 0){
                     if($i == 4){
                         $tableInfo = $tableInfo . "<td class='ticketCommentCellEven'> $value";
-                        $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value=$value></td>";
                     }
                     else{
                         $tableInfo = $tableInfo . "<td class='ticketCellEven'>";
@@ -112,7 +123,6 @@ function main(){
                 else{
                     if($i == 4){
                         $tableInfo = $tableInfo . "<td class='ticketCommentCellOdd'> $value";
-                        $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value=$value></td>";
                     }
                     else{
                         $tableInfo = $tableInfo . "<td class='ticketCellOdd'>";
@@ -184,6 +194,9 @@ function main(){
             "assignedTechOptions" => $assignedTechOptions,
             "tableHeight" => $tableHeightOutput,
             "colCount" => $colCountOutput,
+            "fromRow" => $fromRow,
+            "tablePageMessage" => $tablePageMessage,
+            "totalRows" => $totalRows,
             "testOutput" => $testOutput
         )
     );
@@ -192,7 +205,17 @@ function main(){
 
 /*---Helper Functions Found Below--------------------------------------------------------------------------------------------------------------------------------- */
 /*---------------------------------------------------------------------------------------------------------------------------------------------------------------- */
-
+//returns the total amount of Rows in tickets table.
+function getTotalRows($conn){
+    $sql = "select count(ticket_id) from tickets;";
+    $sqlGetTotalRows = $conn->prepare($sql);
+    if(!$sqlGetTotalRows->execute()) {
+        echo('Error: The command could not be executed, and the information could not be read.');
+        exit();
+    }
+    $totalRows = $sqlGetTotalRows->fetch(PDO::FETCH_NUM);
+    return $totalRows[0];
+}
 
 /* 
 Used to set up the drop down menus on the front page. 

@@ -50,8 +50,12 @@ TODO: Prevent too many enteries being displayed at once (allow for 1-20,21-42 ty
 <form class=TicketTableColumn id='saveTicketForm'>
     <!-- class='TicketTableColumn'  This is used as to fill in the table information on the loading of the page, and after the user clicks Search. -->
     <div id='TicketTable'></div>
+    <button class="btn btn-secondary" onclick="leftArrowButtonDown()">&laquo; Last</button> 
+    <button class="btn btn-secondary" onclick="rightArrowButtonDown()">Next &raquo;</button> <p id='tablePageMessage'></p>
     <input class=tableDimension id=tableHeight name=tableHeight type=hidden>
-    <input class=tableDimension id=colCount name=colCount type=hidden>
+    <input id=fromRow type="hidden" value=0>
+    <input id=totalRows type="hidden" value=100>
     <button class="btn btn-primary">Submit Changes</button>
 </form>
+
 </html>
