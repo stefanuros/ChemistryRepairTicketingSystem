@@ -6,7 +6,6 @@
 $topLayer = str_replace($_SERVER['DOCUMENT_ROOT'], "", $_SERVER['SCRIPT_FILENAME']);
 $path = $_SERVER['DOCUMENT_ROOT'] . "/" . explode("/", $topLayer)[1];
 
-// include('secure.php'); Implement this maybe???
 include_once $path . '/includes/authenticate.php';
 
 //Call the config file to get access to the needed info
