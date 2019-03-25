@@ -67,16 +67,16 @@
 			<!-- Tickets Completed Chart -->
 			<div class="p-0 m-0 mb-4 col-md-12 col-lg-6 col-xl-4">
 				<div class="card bg-dark text-whitepx-0">
-					<h4 class="card-header">Tickets Completed</h4>
+					<h4 class="card-header">Tickets Assigned</h4>
 					<div class="card-body py-1 px-2">
-						<div id="numTicketsCompleted" style="height: 420px;"></div>
+						<div id="numTicketsAssignedTech" style="height: 420px;"></div>
 					</div>
 				</div>
 			</div>
 			<!-- Assigned Tickets Chart -->
 			<div class="p-0 m-0 mb-4 col-md-12 col-lg-6 col-xl-4">
 				<div class="card bg-dark text-whitepx-0">
-					<h4 class="card-header">Assigned Tickets</h4>
+					<h4 class="card-header"># of Unassigned Tickets</h4>
 					<div class="card-body py-1 px-2">
 						<div id="numTicketsAssigned" style="height: 420px;"></div>
 					</div>
