@@ -58,28 +58,80 @@
 		}
 	?>
 
+
 	<div class="containter m-5">
-		<h3>Create Ticket </h3>
-		<form class="create-ticket-form">
-			<!--Row 1-->
-			<div class="form-row w-50">
-				<div class="form-group col-md-6">
-					<label for="inputMachineName">Machine Name</label>
-					<input type="text" class="form-control" maxlength="256" id="inputMachineName" name="machine_name">
+		<div id="alertMarker"></div>
+		<div class="card text-white bg-dark m-auto" style="min-width: 600px; max-width: 1200px;">
+			<h3 class="card-header">Create New Ticket </h3>
+			<form class="create-ticket-form card-body">
+				<!-- Row 1 -->
+				<div class="form-row m-auto">
+					<div class="form-group col-md-6 pl-0">
+						<label for="inputMachineName">Machine Name</label>
+						<input type="text" class="form-control" maxlength="256" id="inputMachineName" name="machine_name">
+						<div class="invalid-feedback">
+							Please enter a valid machine name
+						</div>
+						<div class="valid-feedback">
+							Looks good
+						</div>
+					</div>
+					<div class="form-group col-md-6 pr-0">
+						<label for="inputRoom">Room</label>
+						<input type="text" class="form-control" maxlength="256" id="inputRoom" name="room">
+						<div class="invalid-feedback">
+							Please enter a valid room
+						</div>
+						<div class="valid-feedback">
+							Looks good
+						</div>
+					</div>
 				</div>
-				<div class="form-group col-md-6">
-					<label for="inputRoom">Room</label>
-					<input type="text" class="form-control" maxlength="256" id="inputRoom" name="room">
+				<!-- Row 2 -->
+				<div class="form-group m-auto">
+					<label for="problemDescription">Problem Description</label>
+					<textarea class="form-control" id="problemDescription" name="description" rows="5"></textarea>
+					<div class="invalid-feedback">
+						Please enter a description of the problem
+					</div>
+					<div class="valid-feedback">
+						Looks good
+					</div>
 				</div>
-			</div>
-			<!--Row 2-->
-			<!--Row 3-->
-			<div class="form-group w-50">
-				<label for="inputComments">Comments</label>
-				<textarea class="form-control" id="inputComments" name="comments" rows="5"></textarea>
-			</div>
-			<button type="submit" class="btn btn-primary">Submit Ticket</button>
-		</form>
+				<!-- Row 3 -->
+				<div class="form-row m-auto pt-3">
+					<div class="form-group col-md-6 pl-0">
+						<label for="inputSuperCode">Supervisor Code</label>
+						<input type="text" class="form-control" maxlength="256" id="inputSuperCode" name="super_code">
+						<div class="invalid-feedback">
+							Please enter a valid code
+						</div>
+						<div class="valid-feedback">
+							Looks good
+						</div>
+					</div>
+					<div class="form-group col-md-6 pr-0">
+						<label for="inputSuperName">Supervisor Name</label>
+						<input type="text" class="form-control" maxlength="256" id="inputSuperName" name="super_name">
+						<div class="invalid-feedback">
+							Please enter a valid name
+						</div>
+						<div class="valid-feedback">
+							Looks good
+						</div>
+					</div>
+				</div>
+				<!-- Row 4 -->
+				<div class="form-group m-auto">
+					<label for="inputComments">Other Comments</label>
+					<textarea class="form-control" id="inputComments" name="comments" rows="5"></textarea>
+				</div>
+				<!-- Row 5 -->
+				<!-- <div class="form-group w-75 m-auto pt-3"> -->
+				<button type="submit" class="btn btn-success mt-3">Submit Ticket</button>
+				<!-- </div> -->
+			</form>
+		</div>
 	</div>
 
 	<?php
