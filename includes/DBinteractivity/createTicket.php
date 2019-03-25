@@ -29,7 +29,11 @@ include_once $path . '/includes/connect.php';
 //Check if all the needed information is set
 if(isset($_GET['machine_name']) && 
 	isset($_GET['room']) && 
-	isset($_GET['comments']))
+	isset($_GET['description']) &&
+	isset($_GET['super_code']) &&
+	isset($_GET['super_name']) &&
+	isset($_GET['comments'])
+)
 {
 	//Setting who is currently logged in from the jwt in the cookie
 	//$uid comes from authenticate.php
@@ -40,16 +44,22 @@ if(isset($_GET['machine_name']) &&
 		//Making the strings safe for html
 		$machine_id = htmlspecialchars($_GET['machine_name']);
 		$room = htmlspecialchars($_GET['room']);
+		$description = htmlspecialchars($_GET['description']);
+		$super_name = htmlspecialchars($_GET['super_code']);
+		$super_code = htmlspecialchars($_GET['super_name']);
 		$comments = htmlspecialchars($_GET['comments']);
 
 		//Insert into these columns, these values
-		$stmt = $conn->prepare("INSERT INTO tickets (machine_name, room, status, comment, requested_by) VALUES (:MID, :room, 'Unassigned', :comment, :requested);");
+		$stmt = $conn->prepare("INSERT INTO tickets (machine_name, room, status, comment, requested_by, supervisor_name, supervisor_code, other_comments) VALUES (:MID, :room, 'Unassigned', :description, :requested, :super_name, :super_code, :comments);");
 		$stmt->execute(
 			array(
 				':MID' => $machine_id, //Machine ID
 				':room' => $room, //Room
-				':comment' => $comments, //Comments
-				':requested' => $loggedIn //id of requester
+				':description' => $description, //problem description
+				':requested' => $loggedIn, //id of requester
+				':super_name' => $super_name, //Supervisor code
+				':super_code' => $super_code, //Supervisor name
+				':comments' => $comments //other comments
 			)
 		);
 

@@ -18,5 +18,5 @@ $adurl = "ldap.forumsys.com";
 $jwtkey = "B1A81966AD5E4724A649D3F227875";
 
 // Turn on errors (0 for off, 1 for on)
-error_reporting(1);
+error_reporting(0);
 ?>

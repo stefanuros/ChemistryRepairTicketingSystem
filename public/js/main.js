@@ -51,39 +51,130 @@ $(document).ready(function() {
 		});
 	}); 
 
+	// These will be in charge of feedback
+	$("#inputMachineName").focusout(function(){
+		toggleFeedback("#inputMachineName");
+	});
+
+	$("#inputRoom").focusout(function(){
+		toggleFeedback("#inputRoom");
+	});
+	
+	$("#problemDescription").focusout(function(){
+		toggleFeedback("#problemDescription");
+	});
+
+	$("#inputSuperCode").focusout(function(){
+		toggleFeedback("#inputSuperCode");
+	});
+
+	$("#inputSuperName").focusout(function(){
+		toggleFeedback("#inputSuperName");
+	});
+
+	function toggleFeedback(id)
+	{
+		if($(id)[0].value.length > 0)
+		{
+			$(id).addClass("is-valid");
+			$(id).removeClass("is-invalid");
+		}
+		else
+		{
+			$(id).removeClass("is-valid");
+			$(id).addClass("is-invalid");
+		}
+	}
+
 	//On ticket submit button click
 	$(".create-ticket-form").submit( function() {
 		event.preventDefault();
+
 		//Make a post request to createTicket.php
 		var getMachineName = $('#inputMachineName')[0].value;
 		var getRoom = $('#inputRoom')[0].value;
+		var description = $('#problemDescription')[0].value;
+		var superCode = $('#inputSuperCode')[0].value;
+		var superName = $('#inputSuperName')[0].value;
 		var comment = $('#inputComments')[0].value;
-		
+
+		// Doing error checking for the values
+		var submitReady = 	$("#inputMachineName")[0].value.length &&
+							$("#inputRoom")[0].value.length &&
+							$("#problemDescription")[0].value.length &&
+							$("#inputSuperCode")[0].value.length &&
+							$("#inputSuperName")[0].value.length;
+
+		//Create the proper feedback
+		toggleFeedback("#inputMachineName");
+		toggleFeedback("#inputRoom");
+		toggleFeedback("#problemDescription");
+		toggleFeedback("#inputSuperCode");
+		toggleFeedback("#inputSuperName");
+
+		// If the form is not ready to submit, dont submit
+		if(!submitReady)
+		{
+			setAlert("Please fill in all of the required information", "danger");
+			return;
+		}
+
+		// Submitting the ticket
 		$.get("./includes/DBInteractivity/createTicket.php", 
 		{
 			machine_name: getMachineName,
 			room: getRoom,
+			description: description,
+			super_code: superCode,
+			super_name: superName,
 			comments: comment
 
 		}, function(data){
-			console.log(data); //TODO Remove this eventually
 
 			data = JSON.parse(data);
 
-			//If the login was successful
+			//Remove Feedback
+			$('#inputMachineName').removeClass("is-valid");
+			$('#inputRoom').removeClass("is-valid");
+			$('#problemDescription').removeClass("is-valid");
+			$('#inputSuperCode').removeClass("is-valid");
+			$('#inputSuperName').removeClass("is-valid");
+
+			$('#inputMachineName').removeClass("is-invalid");
+			$('#inputRoom').removeClass("is-invalid");
+			$('#problemDescription').removeClass("is-invalid");
+			$('#inputSuperCode').removeClass("is-invalid");
+			$('#inputSuperName').removeClass("is-invalid");
+
+			//If the ticket creation was successful
 			if(data['msg'] === "200 OK")
 			{
-				console.log("Successful ticket creation");
+				setAlert("Ticket successfully submitted", "success");
+				
+				// reset form
+				$(".create-ticket-form")[0].reset();
 			}
 			else
 			{
-				//Give error feedback to user here since login was not successful
-				console.log("Error with ticket creation");
-				
+				setAlert("Error with ticket creation. Please try again or contact us", "danger");
 			}
 		});
 	})
 });
+
+function setAlert(msg, type)
+{
+	var a = `
+	<div class="alert alert-` + type + ` alert-dismissible fade show" role="alert">
+		` + msg + `
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	`;
+
+	$("#alertMarker")[0].innerHTML = a;
+}
 
 // Function that will log you out
 function logout()
