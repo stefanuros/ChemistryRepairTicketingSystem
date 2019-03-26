@@ -63,11 +63,14 @@ function main(){
         <th class='ticketHeader'>Closed</th>
         <th class='ticketHeader'>Requested By</th>
         <th class='ticketHeader'>Requested By</th>
+        <th class='ticketHeader'>Supervisor</th>
+        <th class='ticketHeader'>Supervisor Code</th>
         <th class='ticketHeader'>Assigned Tech</th>
+
     ";
     //Create the SQL select.
     $sqlWhereSet = false; //Is set to true when the first "where" in the select to ensure theres only 1.
-    $sql = "select ticket_id,machine_name,room,status,comment,created_time,closed_time,
+    $sql = "select ticket_id,machine_name,room,status,concat(comment,other_comments),created_time,closed_time,
     CASE 
         WHEN userP.email IS NULL THEN '  '
         ELSE userP.email 
@@ -76,6 +79,8 @@ function main(){
         WHEN userP.username IS NULL THEN '  '
         ELSE userP.username 
     END,
+    supervisor_name,
+    supervisor_code,
     CASE 
         WHEN techP.username IS NULL THEN '  '
         ELSE techP.username 
@@ -114,7 +119,7 @@ function main(){
             foreach($row as $value) {
                 if ($height % 2 == 0){
                     if($i == 4){
-                        $tableInfo = $tableInfo . "<td class='ticketCommentCellEven'> $value";
+                        $tableInfo = $tableInfo . "<td class='ticketCommentCellEven'>";
                     }
                     else{
                         $tableInfo = $tableInfo . "<td class='ticketCellEven'>";
@@ -122,14 +127,14 @@ function main(){
                 }
                 else{
                     if($i == 4){
-                        $tableInfo = $tableInfo . "<td class='ticketCommentCellOdd'> $value";
+                        $tableInfo = $tableInfo . "<td class='ticketCommentCellOdd'>";
                     }
                     else{
                         $tableInfo = $tableInfo . "<td class='ticketCellOdd'>";
                     }
                 }
                 //Admin can change the values for Status, Assigned Tech
-                if ($isAdmin == true && $i == 9){ 
+                if ($isAdmin == true && $i == 11){ 
                     $tableInfo = $tableInfo . 
                     "
                         <select class='ticketInput' type='text' name='value" . $i . "a" .  $height . "'>
