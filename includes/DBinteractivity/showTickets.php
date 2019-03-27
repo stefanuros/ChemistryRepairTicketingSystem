@@ -20,9 +20,6 @@ array(
     "testOutput" => $testOutput //Used for console.log();
 )
 
-
-
-TODO: THIS SQL FETCH IS NOT WORKING (creating the bottom display message)
 */
 function main(){
     include_once '../config.php';
@@ -70,7 +67,7 @@ function main(){
     ";
     //Create the SQL select.
     $sqlWhereSet = false; //Is set to true when the first "where" in the select to ensure theres only 1.
-    $sql = "select ticket_id,machine_name,room,status,concat(comment,other_comments),created_time,closed_time,
+    $sql = "select ticket_id,machine_name,room,status,concat(comment,' ',other_comments),created_time,closed_time,
     CASE 
         WHEN userP.email IS NULL THEN '  '
         ELSE userP.email 
@@ -161,7 +158,7 @@ function main(){
                             <option value='Closed'>Closed</option>
                         </select></td>";
                     }
-                    else{ //TODO: Ask everyone if this is how they want the backend error to be handled.
+                    else{ 
                         $tableInfo = $tableInfo . 
                         "<select name='value" . $i . "a" .  $height . "'>
                             <option value='$value'>Your Value:$value Please choose one of the below options</option>
