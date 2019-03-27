@@ -24,12 +24,8 @@ array(
 function main(){
     include_once '../config.php';
     include_once '../connect.php';
-    //include_once '../authenticate.php';
+    include_once '../authenticate.php';
 
-    //if (!$auth){
-    //    echo $jsonMsg;
-    //    exit();
-    //}
     $roomOptions = getOptions($conn,'room', 'Rooms');
     $machineName = getOptions($conn, 'machine_name', 'Machines');
     $statusOptions = getOptions($conn, 'status', 'Status');
@@ -37,8 +33,10 @@ function main(){
     $assignedTechOptions = getOptions($conn, 'assigned_tech', 'Assigned Tech');
     $listOfAdmins = getAdmins($conn);
     $testOutput = "";
-    $isAdmin = false; //TODO: for testing purposes. I believe this information will be taken fron authenticate?
-    $uid = ''; //TODO: For testing purposes. I believe this info will be taken from auth
+    $testOutput = $testOutput . "preAdmin: " . $isAdmin . "
+    ";
+    //TODO: remove this now that auth is working $isAdmin = true; 
+    //TODO: remove this now that auth is working  $uid = '5c5b667156ce33.07558401'; 
     if (isset($_POST['fromRow']) && $_POST['fromRow'] != null){
         $fromRow = $_POST['fromRow'];
     }
@@ -150,7 +148,7 @@ function main(){
             "fromRow" => $fromRow,
             "tablePageMessage" => $tablePageMessage,
             "totalRows" => $totalRows,
-            "testOutput" => $testOutput
+            "testOutput" => $tableInfo
         )
     );
 }//end Main

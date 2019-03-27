@@ -30,6 +30,28 @@ TODO: Non admin view.
         <!--Custom javascript-->
         <script src="./public/js/showTickets.js"></script>
     </head>
+<body>
+<?php
+		$topLayer = str_replace($_SERVER['DOCUMENT_ROOT'], "", $_SERVER['SCRIPT_FILENAME']);
+		$path = $_SERVER['DOCUMENT_ROOT'] . "/" . explode("/", $topLayer)[1];
+		
+		include_once $path . '/includes/authenticate.php';
+
+		// If user is authenticated, display headers
+		if($auth){
+			// Display correct header
+			if($isAdmin){
+				include_once 'headerAdmin.php';
+			}
+			else{
+				include_once 'headerUser.php';
+			}
+		}
+		else{
+			// Redirect to login page
+			header('Location: login.html');
+        }
+	?>
 <h1>All Tickets</h1>
 
 <div class='TicketSearchMenu'>
@@ -41,7 +63,6 @@ TODO: Non admin view.
         <input display='block' class="searchInput" type="text" id="getCreated" placeholder="Created Date YYYY-MM-DD">
         <input display='block' class="searchInput" type="text" id="getClosed" placeholder="Closed Date YYYY-MM-DD">
         <?php
-            $isAdmin = false; //TODO: ensure i have this info from auth. 
             if($isAdmin){
                 //TODO: But you can fuck w this one @brandon
                 echo "<select display='block' class='searchInput' id='getRequestedBy' placeholder='Requested By'> </select>";
@@ -49,7 +70,7 @@ TODO: Non admin view.
             else{
                 //TODO: Just a reminder, if this select has a bootstrap class that sets display = block or something else, 
                 //TODO: it will be shown for none users if you fuck with this line below @brandon
-                echo "<select display='none' class='searchInput' id='getRequestedBy' placeholder='Requested By'> </select>";
+                echo "<select style=display:none class='searchInput' id='getRequestedBy' placeholder='Requested By'> </select>";
             }
         ?>
         <select class="searchInput" id="getAssignedTech" placeholder="Assigned Tech"> </select>
@@ -68,11 +89,13 @@ TODO: Non admin view.
     <input id=fromRow type="hidden" value=0>
     <input id=totalRows type="hidden" value=100>
     <?php
-    $isAdmin = true; //TODO: ensure i have this info from auth.
-    if($isAdmin){
-        echo"<button class='btn btn-primary'>Submit Changes</button>";
-    }
+        if($isAdmin){
+            echo"<button class='btn btn-primary'>Submit Changes</button>";
+        }
     ?>
 </form>
-
+</body>
+    <?php
+		// include_once 'footer.php';
+	?>
 </html>
