@@ -37,7 +37,8 @@ function main(){
     $assignedTechOptions = getOptions($conn, 'assigned_tech', 'Assigned Tech');
     $listOfAdmins = getAdmins($conn);
     $testOutput = "";
-    $isAdmin = true; //TODO: for testing purposes. I believe this information will be taken fron authenticate?
+    $isAdmin = false; //TODO: for testing purposes. I believe this information will be taken fron authenticate?
+    $uid = ''; //TODO: For testing purposes. I believe this info will be taken from auth
     if (isset($_POST['fromRow']) && $_POST['fromRow'] != null){
         $fromRow = $_POST['fromRow'];
     }
@@ -46,74 +47,25 @@ function main(){
     }
     $rowStep = 10;
 
-    $totalRows = getTotalRows($conn);
+    $totalRows = getTotalRows($conn,$isAdmin,$uid);
     $tablePageMessage = "Showing: " . $fromRow . " to " . ($fromRow + $rowStep) . " out of: " . $totalRows;
 
-    $tableInfo =  "
-        <table class=ticketTable>
-        <th class='ticketHeader'>Ticket ID</th>
-        <th class='ticketHeader'>Machine Name</th>
-        <th class='ticketHeader'>Room</th>
-        <th class='ticketHeader'>Status</th>
-        <th class='ticketHeader'>Comments</th>
-        <th class='ticketHeader'>Created</th>
-        <th class='ticketHeader'>Closed</th>
-        <th class='ticketHeader'>Requested By</th>
-        <th class='ticketHeader'>Requested By</th>
-        <th class='ticketHeader'>Supervisor</th>
-        <th class='ticketHeader'>Supervisor Code</th>
-        <th class='ticketHeader'>Assigned Tech</th>
+    $tableInfo = getTableheader($isAdmin);
+    $sql = getSQLQuery($isAdmin,$fromRow, $rowStep,$uid);
 
-    ";
-    //Create the SQL select.
-    $sqlWhereSet = false; //Is set to true when the first "where" in the select to ensure theres only 1.
-    $sql = "select ticket_id,machine_name,room,status,concat(comment,' ',other_comments),created_time,closed_time,
-    CASE 
-        WHEN userP.email IS NULL THEN '  '
-        ELSE userP.email 
-    END,
-    CASE 
-        WHEN userP.username IS NULL THEN '  '
-        ELSE userP.username 
-    END,
-    supervisor_name,
-    supervisor_code,
-    CASE 
-        WHEN techP.username IS NULL THEN '  '
-        ELSE techP.username 
-    END
-    from 
-    ((tickets
-    LEFT JOIN profile userP ON tickets.requested_by = userP.unique_id)
-    LEFT JOIN profile techP ON tickets.assigned_tech = techP.unique_id)"; 
-    //Add all the required search fields to $sql
-    list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'ticketID','ticket_id');
-    list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'machineName','machine_name');
-    list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'room','room');
-    list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'status','status');
-    list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'createdBy','created_time');
-    list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'closedBy','closed_time');
-    list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'requestedBy','requested_by');
-    list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'assignedTech','assigned_tech');
-    $sql = $sql . " order by `Ticket_ID` LIMIT $fromRow, $rowStep;";
-
+    $testOutput = $testOutput .  $sql . "see me: " . $uid;
+    
     //fill the table with ALL information.
-    $testOutput = $testOutput .  $sql;
-
     $sqlPrepared = $conn->prepare($sql);
-    if(!$sqlPrepared->execute()) {
-        echo('Error The command could not be executed, and the information could not be read.');
-        exit();
-    }
+    $sqlPrepared->execute(); //should be in a try/catch, but in this scenario it isnt required.
     $height = 1;
-    //initialize i. Normally i wouldnt have to do this here, but in the case that the user searches something with no results 
-    //$i still needs to be initalized to tell <p id=colCount> how many columns there are
-    $i = 0; 
+    $i = 0; //initialize i. Normally i wouldnt have to do this here, but in the case that the user searches something with no results $i still needs to be initalized to tell <p id=colCount> how many columns there are
     //While there are rows left in the SQL
     while($row = $sqlPrepared->fetch(PDO::FETCH_NUM)) {
         $tableInfo = $tableInfo . "<tr>";
         $i = 0;
             foreach($row as $value) {
+                //Set two classes for even/odd rows because IM AN IDIOT AND DIDNT GOOGLE CSS HAS THIS BUILT IN (to show different background colours on rows)
                 if ($height % 2 == 0){
                     if($i == 4){
                         $tableInfo = $tableInfo . "<td class='ticketCommentCellEven'>";
@@ -181,11 +133,10 @@ function main(){
             $tableInfo = $tableInfo . "</tr>";
     }//End While (There is a row to fetch)
     
+    $tableInfo = $tableInfo . "</table>";
     $tableHeightOutput = $height;
     $colCountOutput = $i;
 
-    $tableInfo = $tableInfo . "</table>";
-    //create a table
     echo json_encode(
         array(
             "tableInfo" => $tableInfo,
@@ -208,8 +159,13 @@ function main(){
 /*---Helper Functions Found Below--------------------------------------------------------------------------------------------------------------------------------- */
 /*---------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 //returns the total amount of Rows in tickets table.
-function getTotalRows($conn){
-    $sql = "select count(ticket_id) from tickets;";
+function getTotalRows($conn,$isAdmin,$uid){
+    if($isadmin){
+        $sql = "select count(ticket_id) from tickets;";
+    }
+    else{
+        $sql = "select count(ticket_id) from tickets where requested_by = '$uid';";
+    }
     $sqlGetTotalRows = $conn->prepare($sql);
     if(!$sqlGetTotalRows->execute()) {
         echo('Error: The command could not be executed, and the information could not be read.');
@@ -310,6 +266,96 @@ function getAdmins($conn){
     }//end while
     return $givenOption;
 }//end getAdmins
+
+function getTableHeader($isAdmin){
+    if($isAdmin){
+        $tableHeader =  "
+            <table class=ticketTable>
+            <th class='ticketHeader'>Ticket ID</th>
+            <th class='ticketHeader'>Machine Name</th>
+            <th class='ticketHeader'>Room</th>
+            <th class='ticketHeader'>Status</th>
+            <th class='ticketHeader'>Comments</th>
+            <th class='ticketHeader'>Created</th>
+            <th class='ticketHeader'>Closed</th>
+            <th class='ticketHeader'>Requested By</th>
+            <th class='ticketHeader'>Requested By</th>
+            <th class='ticketHeader'>Supervisor</th>
+            <th class='ticketHeader'>Supervisor Code</th>
+            <th class='ticketHeader'>Assigned Tech</th>
+        ";
+    }
+    else{
+        $tableHeader =  "
+            <table class=ticketTable>
+            <th class='ticketHeader'>Ticket ID</th>
+            <th class='ticketHeader'>Machine Name</th>
+            <th class='ticketHeader'>Room</th>
+            <th class='ticketHeader'>Status</th>
+            <th class='ticketHeader'>Comments</th>
+            <th class='ticketHeader'>Created</th>
+            <th class='ticketHeader'>Closed</th>
+            <th class='ticketHeader'>Supervisor</th>
+            <th class='ticketHeader'>Supervisor Code</th>
+            <th class='ticketHeader'>Assigned Tech</th>
+        ";
+    }
+
+    return $tableHeader;
+}
+
+function getSQLQuery($isAdmin,$fromRow, $rowStep,$userID){
+    //Create the SQL select.
+    $sqlWhereSet = false; //Is set to true when the first "where" in the select to ensure theres only 1.
+    if($isAdmin){
+        $sql = "select ticket_id,machine_name,room,status,concat(comment,' ',other_comments),created_time,closed_time,
+        CASE 
+            WHEN userP.email IS NULL THEN '  '
+            ELSE userP.email 
+        END,
+        CASE 
+            WHEN userP.username IS NULL THEN '  '
+            ELSE userP.username 
+        END,
+        supervisor_name,
+        supervisor_code,
+        CASE 
+            WHEN techP.username IS NULL THEN '  '
+            ELSE techP.username 
+        END
+        from 
+        ((tickets
+        LEFT JOIN profile userP ON tickets.requested_by = userP.unique_id)
+        LEFT JOIN profile techP ON tickets.assigned_tech = techP.unique_id)"; 
+        list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'requestedBy','requested_by');
+    }
+    else{
+        $sqlWhereSet = true;
+        $sql = "select ticket_id,machine_name,room,status,concat(comment,' ',other_comments),created_time,closed_time,
+        supervisor_name,
+        supervisor_code,
+        CASE 
+            WHEN techP.username IS NULL THEN '  '
+            ELSE techP.username 
+        END
+        from 
+        ((tickets
+        LEFT JOIN profile userP ON tickets.requested_by = userP.unique_id)
+        LEFT JOIN profile techP ON tickets.assigned_tech = techP.unique_id)
+        where requested_by = '$userID'"; 
+    }
+    //Add all the required search fields to $sql
+    list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'ticketID','ticket_id');
+    list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'machineName','machine_name');
+    list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'room','room');
+    list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'status','status');
+    list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'createdBy','created_time');
+    list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'closedBy','closed_time');
+    list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'assignedTech','assigned_tech');
+    $sql = $sql . " order by `Ticket_ID` LIMIT $fromRow, $rowStep;";
+
+    return $sql;
+}
 main();
 
 ?>

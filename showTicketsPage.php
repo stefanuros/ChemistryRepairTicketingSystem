@@ -31,21 +31,34 @@ TODO: Non admin view.
         <script src="./public/js/showTickets.js"></script>
     </head>
 <h1>All Tickets</h1>
+
 <div class='TicketSearchMenu'>
     <form id='showTicketForm'>
-        <input class="searchInput" type="number" id="getTicketID" placeholder="Ticket ID">
-        <select class="searchInput" type="text" id="getMachineName" placeholder="Machine Name"> </select>
-        <select class="searchInput" id="getRoom" placeholder="Room Name"> </select>
-        <select class="searchInput" id="getStatus" placeholder="Status"> </select>
-        <input class="searchInput" type="text" id="getCreated" placeholder="Created Date YYYY-MM-DD">
-        <input class="searchInput" type="text" id="getClosed" placeholder="Closed Date YYYY-MM-DD">
-        <select class="searchInput" id="getRequestedBy" placeholder="Requested By"> </select>
+        <input display='block' class="searchInput" type="number" id="getTicketID" placeholder="Ticket ID">
+        <select display='block' class="searchInput" type="text" id="getMachineName" placeholder="Machine Name"> </select>
+        <select display='block' class="searchInput" id="getRoom" placeholder="Room Name"> </select>
+        <select display='block' class="searchInput" id="getStatus" placeholder="Status"> </select>
+        <input display='block' class="searchInput" type="text" id="getCreated" placeholder="Created Date YYYY-MM-DD">
+        <input display='block' class="searchInput" type="text" id="getClosed" placeholder="Closed Date YYYY-MM-DD">
+        <?php
+            $isAdmin = false; //TODO: ensure i have this info from auth. 
+            if($isAdmin){
+                //TODO: But you can fuck w this one @brandon
+                echo "<select display='block' class='searchInput' id='getRequestedBy' placeholder='Requested By'> </select>";
+            }
+            else{
+                //TODO: Just a reminder, if this select has a bootstrap class that sets display = block or something else, 
+                //TODO: it will be shown for none users if you fuck with this line below @brandon
+                echo "<select display='none' class='searchInput' id='getRequestedBy' placeholder='Requested By'> </select>";
+            }
+        ?>
         <select class="searchInput" id="getAssignedTech" placeholder="Assigned Tech"> </select>
         <button class="btn btn-primary">Search</button>
     </form>
 </div>
 
-<!-- This form is used to submit the changes made by an admin -->
+<!-- This form is used to submit the changes made by an admin 
+    TODO: WHEN THIS IS PHP PLEASE ADD IF TO ADD/REMOVE <BUTTON> SUBMIT CHANGES </BUTTON>-->
 <form class=TicketTableColumn id='saveTicketForm'>
     <!-- class='TicketTableColumn'  This is used as to fill in the table information on the loading of the page, and after the user clicks Search. -->
     <div id='TicketTable'></div>
@@ -54,7 +67,12 @@ TODO: Non admin view.
     <input class=tableDimension id=tableHeight name=tableHeight type=hidden>
     <input id=fromRow type="hidden" value=0>
     <input id=totalRows type="hidden" value=100>
-    <button class="btn btn-primary">Submit Changes</button>
+    <?php
+    $isAdmin = true; //TODO: ensure i have this info from auth.
+    if($isAdmin){
+        echo"<button class='btn btn-primary'>Submit Changes</button>";
+    }
+    ?>
 </form>
 
 </html>
