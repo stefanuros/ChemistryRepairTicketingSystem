@@ -5,7 +5,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-md navbar-dark" id="mainNav">
             
-        <a class="navbar-brand" href="showTickets.html">
+        <a class="navbar-brand" href="showTicketsPage.php">
             <img src="public/images/ChemistryRepairTicketLogo.png" alt="Queen's Department of Chemistry Logo" alt="logo" height="115" width="280">
         </a>
         
