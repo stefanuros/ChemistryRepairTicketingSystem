@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2019 at 10:54 PM
+-- Generation Time: Mar 28, 2019 at 02:39 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
@@ -39,6 +39,32 @@ CREATE TABLE IF NOT EXISTS `machines` (
   PRIMARY KEY (`machine_id`),
   UNIQUE KEY `machine_name` (`machine_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `parts_list`
+--
+
+DROP TABLE IF EXISTS `parts_list`;
+CREATE TABLE IF NOT EXISTS `parts_list` (
+  `part_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ticket_id` int(11) NOT NULL,
+  `item_description` varchar(256) DEFAULT '',
+  `quantity` int(11) NOT NULL DEFAULT '0',
+  `price` float NOT NULL DEFAULT '0',
+  PRIMARY KEY (`part_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `parts_list`
+--
+
+INSERT INTO `parts_list` (`part_id`, `ticket_id`, `item_description`, `quantity`, `price`) VALUES
+(1, 1, 'Test Item', 1, 10.99),
+(25, 1, 'New Test Item ', 2, 2.99),
+(32, 1, 'Test Update', 1, 1),
+(36, 1, '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -92,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `tickets` (
   PRIMARY KEY (`ticket_id`),
   KEY `tech_fk` (`assigned_tech`),
   KEY `user_fk` (`requested_by`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tickets`
@@ -141,7 +167,11 @@ INSERT INTO `tickets` (`ticket_id`, `machine_name`, `room`, `status`, `comment`,
 (54, 'new', 'new', 'Unassigned', 'new', '2019-03-25 20:09:57', NULL, '5c5b667156ce33.07558401', NULL, '', '', ''),
 (55, 'new', 'new', 'Unassigned', 'new', '2019-03-25 20:10:36', NULL, '5c5b667156ce33.07558401', NULL, '', '', ''),
 (56, 'xzd', 'jghg', 'Unassigned', 'jhg', '2019-03-25 20:12:00', NULL, '5c5b667156ce33.07558401', NULL, '', '', ''),
-(57, 'new3', 'new3', 'Unassigned', '', '2019-03-25 20:42:34', NULL, '5c5b667156ce33.07558401', NULL, '', '', '');
+(57, 'new3', 'new3', 'Unassigned', '', '2019-03-25 20:42:34', NULL, '5c5b667156ce33.07558401', NULL, '', '', ''),
+(58, 'a', 'a', 'Unassigned', 'a', '2019-03-25 22:14:04', NULL, '5c5b667156ce33.07558401', NULL, 'a', 'a', 'a'),
+(59, 'a', 'a', 'Unassigned', 'a', '2019-03-25 22:14:25', NULL, '5c5b667156ce33.07558401', NULL, 'a', 'a', ''),
+(60, 'b', 'b', 'Unassigned', 'b', '2019-03-25 22:15:03', NULL, '5c5b667156ce33.07558401', NULL, 'b', 'b', 'b'),
+(61, 'c', 'c', 'Unassigned', 'c', '2019-03-25 22:15:13', NULL, '5c5b667156ce33.07558401', NULL, 'c', 'c', '');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

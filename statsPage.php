@@ -52,7 +52,8 @@
 			}
 			else
 			{
-				include_once 'headerUser.php';
+				// Redirect to login page
+				header('Location: login.html');
 			}
 		}
 		else

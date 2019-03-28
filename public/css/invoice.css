@@ -1,0 +1,59 @@
+/*!
+. = classes 
+# is for ids 
+blank is when it's entire tag
+ */
+
+ body {
+	font-family: 'Open Sans', sans-serif;
+}
+
+.btn{
+	box-shadow: none !important;
+}
+
+input{
+	box-shadow: none !important;
+}
+
+#heading {
+    color: black;
+    font-size: 25px;
+    padding-top: 40px;
+    padding-left: 80px;
+}
+
+h1 {
+    color: black;
+    float: left;
+    font-size: 120px;
+    padding-top: 10px;
+}
+
+p {
+    color: black;
+    padding-left: 80px;
+}
+
+#intro { 
+    padding-top: 70px; 
+}
+
+#howTo {
+    background-color: #4E4A4A;
+    padding-bottom: 10px;
+}
+
+.square {
+    background-color: #E0E0E0;
+    position: relative;
+    height: 180px; 
+    width: 850px; 
+    border-radius: 10px; 
+    margin-bottom: 5px;
+}
+
+#button {
+    background-color: #292929;
+    border: none;
+}
