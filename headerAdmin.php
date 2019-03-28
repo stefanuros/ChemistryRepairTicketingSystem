@@ -6,7 +6,7 @@
     <nav class="navbar navbar-expand-md navbar-dark" id="mainNav">
             
         <a class="navbar-brand" href="showTicketsPage.php">
-            <a href="showTickets.html">
+            <a href="showTicketsPage.php">
                 <img src="public/images/ChemistryRepairTicketLogo.png" alt="Queen's Department of Chemistry Logo" alt="logo" height="115" width="280">
             </a>
         </a>
@@ -23,9 +23,6 @@
                 <li class="nav-item active">
                     <!--change the href's to corresponding pages-->
                     <a class="nav-link" href="showTicketsPage.php">Tickets</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="#">Inventory</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="statsPage.php">Statistics</a>
