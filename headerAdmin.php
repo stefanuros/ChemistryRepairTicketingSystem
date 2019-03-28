@@ -22,7 +22,7 @@
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item active">
                     <!--change the href's to corresponding pages-->
-                    <a class="nav-link" href="showTickets.html">Tickets</a>
+                    <a class="nav-link" href="showTicketsPage.php">Tickets</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="#">Inventory</a>
