@@ -4,8 +4,6 @@ Feb - March 2019.
 This will be used as the front end for a show tickets page. This will display search options to the user. 
 This will also display a table full of everyone's tickets, or the tickets that have been searched.
 
-TODO: Non admin view.
-    TODO: Ask stef about checking admin. so i can set <submit button display=none> to #saveTicketForm in .js
 -->
 <html>
     <head>

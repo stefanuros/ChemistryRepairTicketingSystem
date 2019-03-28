@@ -33,10 +33,6 @@ function main(){
     $assignedTechOptions = getOptions($conn, 'assigned_tech', 'Assigned Tech');
     $listOfAdmins = getAdmins($conn);
     $testOutput = "";
-    $testOutput = $testOutput . "preAdmin: " . $isAdmin . "
-    ";
-    //TODO: remove this now that auth is working $isAdmin = true; 
-    //TODO: remove this now that auth is working  $uid = '5c5b667156ce33.07558401'; 
     if (isset($_POST['fromRow']) && $_POST['fromRow'] != null){
         $fromRow = $_POST['fromRow'];
     }
@@ -50,8 +46,6 @@ function main(){
 
     $tableInfo = getTableheader($isAdmin);
     $sql = getSQLQuery($isAdmin,$fromRow, $rowStep,$uid);
-
-    $testOutput = $testOutput .  $sql . "see me: " . $uid;
     
     //fill the table with ALL information.
     $sqlPrepared = $conn->prepare($sql);
@@ -62,71 +56,77 @@ function main(){
     while($row = $sqlPrepared->fetch(PDO::FETCH_NUM)) {
         $tableInfo = $tableInfo . "<tr>";
         $i = 0;
-            foreach($row as $value) {
-                //Set two classes for even/odd rows because IM AN IDIOT AND DIDNT GOOGLE CSS HAS THIS BUILT IN (to show different background colours on rows)
-                if ($height % 2 == 0){
-                    if($i == 4){
-                        $tableInfo = $tableInfo . "<td class='ticketCommentCellEven'>";
-                    }
-                    else{
-                        $tableInfo = $tableInfo . "<td class='ticketCellEven'>";
-                    }
+        for ($j = 0; $j < sizeof($row); $j++){
+            $value = $row[$j];
+            $ticketid = $row[0];
+            //Set two classes for even/odd rows because IM AN IDIOT AND DIDNT GOOGLE CSS HAS THIS BUILT IN (to show different background colours on rows)
+            if ($height % 2 == 0){
+                if($i == 4){//TODO: Fill in link. Make sure GET Sends.
+                    $tableInfo = $tableInfo . "<td class='ticketCommentCellEven'> <a id=forumLink class='nav-link' href='./messagePage.php?ticket_id=$ticketid'>Click To See Forum </a>";
                 }
                 else{
-                    if($i == 4){
-                        $tableInfo = $tableInfo . "<td class='ticketCommentCellOdd'>";
-                    }
-                    else{
-                        $tableInfo = $tableInfo . "<td class='ticketCellOdd'>";
-                    }
+                    $tableInfo = $tableInfo . "<td class='ticketCellEven'>";
                 }
-                //Admin can change the values for Status, Assigned Tech
-                if ($isAdmin == true && $i == 11){ 
+            }
+            else{
+                if($i == 4){//TODO: Fill in link. Make sure GET Sends.
+                    $tableInfo = $tableInfo . "<td class='ticketCommentCellOdd'> <a id=forumLink class='nav-link' href='./messagePage.php?ticket_id=$ticketid'>Click To See Forum </a>";
+                }
+                else{
+                    $tableInfo = $tableInfo . "<td class='ticketCellOdd'>";
+                }
+            }
+            //Admin can change the values for Status, Assigned Tech
+            if ($isAdmin == true && $i == 11){ 
+                $tableInfo = $tableInfo . 
+                "
+                    <select class='ticketInput' type='text' name='value" . $i . "a" .  $height . "'>
+                    <option value='$value'>$value</option>
+                    $listOfAdmins 
+                    </select>
+                </td>";
+            }
+            //Admin can change the value for closed using a drop box, if closed == null
+            elseif ($isAdmin == true && $i == 3 && $value != 'Closed'){
+                if($value == 'Unassigned'){
+                    $tableInfo = $tableInfo .
+                    "<select name='value" . $i . "a" .  $height . "'>
+                        <option value='Unassigned'>Unassigned</option>
+                        <option value='In Progress'>In Progress</option>
+                        <option value='Closed'>Closed</option>
+                    </select></td>";
+                }
+                elseif($value == 'In Progress'){
+                    $tableInfo = $tableInfo .
+                    "<select name='value" . $i . "a" .  $height . "'>
+                        <option value='In Progress'>In Progress</option>
+                        <option value='Unassigned'>Unassigned</option>
+                        <option value='Closed'>Closed</option>
+                    </select></td>";
+                }
+                else{ 
                     $tableInfo = $tableInfo . 
-                    "
-                        <select class='ticketInput' type='text' name='value" . $i . "a" .  $height . "'>
-                        <option value='$value'>$value</option>
-                        $listOfAdmins 
-                        </select>
-                    </td>";
-                }
-                //Admin can change the value for closed using a drop box, if closed == null
-                elseif ($isAdmin == true && $i == 3 && $value != 'Closed'){
-                    if($value == 'Unassigned'){
-                        $tableInfo = $tableInfo .
-                        "<select name='value" . $i . "a" .  $height . "'>
-                            <option value='Unassigned'>Unassigned</option>
-                            <option value='In Progress'>In Progress</option>
-                            <option value='Closed'>Closed</option>
-                        </select></td>";
-                    }
-                    elseif($value == 'In Progress'){
-                        $tableInfo = $tableInfo .
-                        "<select name='value" . $i . "a" .  $height . "'>
-                            <option value='In Progress'>In Progress</option>
-                            <option value='Unassigned'>Unassigned</option>
-                            <option value='Closed'>Closed</option>
-                        </select></td>";
-                    }
-                    else{ 
-                        $tableInfo = $tableInfo . 
-                        "<select name='value" . $i . "a" .  $height . "'>
-                            <option value='$value'>Your Value:$value Please choose one of the below options</option>
-                            <option value='Unassigned'>Unassigned</option>
-                            <option value='In Progress'>In Progress</option>
-                            <option value='Closed'>Closed</option>
-                        </select></td>";
-                    }//end else
-                }//end elseif admin, status, 'closed'
-
-                //Else: The column cannot be edited. It should display a value and have a hidden input of the value aswell so 
-                //      The information can be used in a $_POST for saving changes.
-                else{
-                    $tableInfo = $tableInfo . "$value ";
-                    $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value=$value></td>";
-                }//end isAdmin, editable column
-                $i = $i + 1;
-            }//end fore loop
+                    "<select name='value" . $i . "a" .  $height . "'>
+                        <option value='$value'>Your Value:$value Please choose one of the below options</option>
+                        <option value='Unassigned'>Unassigned</option>
+                        <option value='In Progress'>In Progress</option>
+                        <option value='Closed'>Closed</option>
+                    </select></td>";
+                }//end else
+            }//end elseif admin, status, 'closed'
+            elseif($isAdmin == true && $i == 12){ //invoice link
+                $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value=$value>
+                                        <a id=invoiceLink class=nav-link href='./invoicePage.php?ticket_id=$ticketid'>Invoice</a> </td>";
+            }
+            
+            //Else: The column cannot be edited. It should display a value and have a hidden input of the value aswell so 
+            //      The information can be used in a $_POST for saving changes.
+            else{
+                $tableInfo = $tableInfo . "$value ";
+                $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value=$value></td>";
+            }//end isAdmin, editable column
+            $i = $i + 1;
+        }//end fore loop
             $height = $height + 1;
             $tableInfo = $tableInfo . "</tr>";
     }//End While (There is a row to fetch)
@@ -148,7 +148,7 @@ function main(){
             "fromRow" => $fromRow,
             "tablePageMessage" => $tablePageMessage,
             "totalRows" => $totalRows,
-            "testOutput" => $tableInfo
+            "testOutput" => $testOutput
         )
     );
 }//end Main
@@ -281,6 +281,7 @@ function getTableHeader($isAdmin){
             <th class='ticketHeader'>Supervisor</th>
             <th class='ticketHeader'>Supervisor Code</th>
             <th class='ticketHeader'>Assigned Tech</th>
+            <th class='ticketHeader'>Invoice</th>
         ";
     }
     else{
@@ -320,7 +321,8 @@ function getSQLQuery($isAdmin,$fromRow, $rowStep,$userID){
         CASE 
             WHEN techP.username IS NULL THEN '  '
             ELSE techP.username 
-        END
+        END,
+        ' '
         from 
         ((tickets
         LEFT JOIN profile userP ON tickets.requested_by = userP.unique_id)
