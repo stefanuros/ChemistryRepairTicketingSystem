@@ -42,6 +42,7 @@ if(isset($_POST["ticket_id"]))
 	));
 	$name = $stmt->fetch(PDO::FETCH_ASSOC);
 
+	// echo $uid;
 	echo $name['name'];
 
 }
