@@ -41,6 +41,7 @@
 		// If user is authenticated, display headers
 		if($auth)
 		{
+			$page = "Create Ticket";
 			// Display correct header
 			if($isAdmin)
 			{

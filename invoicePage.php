@@ -48,6 +48,7 @@
 		// If user is authenticated, display headers
 		if($auth)
 		{
+			$page = "Tickets";
 			// Display correct header
 			if($isAdmin)
 			{

@@ -42,7 +42,37 @@
 
     <!-- Loads the user's version of the header -->
     <!-- howTo page is only available on user's version -->
-    <?php include("headerUser.php");?>
+    <!-- <?php 
+
+      // include("headerUser.php");
+    ?> -->
+
+    <?php
+        $topLayer = str_replace($_SERVER['DOCUMENT_ROOT'], "", $_SERVER['SCRIPT_FILENAME']);
+        $path = $_SERVER['DOCUMENT_ROOT'] . "/" . explode("/", $topLayer)[1];
+        
+        include_once $path . '/includes/authenticate.php';
+
+        // If user is authenticated, display headers
+        if($auth)
+        {
+          $page = "How To";
+          // Display correct header
+          if($isAdmin)
+          {
+            include_once 'headerAdmin.php';
+          }
+          else
+          {
+            include_once 'headerUser.php';
+          }
+        }
+        else
+        {
+          // Redirect to login page
+          header('Location: index.php');
+        }
+      ?>
     
     <div class="container">
         <h2>How to Get Started...</h2>

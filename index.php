@@ -22,9 +22,7 @@ else
 	if($isAdmin)
 	{
 		//Send them to the admin home
-		//TODO redirect to the proper page
-		// header("Location: showTickets.html");
-		header("Location: createTicketPage.php");
+		header("Location: showTicketsPage.php");
 
 		die();
 	}

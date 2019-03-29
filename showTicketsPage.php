@@ -46,6 +46,7 @@ This will also display a table full of everyone's tickets, or the tickets that h
 
 		// If user is authenticated, display headers
 		if($auth){
+            $page = "Tickets";
 			// Display correct header
 			if($isAdmin){
 				include_once 'headerAdmin.php';

@@ -161,7 +161,7 @@ function generatePDF()
 	var quanities = $(".quantity-general");
 	var prices = $(".price-general");
 
-	console.log(items);
+	// console.log(items);
 
 	// Get the values of them and make the list
 	for (var i = 0; i < items.length; i++)
