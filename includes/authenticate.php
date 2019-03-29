@@ -78,8 +78,9 @@ if(isset($_COOKIE['jwt']))
 				)
 			);
 			// Get the results from the jwt
-			$uid = array($decoded->data)[0]->uid;
-			$isAdmin = array($decoded->data)[0]->isAdmin;
+			$arr = array($decoded->data);
+			$uid = $arr[0]->uid;
+			$isAdmin = $arr[0]->isAdmin;
 
 			$auth = true;
 		}
