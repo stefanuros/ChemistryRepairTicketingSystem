@@ -53,13 +53,13 @@
 			else
 			{
 				// Redirect to login page
-				header('Location: login.html');
+				header('Location: index.php');
 			}
 		}
 		else
 		{
 			// Redirect to login page
-			header('Location: login.html');
+			header('Location: index.php');
 		}
 	?>
 

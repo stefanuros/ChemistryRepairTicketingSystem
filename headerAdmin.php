@@ -31,7 +31,7 @@
                 <a class="nav-link" href="createTicketPage.php">Create Ticket</a>
                 </li>
                 <li class="nav-item">
-                    <input class="nav-link" id="button" type="button" onclick='logout();' value='Logout'/>
+                    <input class="nav-link" id="button" type="button" onclick='logout();' value='Logout'>
                 </li>
             </ul>
         </div>
