@@ -1,0 +1,15 @@
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
+.btn{
+	box-shadow: none !important;
+}
+
+input{
+	box-shadow: none !important;
+}
+
+textarea{
+	box-shadow: none !important;
+}

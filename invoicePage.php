@@ -36,8 +36,7 @@
 
 <body>
 	<script>
-		// var ticket_id = <?php // echo htmlspecialchars($_POST['ticket_id']); ?>;
-		var ticket_id = <?php echo htmlspecialchars("1"); ?>;
+		var ticket_id = <?php echo htmlspecialchars($_GET['ticket_id']); ?>;
 	</script>
 	<?php
 	
@@ -57,17 +56,17 @@
 			else
 			{
 				// Redirect to login page
-				header('Location: createTicketPage.php');
+				header('Location: index.php');
 			}
 		}
 		else
 		{
 			// Redirect to login page
-			header('Location: login.html');
+			header('Location: index.php');
 		}
 	?>
 
-
+	<hr>
 	<div class="containter m-5">
 		<div id="alertMarker" class="mb-3 mx-auto" style="height: 50px; min-width: 750px; max-width: 1200px;"></div>
 
@@ -121,8 +120,7 @@
 
 			<?php
 
-				// $ticket_id = htmlspecialchars($_POST['ticket_id']);
-				$ticket_id = htmlspecialchars("1");
+				$ticket_id = htmlspecialchars($_GET['ticket_id']);
 
 				include_once $path . '/includes/connect.php';
 

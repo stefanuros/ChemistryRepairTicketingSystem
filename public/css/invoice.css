@@ -16,6 +16,10 @@ input{
 	box-shadow: none !important;
 }
 
+textarea{
+	box-shadow: none !important;
+}
+
 #heading {
     color: black;
     font-size: 25px;
