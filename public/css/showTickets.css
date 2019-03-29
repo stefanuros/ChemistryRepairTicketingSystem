@@ -1,4 +1,10 @@
 /*Column One (Left most side) */
+
+#button {
+    background-color: #292929;
+    border: none;
+}
+
 .TicketSearchMenu{
     float: left;
     width: 10%;
