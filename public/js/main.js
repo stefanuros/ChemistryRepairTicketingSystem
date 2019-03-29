@@ -166,7 +166,7 @@ $(document).ready(function() {
 					<br>
 					<p>This is an automated email to confirm that you have submitted a ticket to the Queens Chemistry Repair Department.</p>
 					<p>You can find information on this ticket by going to our website, selecting the "Tickets" tab at the top right, and viewing ticket #`+data['ticket_id']+`.</p>
-					<p>To communicate with the technician in charge of your ticket, view your ticket and select "View forum" under the comments tab.</p>
+					<p>To communicate with the technician in charge of your ticket, view your ticket and select "View forum" under the comments tab. Replies to this email will not be seen.</p>
 					<p>Below you will find a summary of your ticket</p>
 					<hr>
 					<p>Machine Name: `+getMachineName+`</p>
