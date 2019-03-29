@@ -5,28 +5,28 @@
     border: none;
 }
 
-.TicketSearchMenu{
+/* .TicketSearchMenu{
     float: left;
     width: 10%;
     border: 1px solid whitesmoke;
 }
 
 /*Column Two (Beside Colomn One, rest of the space)*/
-.TicketTableColumn{
+/* .TicketTableColumn{
     float: right;
-    width: 88%; /* Leave ~2% for border widths ect.*/
-}
+    width: 88%; Leave ~2% for border widths ect.
+}  */
 
 .ticketInput{
-    width: 100%; /* Prevents an awkward interaction with a scroll bar when unnecessary*/
+    /* width: 100%; Prevents an awkward interaction with a scroll bar when unnecessary */
 }
 
-.ticketTable, .ticketHeader{
+/* .ticketTable, .ticketHeader{
     border: 1px solid whitesmoke;
-}
+} */
 
 .ticketCommentCellEven{
-    border: 1px solid whitesmoke;
+    /* border: 1px solid whitesmoke; */
     max-width: 180px;
     max-height: 90px;
     min-height: 60px;
@@ -35,16 +35,16 @@
     resize: both;
 }
 .ticketCommentCellOdd{
-    border: 1px solid whitesmoke;
+    /* border: 1px solid whitesmoke; */
     max-width: 180px;
     max-height: 90px;
     min-height: 60px;
     overflow: auto;
     text-align: center;
     resize: both;
-    background-color: black;
+    /* background-color: black; */
 }
-.ticketCellOdd{
+/* .ticketCellOdd{
     border: 1px solid whitesmoke;
     max-width: 180px;
     max-height: 90px;
@@ -60,13 +60,18 @@
     min-height: 60px;
     overflow: auto;
     text-align: center;
-}
+} */
 /*input boxes*/
 .searchInput {
-    color: whitesmoke;
-    width: 100%;
-    height: 25px;
+    /* color: whitesmoke;
+    /* width: 100%;
+    height: 25px; */
     background: #292929;
-    padding: 0 5px 0 38px;
-    border: 1px solid whitesmoke;
+    /* padding: 0 5px 0 38px; */
+    /* border: 1px solid whitesmoke; */
+}
+
+.btn
+{
+    box-shadow: none !important;
 }

@@ -268,7 +268,7 @@ function getAdmins($conn){
 function getTableHeader($isAdmin){
     if($isAdmin){
         $tableHeader =  "
-            <table class=ticketTable>
+            <table class='ticketTable table table-striped table-dark table-bordered' >
             <th class='ticketHeader'>Ticket ID</th>
             <th class='ticketHeader'>Machine Name</th>
             <th class='ticketHeader'>Room</th>
@@ -286,7 +286,7 @@ function getTableHeader($isAdmin){
     }
     else{
         $tableHeader =  "
-            <table class=ticketTable>
+            <table class='ticketTable table table-striped table-dark table-bordered'>
             <th class='ticketHeader'>Ticket ID</th>
             <th class='ticketHeader'>Machine Name</th>
             <th class='ticketHeader'>Room</th>

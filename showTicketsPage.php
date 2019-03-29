@@ -60,35 +60,42 @@ This will also display a table full of everyone's tickets, or the tickets that h
 			header('Location: login.html');
         }
 	?>
-<h1>All Tickets</h1>
+<!-- <h1>All Tickets</h1> -->
+<hr>
 
-<div class='TicketSearchMenu'>
+<div class='TicketSearchMenu container ml-3' style="min-width: 678px; max-width: 850px;">
     <form id='showTicketForm'>
-        <input display='block' class="searchInput" type="number" id="getTicketID" placeholder="Ticket ID">
-        <select display='block' class="searchInput" type="text" id="getMachineName" placeholder="Machine Name"> </select>
-        <select display='block' class="searchInput" id="getRoom" placeholder="Room Name"> </select>
-        <select display='block' class="searchInput" id="getStatus" placeholder="Status"> </select>
-        <input display='block' class="searchInput" type="text" id="getCreated" placeholder="Created Date YYYY-MM-DD">
-        <input display='block' class="searchInput" type="text" id="getClosed" placeholder="Closed Date YYYY-MM-DD">
-        <?php
-            if($isAdmin){
-                //TODO: But you can fuck w this one @brandon
-                echo "<select display='block' class='searchInput' id='getRequestedBy' placeholder='Requested By'> </select>";
-            }
-            else{
-                //TODO: Just a reminder, if this select has a bootstrap class that sets display = block or something else, 
-                //TODO: it will be shown for none users if you fuck with this line below @brandon
-                echo "<select style=display:none class='searchInput' id='getRequestedBy' placeholder='Requested By'> </select>";
-            }
-        ?>
-        <select class="searchInput" id="getAssignedTech" placeholder="Assigned Tech"> </select>
-        <button class="btn btn-primary">Search</button>
+        <div class="row">
+            <input display='block' class="searchInput form-control w-25" type="number" id="getTicketID" placeholder="Ticket ID">
+            <select display='block' class="searchInput form-control w-25" type="text" id="getMachineName" placeholder="Machine Name"> </select>
+            <select display='block' class="searchInput form-control w-25" id="getRoom" placeholder="Room Name"> </select>
+            <select display='block' class="searchInput form-control w-25" id="getStatus" placeholder="Status"> </select>
+        </div>
+        <div class="row">
+            <input display='block' class="searchInput form-control w-25" type="text" id="getCreated" placeholder="Created Date YYYY-MM-DD">
+            <input display='block' class="searchInput form-control w-25" type="text" id="getClosed" placeholder="Closed Date YYYY-MM-DD">
+            <?php
+                if($isAdmin){
+                    //TODO: But you can fuck w this one @brandon
+                    echo "<select display='block' class='searchInput form-control w-25' id='getRequestedBy' placeholder='Requested By'> </select>";
+                }
+                else{
+                    //TODO: Just a reminder, if this select has a bootstrap class that sets display = block or something else, 
+                    //TODO: it will be shown for none users if you fuck with this line below @brandon
+                    echo "<select style=display:none class='searchInput form-control w-25' id='getRequestedBy' placeholder='Requested By'> </select>";
+                }
+                ?>
+            <select class="searchInput form-control w-25" id="getAssignedTech" placeholder="Assigned Tech"> </select>
+        </div>
+        <div class="row">
+            <button class="btn btn-success px-3 mt-2 d-flex">Search</button>
+        </div>
     </form>
 </div>
 
 <!-- This form is used to submit the changes made by an admin 
     TODO: WHEN THIS IS PHP PLEASE ADD IF TO ADD/REMOVE <BUTTON> SUBMIT CHANGES </BUTTON>-->
-<form class=TicketTableColumn id='saveTicketForm'>
+<form class='TicketTableColumn mx-3' id='saveTicketForm'>
     <!-- class='TicketTableColumn'  This is used as to fill in the table information on the loading of the page, and after the user clicks Search. -->
     <div id='TicketTable'></div>
     <button class="btn btn-secondary" onclick="leftArrowButtonDown()">&laquo; Last</button> 
@@ -100,7 +107,7 @@ This will also display a table full of everyone's tickets, or the tickets that h
         if($isAdmin){
             echo"<button class='btn btn-primary'>Submit Changes</button>";
         }
-    ?>
+        ?>
 </form>
 </body>
     <?php
