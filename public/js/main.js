@@ -120,7 +120,7 @@ $(document).ready(function() {
 		}
 
 		// Submitting the ticket
-		$.get("./includes/DBInteractivity/createTicket.php", 
+		$.get("./includes/DBinteractivity/createTicket.php", 
 		{
 			machine_name: getMachineName,
 			room: getRoom,

@@ -118,7 +118,6 @@
 				$prev = $m[$i];
 
 				// If the message is written by the current user
-				echo $uid;
 				if($m[$i]['u'] == $uid) { ?>
 					<div class="row m-0 p-1">
 						<div class="col-12 p-0 m-0">
