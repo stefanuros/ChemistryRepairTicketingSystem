@@ -14,7 +14,7 @@ include_once $path . '/includes/config.php';
 
 //Check if the user is authenticated
 //$auth is a variable from authenticate.php
-if(!$auth || !$isAdmin)
+if(!$auth)
 {
 	// User is not authenticated
 	//Send an error message that was created in authenticate.php

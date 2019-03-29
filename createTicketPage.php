@@ -1,4 +1,4 @@
-<!--By: Meryl Gamboa-->
+<!--By: Stefan Urosevic-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,11 +54,11 @@
 		else
 		{
 			// Redirect to login page
-			header('Location: login.html');
+			header('Location: index.php');
 		}
 	?>
 
-
+	<hr>
 	<div class="containter m-5">
 		<div id="alertMarker"></div>
 		<div class="card text-white bg-dark m-auto" style="min-width: 600px; max-width: 1200px;">
