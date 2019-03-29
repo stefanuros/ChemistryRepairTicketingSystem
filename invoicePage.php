@@ -68,8 +68,8 @@
 	?>
 
 	<hr>
-	<div class="containter m-5">
-		<div id="alertMarker" class="mb-3 mx-auto" style="height: 50px; min-width: 750px; max-width: 1200px;"></div>
+	<div class="containter m-sm-0 m-md-5">
+		<div id="alertMarker" class="mb-3 mx-auto" style="height: 50px; min-width: 678px; max-width: 1200px;"></div>
 
 		<div class="card mx-auto mb-3 border-0" style="min-width: 750px; max-width: 1200px; background: transparent;">
 			<div class="card-body p-0">
@@ -126,28 +126,40 @@
 				include_once $path . '/includes/connect.php';
 
 				// Prepare the select statement for the first chart
-				$stmt = $conn->prepare('SELECT * from parts_list WHERE ticket_id = :ticket_id;'); 
+				$stmt = $conn->prepare('SELECT * FROM parts_list WHERE ticket_id = :ticket_id;'); 
 				// Execute it
 				$stmt->execute(array(
 					':ticket_id' => $ticket_id
 				));
 				//Get the result from the query
 				$parts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+				// Get supervisor name and code
+				$stmt = $conn->prepare('SELECT supervisor_name AS sn, supervisor_code AS sc FROM tickets WHERE ticket_id = :ticket_id;'); 
+				$stmt->execute(array(
+					':ticket_id' => $ticket_id
+				));
+				$super = $stmt->fetch(PDO::FETCH_ASSOC);
 			?>
+
+			<script>
+				var superName = "SUPERVISOR: <?php echo htmlspecialchars($super['sn']) ?>";
+				var superCode = "CODE: <?php echo htmlspecialchars($super['sc']) ?>";
+			</script>
 
 			<?php for($i = 0; $i < sizeof($parts); $i++) { ?>
 				<div class="row p-1" id="row-<?php echo $parts[$i]['part_id'] ?>">
 					<div class="col-xl-6 col-sm-4 pr-1">
-						<input type="text" class="form-control item-general" id="name-<?php echo $parts[$i]['part_id'] ?>" placeholder="Enter item name or description" value="<?php echo $parts[$i]['item_description'] ?>">
+						<input type="text" class="form-control item-general" id="name-<?php echo $parts[$i]['part_id'] ?>" placeholder="Enter item name or description" value="<?php echo htmlspecialchars($parts[$i]['item_description']) ?>">
 					</div>
 					<div class="col-xl-2 col-sm-1 px-1">
-						<input type="number" class="form-control quantity-general" oninput="calcTotal()" id="quantity-<?php echo $parts[$i]['part_id'] ?>" value="<?php echo $parts[$i]['quantity'] ?>">
+						<input type="number" class="form-control quantity-general" oninput="calcTotal()" id="quantity-<?php echo $parts[$i]['part_id'] ?>" value="<?php echo htmlspecialchars($parts[$i]['quantity']) ?>">
 					</div>
 					<div class="col-xl-2 col-sm-3 px-1 input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text">$</span>
 						</div>
-						<input type="number" class="form-control price-general" oninput="calcTotal()" id="price-<?php echo $parts[$i]['part_id'] ?>" step="0.01" value="<?php echo number_format((float)$parts[$i]['price'], 2, '.', ''); ?>">
+						<input type="number" class="form-control price-general" oninput="calcTotal()" id="price-<?php echo $parts[$i]['part_id'] ?>" step="0.01" value="<?php echo htmlspecialchars(number_format((float)$parts[$i]['price'], 2, '.', '')); ?>">
 					</div>
 					<div class="col-xl-1 col-sm-2 px-1">
 							<button type="button" class="price-update btn btn-outline-success btn-block px-1" onclick="saveRow('<?php echo $parts[$i]['part_id'] ?>')">Save</button>

@@ -63,6 +63,32 @@ if(isset($_GET['machine_name']) &&
 			)
 		);
 
+		// Get the new ticket id
+		$stmt = $conn->prepare("SELECT MAX(ticket_id) t FROM tickets;");
+		$stmt->execute(array());
+		$tickets = $stmt->fetch(PDO::FETCH_ASSOC);
+		$ticketCount = $tickets['t'];
+
+
+		// Also insert new message using comment and description
+		$stmt = $conn->prepare("INSERT INTO messages_list VALUES (:t, NULL, :u, NULL, :d);");
+		$stmt->execute(
+			array(
+				':t' => $ticketCount,
+				':u' => $loggedIn, //id of requester
+				':d' => $description //problem description
+			)
+		);
+
+		$stmt = $conn->prepare("INSERT INTO messages_list VALUES (:t, NULL, :u, NULL, :c);");
+		$stmt->execute(
+			array(
+				':t' => $ticketCount,
+				':u' => $loggedIn, //id of requester
+				':c' => $comments //problem description
+			)
+		);
+
 		//After successful creation, redirect the page
 		//Return the success response
 		echo json_encode(

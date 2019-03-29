@@ -5,34 +5,34 @@
 <html lang="en">
 
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Queen's Chemistry Department's Repair Ticketing System">
-    <meta name="author" content="">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Queen's Chemistry Department's Repair Ticketing System">
+	<meta name="author" content="">
 
-    <title>QU Chemistry Repair</title>
+	<title>QU Chemistry Repair</title>
 
-    <!--Bootstrap core CSS-->
-    <link rel="stylesheet" type="text/css" href="./public/bootstrap-4.0.0-dist/css/bootstrap.min.css"> 
-      
-    <!--Bootstrap core JavaScript-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="./public/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+	<!--Bootstrap core CSS-->
+	<link rel="stylesheet" type="text/css" href="./public/bootstrap-4.0.0-dist/css/bootstrap.min.css"> 
+	  
+	<!--Bootstrap core JavaScript-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="./public/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
 
-    <!--FontAwesome stylesheet(s)-->
-    <link rel="stylesheet" href="./public/font/fontawesome-5.7.1/css/all.css">
-    <link rel="stylesheet" type="text/css" href="./public/font/fontawesome-5.7.1/css/fontawesome.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-      
-    <!--Custom stylesheet(s)-->
-    <link href="./public/css/style.css" rel="stylesheet">
-    <link href="./public/css/login.css" rel="stylesheet">
-      
-    <!--Custom javascript-->
-    <script src="./public/js/main.js"></script>
-      
-    <!--favicon image-->
-    <link rel="shortcut icon" href="./public/images/favicon.ico">
+	<!--FontAwesome stylesheet(s)-->
+	<link rel="stylesheet" href="./public/font/fontawesome-5.7.1/css/all.css">
+	<link rel="stylesheet" type="text/css" href="./public/font/fontawesome-5.7.1/css/fontawesome.min.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+	  
+	<!--Custom stylesheet(s)-->
+	<link href="./public/css/style.css" rel="stylesheet">
+	<link href="./public/css/login.css" rel="stylesheet">
+	  
+	<!--Custom javascript-->
+	<script src="./public/js/main.js"></script>
+	  
+	<!--favicon image-->
+	<link rel="shortcut icon" href="./public/images/favicon.ico">
   </head>
 
   <body>
@@ -53,9 +53,14 @@
 						<span class="focus-input100" placeholder="&#xf007;" style="font-family: FontAwesome"></span>
 					</div>
 
-					<div class="wrap-input100 validate-input" data-validate="Enter password">
+					<div class="wrap-input100 validate-input mb-3" data-validate="Enter password">
 						<input class="input100" type="password" name="password" id=getPassword placeholder="Password" >
 						<span class="focus-input100" placeholder="&#xf023;" style="font-family: FontAwesome"></span>
+					</div>
+
+					<input type="text" class="form-control d-none" id="login-feedback">
+					<div class="invalid-feedback mb-2">
+						Incorrent password or username
 					</div>
 
 					<div class="container-login100-form-btn">
@@ -63,32 +68,33 @@
 							Login
 						</button>
 					</div>
-                </form>
-                
-                <!--Modal button trigger-->
-                <div class="text-center p-t-90">
-                    <button type="button" class="btn btn-info btn-lg" id="additionalInfo" data-toggle="modal" data-target="#myModal">Forgot Password? <br> Need an Account?
-                    </button>
-                </div>
+				</form>
+				
+				<!--Modal button trigger-->
+				<div class="text-center p-t-90">
+					<button type="button" class="btn btn-info btn-lg" id="additionalInfo" data-toggle="modal" data-target="#myModal">Forgot Password? <br> Need an Account?
+					</button>
+				</div>
 			</div>
-        </div>
+		</div>
 	</div>
-      
-    <!--Modal-->
-    <div class="modal fade" id="myModal">
-        <div class="modal-dialog">
-            <!--Modal Content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" style="color: #292929">Please contact Administrator</h4>
-                    <button type="button" class="close" data-dismiss="modal">x</button>
-                </div>
-                <div class="modal-body">
-                    <p>If you have forgotten your password or need an account to access the repair ticketing system, please contact the administrator via. email for permission<a href="mailto:ed.maracle@queensu.ca" target="_top"> HERE.</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
+	  
+	<!--Modal-->
+	<div class="modal fade" id="myModal">
+		<div class="modal-dialog">
+			<!--Modal Content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" style="color: #292929">Please contact Administrator</h4>
+					<button type="button" class="close" data-dismiss="modal">x</button>
+				</div>
+				<div class="modal-body">
+					<p>If you have forgotten your password or need an account to access the repair ticketing system, please contact the administrator via. email for permission<a href="mailto:ed.maracle@queensu.ca" target="_top"> HERE.</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+
 
   </body>
 </html>
