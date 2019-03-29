@@ -46,10 +46,15 @@ $(document).ready(function() {
 			}
 			else
 			{
+				$("#login-feedback").addClass('is-invalid');
 				//Give error feedback to user here since login was not successful
 			}
 		});
 	}); 
+
+	// On focus of username or password text boxes, remove invalid feedback
+	$("#getPassword").focusin(function(){ $("#login-feedback").removeClass('is-invalid'); });
+	$("#getUsername").focusin(function(){ $("#login-feedback").removeClass('is-invalid'); });
 
 	// These will be in charge of feedback
 	$("#inputMachineName").focusout(function(){

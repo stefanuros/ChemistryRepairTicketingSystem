@@ -85,6 +85,16 @@ if (isset($_POST['username']) && isset($_POST['password']))
 				//Is the user an admin
 				$isAdmin = $user['admin'];
 				$uid = $user['unique_id'];
+			
+				//Get the user info from active directory
+				//Set the filter
+				$filter = "(uid=$username)";
+				//Set the scope and search
+				$result = ldap_search($ldap_con, $dc, $filter) or exit("Unable to search");
+				$entries = ldap_get_entries($ldap_con, $result);
+
+				// update the user info
+				updateUser($conn, $entries[0], $username);
 			}
 
 			//Create an authentication token
@@ -196,6 +206,30 @@ function createUser($conn, $result, $username, $uid)
 			':fname' => $fn,
 			':lname' => $sn,
 			':uid' => $uid,
+		)
+	);
+}
+
+// Function to update the info of the user when they log in
+function updateUser($conn, $result, $username)
+{
+	//Get the first name
+	$fn = ( isset($result["cn"]) ? explode(' ', $result['cn'][0])[0] : ' ' );
+
+	//Get the last name
+	$sn = ( isset($result["sn"]) ? $result["sn"][0] : ' ' );
+
+	//Get the mail
+	$mail = ( isset($result["mail"]) ? $result["mail"][0] : ' ' );
+
+	//Create new user row
+	$stmt = $conn->prepare("UPDATE profile SET email=:email, first_name=:fname, last_name=:lname WHERE username = :username;");
+	$stmt->execute(
+		array(
+			':username' => $username,
+			':email' => $mail,
+			':fname' => $fn,
+			':lname' => $sn
 		)
 	);
 }

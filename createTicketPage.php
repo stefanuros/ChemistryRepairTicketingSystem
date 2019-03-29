@@ -60,9 +60,9 @@
 	?>
 
 	<hr>
-	<div class="containter m-5">
+	<div class="containter m-sm-0 m-md-2">
 		<div id="alertMarker"></div>
-		<div class="card text-white bg-dark m-auto" style="min-width: 600px; max-width: 1200px;">
+		<div class="card text-white bg-dark m-auto" style="min-width: 678px; max-width: 1200px;">
 			<h3 class="card-header">Create New Ticket </h3>
 			<form class="create-ticket-form card-body">
 				<!-- Row 1 -->
