@@ -63,7 +63,7 @@ This will also display a table full of everyone's tickets, or the tickets that h
 <!-- <h1>All Tickets</h1> -->
 <hr>
 
-<div class='TicketSearchMenu container ml-3' style="min-width: 678px; max-width: 850px;">
+<div class='TicketSearchMenu container ml-lg-3' style="min-width: 678px; max-width: 1000px;">
     <form id='showTicketForm'>
         <div class="row">
             <input display='block' class="searchInput form-control w-25" type="number" id="getTicketID" placeholder="Ticket ID">
@@ -95,7 +95,7 @@ This will also display a table full of everyone's tickets, or the tickets that h
 
 <!-- This form is used to submit the changes made by an admin 
     TODO: WHEN THIS IS PHP PLEASE ADD IF TO ADD/REMOVE <BUTTON> SUBMIT CHANGES </BUTTON>-->
-<form class='TicketTableColumn mx-3' id='saveTicketForm'>
+<form class='TicketTableColumn mx-lg-3' id='saveTicketForm'>
     <!-- class='TicketTableColumn'  This is used as to fill in the table information on the loading of the page, and after the user clicks Search. -->
     <div id='TicketTable'></div>
     <button class="btn btn-secondary" onclick="leftArrowButtonDown()">&laquo; Last</button> 

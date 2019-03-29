@@ -92,7 +92,7 @@
 	</script>
 
 	<hr>
-	<div class="container bg-dark mx-auto rounded-top p-2 pb-4" id="msg-container" style="max-height: 800px; min-height: 700px; min-width: 750px; max-width: 1200px; overflow-y: auto;">
+	<div class="container bg-dark mx-auto rounded-top p-2 pb-4" id="msg-container" style="max-height: 800px; min-height: 700px; min-width: 678px; max-width: 1200px; overflow-y: auto;">
 
 		<?php 
 

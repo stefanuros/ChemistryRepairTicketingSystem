@@ -176,7 +176,7 @@ function generatePDF()
 	// Create the rest of the pdf data
 	var pdfData = {
 		from: "Queen's Chemistry Repair Dept",
-		to: "Queen's Chemistry Finance Dept",
+		to: "Queen's Chemistry Finance Dept\n" + superName + "\n" + superCode,
 		logo: "https://www.chem.queensu.ca/sites/webpublish.queensu.ca.chemwww/files/images/chemlogocolour%20JPEG.jpg",
 		number: ticket_id,
 		items: rows
