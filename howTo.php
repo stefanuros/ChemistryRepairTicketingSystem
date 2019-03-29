@@ -66,7 +66,7 @@
                 <div class="col">
                     <h1>2</h1>
                     <h3 id="heading">Wait for Technician Email Response</h3>
-                    <p>A technician will be assigned to your submitted ticket and once received, they will be contact with you via. email with a repairs estimate.</p>
+                    <p>A technician will be assigned to your submitted ticket and once received, they will be in contact with you via. email with a repairs estimate.</p>
                 </div>
             </div>
          </div>
