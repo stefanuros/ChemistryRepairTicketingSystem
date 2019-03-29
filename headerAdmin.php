@@ -20,14 +20,14 @@
 
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item active">
+                <li class="nav-item <?php echo ( $page == "Tickets" ? "active" : "" ) ?>">
                     <!--change the href's to corresponding pages-->
                     <a class="nav-link" href="showTicketsPage.php">Tickets</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item <?php echo ( $page == "Statistics" ? "active" : "" ) ?>">
                 <a class="nav-link" href="statsPage.php">Statistics</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item <?php echo ( $page == "Create Ticket" ? "active" : "" ) ?>">
                 <a class="nav-link" href="createTicketPage.php">Create Ticket</a>
                 </li>
                 <li class="nav-item">

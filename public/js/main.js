@@ -25,23 +25,24 @@ $(document).ready(function() {
 			}
 			catch(e)
 			{
-				console.log(e);
+				// console.log(e);
 			}
 			//If the login was successful
 			if(data['msg'] === "200 OK")
 			{	
 				//Check if the user is an admin or not
-				if(data['isAdmin'])
-				{
-					//If the user is an admin
-					window.location.replace("createTicketPage.php");
-				}
-				else
-				{
+				// if(data['isAdmin'])
+				// {
+				// 	//If the user is an admin
+				// 	window.location.replace("createTicketPage.php");
+				// }
+				// else
+				// {
 					
-					//If the user is not an admin
-					window.location.replace("createTicketPage.php");
-				}
+				// 	//If the user is not an admin
+				// 	window.location.replace("createTicketPage.php");
+				// }
+				window.location.replace("index.php");
 			}
 			else
 			{
