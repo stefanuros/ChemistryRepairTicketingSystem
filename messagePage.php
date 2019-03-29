@@ -46,8 +46,6 @@
 		
 		include_once $path . '/includes/authenticate.php';
 
-
-
 		// If user is authenticated, display headers
 		if($auth)
 		{
@@ -68,6 +66,24 @@
 		}
 
 		$ticket_id = htmlspecialchars($_GET['ticket_id']);
+		include_once $path . '/includes/connect.php';
+
+		// Check if the user is allowed to see this page
+		$stmt = $conn->prepare('SELECT COUNT(*) c FROM tickets WHERE ticket_id=:t AND requested_by=:u;'); 
+		// Execute it
+		$stmt->execute(array(
+			':t' => $ticket_id,
+			':u' => $uid
+		));
+
+		// Get the result
+		$resp = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if($resp['c'] <= "0")
+		{
+			// Redirect to login page
+			header('Location: index.php');
+		}
 	?>
 
 	<script>
@@ -78,7 +94,6 @@
 	<div class="container bg-dark mx-auto rounded-top p-2 pb-4" id="msg-container" style="max-height: 800px; min-height: 700px; min-width: 750px; max-width: 1200px; overflow-y: auto;">
 
 		<?php 
-			include_once $path . '/includes/connect.php';
 
 			// Get all of the messages
 			$stmt = $conn->prepare('SELECT m.user_id as u, concat(first_name, " ", last_name) as name, timestamp, content FROM (SELECT * FROM `messages_list` WHERE ticket_id=:t) m LEFT JOIN profile p ON m.user_id=p.unique_id ORDER BY timestamp ASC;'); 
@@ -102,6 +117,7 @@
 				$prev = $m[$i];
 
 				// If the message is written by the current user
+				echo $uid;
 				if($m[$i]['u'] == $uid) { ?>
 					<div class="row m-0 p-1">
 						<div class="col-12 p-0 m-0">

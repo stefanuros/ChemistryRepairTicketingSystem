@@ -52,7 +52,6 @@ function sendMsg()
 		// Getting info for the new message
 		var date = $.format.date(new Date(), 'MMM d, yyyy h:mm a');
 		
-
 		// Make a new message
 		$("#message-marker").before(`
 			<div class="row m-0 p-1">
