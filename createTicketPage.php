@@ -59,6 +59,25 @@
 		}
 	?>
 
+	<script>
+		<?php
+
+			include_once $path . '/includes/connect.php';
+
+			// Prepare the select statement for the first chart
+			$stmt = $conn->prepare('SELECT email, concat(first_name, " ", last_name) as name FROM profile WHERE unique_id=:uid;'); 
+			// Execute it
+			$stmt->execute(array(
+				':uid' => $uid
+			));
+			//Get the result from the query
+			$info = $stmt->fetch(PDO::FETCH_ASSOC);
+		?>
+		// var em = "<?php echo htmlspecialchars($info['email']) ?>";
+		var em = "<?php echo htmlspecialchars("stefanuros@gmail.com") ?>"; // TODO remove this line and uncomment the one above
+		var name = "<?php echo htmlspecialchars($info['name']) ?>";
+	</script>
+
 	<hr>
 	<div class="containter m-sm-0 m-md-2">
 		<div id="alertMarker"></div>
