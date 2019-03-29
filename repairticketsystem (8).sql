@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 28, 2019 at 02:39 AM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.3.1
+-- Generation Time: Mar 29, 2019 at 04:03 AM
+-- Server version: 10.1.30-MariaDB
+-- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -39,6 +39,47 @@ CREATE TABLE IF NOT EXISTS `machines` (
   PRIMARY KEY (`machine_id`),
   UNIQUE KEY `machine_name` (`machine_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `messages_list`
+--
+
+DROP TABLE IF EXISTS `messages_list`;
+CREATE TABLE IF NOT EXISTS `messages_list` (
+  `ticket_id` int(11) NOT NULL,
+  `message_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(23) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `content` text NOT NULL,
+  PRIMARY KEY (`message_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `messages_list`
+--
+
+INSERT INTO `messages_list` (`ticket_id`, `message_id`, `user_id`, `timestamp`, `content`) VALUES
+(8, 1, '5c5b667156ce33.07558401', '2019-03-28 09:42:35', 'Hello There!'),
+(8, 2, '5c5b66779e1c51.75979626', '2019-03-28 10:10:35', 'fix my issue please'),
+(8, 3, '5c5b667156ce33.07558401', '2019-03-28 10:18:35', 'test'),
+(8, 4, '5c5b66779e1c51.75979626', '2019-03-28 11:45:35', 't\nt'),
+(8, 5, '5c5b667156ce33.07558401', '2019-03-28 12:45:35', 't'),
+(8, 6, '5c5b667156ce33.07558401', '2019-03-28 13:45:35', 'hello'),
+(8, 7, '5c5b667156ce33.07558401', '2019-03-28 14:45:35', 'what'),
+(8, 8, '5c5b667156ce33.07558401', '2019-03-28 15:45:35', 'double line\nmessage\nmake it triple'),
+(8, 9, '5c5b667156ce33.07558401', '2019-03-28 16:45:35', 'A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.'),
+(8, 10, '5c5b66779e1c51.75979626', '2019-03-28 16:45:35', 'A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.'),
+(8, 11, '5c5b66779e1c51.75979626', '2019-03-28 17:45:35', 'A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.A new, longer message.'),
+(8, 12, '5c5b667156ce33.07558401', '2019-03-28 17:45:35', 'j'),
+(8, 13, '5c5b667156ce33.07558401', '2019-03-28 18:45:35', 'ghjhgf'),
+(8, 14, '5c5b667156ce33.07558401', '2019-03-28 19:45:35', 'dfgdf'),
+(8, 26, '5c5b667156ce33.07558401', '2019-03-28 20:45:35', 'dsfdsf'),
+(8, 27, '5c5b667156ce33.07558401', '2019-03-28 21:45:35', 'dsf'),
+(8, 28, '5c5b667156ce33.07558401', '2019-03-28 22:45:35', 'dsfds'),
+(5, 29, '5c5b667156ce33.07558401', '2019-03-29 02:33:02', 'hi'),
+(8, 30, '5c5b667156ce33.07558401', '2019-03-29 03:03:17', 'Hello');
 
 -- --------------------------------------------------------
 
@@ -91,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `profile` (
 
 INSERT INTO `profile` (`username`, `email`, `admin`, `first_name`, `last_name`, `user_id`, `unique_id`) VALUES
 ('tesla', 'tesla@ldap.forumsys.com', 1, 'Nikola', 'Tesla', 19, '5c5b667156ce33.07558401'),
-('newton', 'newton@ldap.forumsys.com', 0, 'Isaac', 'Newton', 20, '5c5b66779e1c51.75979626'),
+('newton', 'newton@ldap.forumsys.com', 1, 'Isaac', 'Newton', 20, '5c5b66779e1c51.75979626'),
 ('curie', 'curie@ldap.forumsys.com', 0, 'Marie', 'Curie', 21, '5c5b66e53a8481.99245874'),
 ('einstein', 'einstein@ldap.forumsys.com', 0, 'Albert', 'Einstein', 22, '5c5cedc31b4168.11530368');
 
