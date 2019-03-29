@@ -24,6 +24,7 @@ This will also display a table full of everyone's tickets, or the tickets that h
         <link href="public/css/style.css" rel="stylesheet">
        
         <link href="./public/css/showTickets.css" rel="stylesheet">
+
         
         <!--Custom javascript-->
         <script src="./public/js/showTickets.js"></script>
