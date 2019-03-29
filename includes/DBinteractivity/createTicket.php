@@ -93,7 +93,8 @@ if(isset($_GET['machine_name']) &&
 		//Return the success response
 		echo json_encode(
 			array(
-				"msg" => "200 OK"
+				"msg" => "200 OK",
+				"ticket_id" => $ticketCount
 			)
 		);
 

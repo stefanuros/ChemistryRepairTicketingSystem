@@ -158,6 +158,38 @@ $(document).ready(function() {
 				
 				// reset form
 				$(".create-ticket-form")[0].reset();
+
+				// Getting the email info ready
+				var subject = "Confirmation of ticket #" +data['ticket_id']+ " submission";
+				var body = `
+					<p>Hello `+ name +`,</p>
+					<br>
+					<p>This is an automated email to confirm that you have submitted a ticket to the Queens Chemistry Repair Department.</p>
+					<p>You can find information on this ticket by going to our website, selecting the "Tickets" tab at the top right, and viewing ticket #`+data['ticket_id']+`.</p>
+					<p>To communicate with the technician in charge of your ticket, view your ticket and select "View forum" under the comments tab.</p>
+					<p>Below you will find a summary of your ticket</p>
+					<hr>
+					<p>Machine Name: `+getMachineName+`</p>
+					<p>Room: `+getRoom+`</p>
+					<p>Problem Description: `+description+`</p>
+					<p>Supervisor Code: `+superCode+`</p>
+					<p>Supervisor Name: `+superName+`</p>
+					<p>Other Comments: `+comment+`</p>
+					<hr>
+					<br>
+					<p>Our technicians will get to work on your repair as soon as possible.</p>
+					<p>If you have any questions, please contact ed.maracle@queensu.ca</p>
+				`;
+				
+				// Send an email of confirmation
+				$.get("./includes/DBinteractivity/sendEmail.php",
+				{
+					r: em,
+					s: subject,
+					b: body
+				}, function(e){
+					console.log(e);
+				})
 			}
 			else
 			{
