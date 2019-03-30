@@ -66,26 +66,26 @@ This will also display a table full of everyone's tickets, or the tickets that h
 <div class='TicketSearchMenu container ml-lg-3' style="min-width: 678px; max-width: 1000px;">
     <form id='showTicketForm'>
         <div class="row">
-            <input display='block' class="searchInput form-control w-25" type="number" id="getTicketID" placeholder="Ticket ID">
-            <select display='block' class="searchInput form-control w-25" type="text" id="getMachineName" placeholder="Machine Name"> </select>
-            <select display='block' class="searchInput form-control w-25" id="getRoom" placeholder="Room Name"> </select>
-            <select display='block' class="searchInput form-control w-25" id="getStatus" placeholder="Status"> </select>
+            <input display='block' class="searchInput form-control w-25 bg-dark text-white" type="number" id="getTicketID" placeholder="Ticket ID">
+            <select display='block' class="searchInput form-control w-25 bg-dark" type="text" id="getMachineName" placeholder="Machine Name"> </select>
+            <select display='block' class="searchInput form-control w-25 bg-dark" id="getRoom" placeholder="Room Name"> </select>
+            <select display='block' class="searchInput form-control w-25 bg-dark" id="getStatus" placeholder="Status"> </select>
         </div>
         <div class="row">
-            <input display='block' class="searchInput form-control w-25" type="text" id="getCreated" placeholder="Created Date YYYY-MM-DD">
-            <input display='block' class="searchInput form-control w-25" type="text" id="getClosed" placeholder="Closed Date YYYY-MM-DD">
+            <input display='block' class="searchInput form-control w-25 bg-dark text-white" type="text" id="getCreated" placeholder="Created Date YYYY-MM-DD">
+            <input display='block' class="searchInput form-control w-25 bg-dark text-white" type="text" id="getClosed" placeholder="Closed Date YYYY-MM-DD">
             <?php
                 if($isAdmin){
                     //TODO: But you can fuck w this one @brandon
-                    echo "<select display='block' class='searchInput form-control w-25' id='getRequestedBy' placeholder='Requested By'> </select>";
+                    echo "<select display='block' class='searchInput form-control w-25 bg-dark' id='getRequestedBy' placeholder='Requested By'> </select>";
                 }
                 else{
                     //TODO: Just a reminder, if this select has a bootstrap class that sets display = block or something else, 
                     //TODO: it will be shown for none users if you fuck with this line below @brandon
-                    echo "<select style=display:none class='searchInput form-control w-25' id='getRequestedBy' placeholder='Requested By'> </select>";
+                    echo "<select style=display:none class='searchInput form-control w-25 bg-dark' id='getRequestedBy' placeholder='Requested By'> </select>";
                 }
                 ?>
-            <select class="searchInput form-control w-25" id="getAssignedTech" placeholder="Assigned Tech"> </select>
+            <select class="searchInput form-control w-25 bg-dark" id="getAssignedTech" placeholder="Assigned Tech"> </select>
         </div>
         <div class="row">
             <button class="btn btn-success px-3 mt-2 d-flex">Search</button>
@@ -105,7 +105,7 @@ This will also display a table full of everyone's tickets, or the tickets that h
     <input id=totalRows type="hidden" value=100>
     <?php
         if($isAdmin){
-            echo"<button class='btn btn-primary'>Submit Changes</button>";
+            echo"<button class='btn btn-success'>Submit Changes</button>";
         }
         ?>
 </form>

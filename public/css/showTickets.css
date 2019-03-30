@@ -5,6 +5,19 @@
     border: none;
 }
 
+.searchInput
+{
+    box-shadow: none !important;
+    background-color: transparent !important;
+}
+
+select.searchInput:not(option)
+{
+    color: white;
+}
+
+
+
 /* .TicketSearchMenu{
     float: left;
     width: 10%;
