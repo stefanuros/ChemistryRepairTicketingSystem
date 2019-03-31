@@ -110,51 +110,54 @@
 			// Loop through the data
 			for($i = 0; $i < sizeof($m); $i++) 
 			{
-				$prevTime = date_create_from_format("Y-m-d H:i:s", $prev['timestamp']);
-				$date = date_create_from_format("Y-m-d H:i:s", $m[$i]['timestamp']);
-				
-				// If the previous message was from the same person as the current message
-				$skipName = ($prev['u'] == $m[$i]['u'] && $i != 0 && $date->diff($prevTime)->i < 10);
-				$prev = $m[$i];
+				if(sizeof($m[$i]['content']) > 0)
+				{
+					$prevTime = date_create_from_format("Y-m-d H:i:s", $prev['timestamp']);
+					$date = date_create_from_format("Y-m-d H:i:s", $m[$i]['timestamp']);
+					
+					// If the previous message was from the same person as the current message
+					$skipName = ($prev['u'] == $m[$i]['u'] && $i != 0 && $date->diff($prevTime)->i < 10);
+					$prev = $m[$i];
 
-				// If the message is written by the current user
-				if($m[$i]['u'] == $uid) { ?>
-					<div class="row m-0 p-1">
-						<div class="col-12 p-0 m-0">
-							<?php if(!$skipName) { ?>
-								<div class="row p-0 m-0">
-									<small class="col-4 p-0"></small>
-									<small class="col-4 text-muted text-center p-0"><?php echo date_format($date, "M j, Y, g:i A") ?></small>
-									<small class="col-4 text-muted text-right p-0"><?php echo htmlspecialchars($m[$i]['name']) ?></small>
-								</div>
-							<?php } ?>
-							<div class="row p-0 m-0 justify-content-end">
-								<div class="d-flex bg-success rounded m-0 py-1 px-2" style="max-width: 65%;">
-									<?php echo htmlspecialchars($m[$i]['content']) ?>
-								</div>
-							</div>
-						</div>
-					</div>
-				<?php }	
-				// Else, the message is written by someone else
-				else { ?>
-					<div class="row m-0 p-1">
-						<div class="col-12 p-0 m-0">
-							<?php if(!$skipName) { ?>
-								<div class="row p-0 m-0">
-									<small class="col-4 text-muted text-left p-0"><?php echo htmlspecialchars($m[$i]['name']) ?></small>
-									<small class="col-4 text-muted text-center p-0"><?php echo date_format($date, "M j, Y, g:i A") ?></small>
-									<small class="col-4 p-0"></small>
-								</div>
-							<?php } ?>
-							<div class="row p-0 m-0">
-								<div class="d-flex bg-secondary rounded m-0 py-1 px-2" style="max-width: 65%;">
-									<?php echo htmlspecialchars($m[$i]['content']) ?>
+					// If the message is written by the current user
+					if($m[$i]['u'] == $uid) { ?>
+						<div class="row m-0 p-1">
+							<div class="col-12 p-0 m-0">
+								<?php if(!$skipName) { ?>
+									<div class="row p-0 m-0">
+										<small class="col-4 p-0"></small>
+										<small class="col-4 text-muted text-center p-0"><?php echo date_format($date, "M j, Y, g:i A") ?></small>
+										<small class="col-4 text-muted text-right p-0"><?php echo htmlspecialchars($m[$i]['name']) ?></small>
+									</div>
+								<?php } ?>
+								<div class="row p-0 m-0 justify-content-end">
+									<div class="d-flex bg-success rounded m-0 py-1 px-2" style="max-width: 65%;">
+										<?php echo htmlspecialchars($m[$i]['content']) ?>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				<?php }
+					<?php }	
+					// Else, the message is written by someone else
+					else { ?>
+						<div class="row m-0 p-1">
+							<div class="col-12 p-0 m-0">
+								<?php if(!$skipName) { ?>
+									<div class="row p-0 m-0">
+										<small class="col-4 text-muted text-left p-0"><?php echo htmlspecialchars($m[$i]['name']) ?></small>
+										<small class="col-4 text-muted text-center p-0"><?php echo date_format($date, "M j, Y, g:i A") ?></small>
+										<small class="col-4 p-0"></small>
+									</div>
+								<?php } ?>
+								<div class="row p-0 m-0">
+									<div class="d-flex bg-secondary rounded m-0 py-1 px-2" style="max-width: 65%;">
+										<?php echo htmlspecialchars($m[$i]['content']) ?>
+									</div>
+								</div>
+							</div>
+						</div>
+					<?php }
+				}
 			}
 		?>
 
