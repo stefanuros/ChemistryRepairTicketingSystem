@@ -80,7 +80,7 @@ if(isset($_GET['machine_name']) &&
 			)
 		);
 
-		if(sizeof($comments) > 0)
+		if($comments != "")
 		{
 			$stmt = $conn->prepare("INSERT INTO messages_list VALUES (:t, NULL, :u, NULL, :c);");
 			$stmt->execute(
