@@ -80,14 +80,17 @@ if(isset($_GET['machine_name']) &&
 			)
 		);
 
-		$stmt = $conn->prepare("INSERT INTO messages_list VALUES (:t, NULL, :u, NULL, :c);");
-		$stmt->execute(
-			array(
-				':t' => $ticketCount,
-				':u' => $loggedIn, //id of requester
-				':c' => $comments //problem description
-			)
-		);
+		if(sizeof($comments) > 0)
+		{
+			$stmt = $conn->prepare("INSERT INTO messages_list VALUES (:t, NULL, :u, NULL, :c);");
+			$stmt->execute(
+				array(
+					':t' => $ticketCount,
+					':u' => $loggedIn, //id of requester
+					':c' => $comments //problem description
+				)
+			);
+		}
 
 		//After successful creation, redirect the page
 		//Return the success response
