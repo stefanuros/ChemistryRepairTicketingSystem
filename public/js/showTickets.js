@@ -23,7 +23,8 @@ $(document).ready(function(){
         document.getElementById('getRequestedBy').innerHTML = temp["requestedByOptions"];
         document.getElementById('getAssignedTech').innerHTML = temp["assignedTechOptions"];
         document.getElementById('tableHeight').value = temp['tableHeight']
-        document.getElementById('tablePageMessage').innerHTML = temp['tablePageMessage'];
+        document.getElementById('tablePageMessageTop').innerHTML = temp['tablePageMessage'];
+        document.getElementById('tablePageMessageBottom').innerHTML = temp['tablePageMessage'];
         document.getElementById('totalRows').value = temp['totalRows'];
         console.log(temp["testOutput"]);
     });//end $.post    
@@ -64,7 +65,8 @@ $(document).ready(function(){
             document.getElementById('getRequestedBy').innerHTML = temp["requestedByOptions"];
             document.getElementById('getAssignedTech').innerHTML = temp["assignedTechOptions"];
             document.getElementById('tableHeight').value = temp['tableHeight'];
-            document.getElementById('tablePageMessage').innerHTML = temp['tablePageMessage'];
+            document.getElementById('tablePageMessageTop').innerHTML = temp['tablePageMessage'];
+            document.getElementById('tablePageMessageBottom').innerHTML = temp['tablePageMessage'];
             document.getElementById('totalRows').value = temp['totalRows'];
             console.log(temp["testOutput"]);
         });//end $.post

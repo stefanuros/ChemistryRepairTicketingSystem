@@ -97,17 +97,26 @@ This will also display a table full of everyone's tickets, or the tickets that h
     TODO: WHEN THIS IS PHP PLEASE ADD IF TO ADD/REMOVE <BUTTON> SUBMIT CHANGES </BUTTON>-->
 <form class='TicketTableColumn mx-lg-3' id='saveTicketForm'>
     <!-- class='TicketTableColumn'  This is used as to fill in the table information on the loading of the page, and after the user clicks Search. -->
-    <div id='TicketTable'></div>
-    <button class="btn btn-secondary" onclick="leftArrowButtonDown()">&laquo; Last</button> 
-    <button class="btn btn-secondary" onclick="rightArrowButtonDown()">Next &raquo;</button> <p id='tablePageMessage'></p>
-    <input class=tableDimension id=tableHeight name=tableHeight type=hidden>
-    <input id=fromRow type="hidden" value=0>
-    <input id=totalRows type="hidden" value=100>
-    <?php
-        if($isAdmin){
-            echo"<button class='btn btn-success'>Submit Changes</button>";
-        }
+    <p id='tablePageMessageTop'></p>
+    <div d-inline>
+        <button class="btn btn-secondary" onclick="leftArrowButtonDown()">&laquo; Last</button> 
+        <button class="btn btn-secondary" onclick="rightArrowButtonDown()">Next &raquo;</button>
+        <?php
+            if($isAdmin){ echo"<button class='btn btn-success'>Submit Changes</button>"; }
         ?>
+    </div>
+    <div id='TicketTable' class='mt-3'></div>
+    <div d-inline>
+        <button class="btn btn-secondary" onclick="leftArrowButtonDown()">&laquo; Last</button> 
+        <button class="btn btn-secondary" onclick="rightArrowButtonDown()">Next &raquo;</button>
+        <input class=tableDimension id=tableHeight name=tableHeight type=hidden>
+        <input id=fromRow type="hidden" value=0>
+        <input id=totalRows type="hidden" value=100>
+        <?php
+            if($isAdmin){ echo"<button class='btn btn-success'>Submit Changes</button>"; }
+        ?>
+    </div>
+    <p id='tablePageMessageBottom'></p>
 </form>
 </body>
     <?php
