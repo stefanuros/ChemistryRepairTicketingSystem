@@ -115,7 +115,8 @@ function rightArrowButtonDown(){
         document.getElementById('getRequestedBy').innerHTML = temp["requestedByOptions"];
         document.getElementById('getAssignedTech').innerHTML = temp["assignedTechOptions"];
         document.getElementById('tableHeight').value = temp['tableHeight'];
-        document.getElementById('tablePageMessage').innerHTML = temp['tablePageMessage'];
+        document.getElementById('tablePageMessageTop').innerHTML = temp['tablePageMessage'];
+        document.getElementById('tablePageMessageBottom').innerHTML = temp['tablePageMessage'];
     });//end $.post
 }//end rightArrowButtonDown
 
@@ -144,7 +145,8 @@ function leftArrowButtonDown(){
         document.getElementById('getRequestedBy').innerHTML = temp["requestedByOptions"];
         document.getElementById('getAssignedTech').innerHTML = temp["assignedTechOptions"];
         document.getElementById('tableHeight').value = temp['tableHeight'];
-        document.getElementById('tablePageMessage').innerHTML = temp['tablePageMessage'];
+        document.getElementById('tablePageMessageTop').innerHTML = temp['tablePageMessage'];
+        document.getElementById('tablePageMessageBottom').innerHTML = temp['tablePageMessage'];
     });//end $.post
 }//end leftArrowButtonDown
 
