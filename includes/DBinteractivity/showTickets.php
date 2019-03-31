@@ -357,7 +357,7 @@ function getSQLQuery($isAdmin,$fromRow, $rowStep,$userID){
     list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'createdBy','created_time');
     list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'closedBy','closed_time');
     list($sql,$sqlWhereSet) = appendSearchInfo($sql,$sqlWhereSet,'assignedTech','assigned_tech');
-    $sql = $sql . " order by `Ticket_ID` LIMIT $fromRow, $rowStep;";
+    $sql = $sql . " order by `created_time` desc LIMIT $fromRow, $rowStep;";
 
     return $sql;
 }
