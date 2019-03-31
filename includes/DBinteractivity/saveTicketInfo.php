@@ -26,10 +26,10 @@ function main(){
     //Updates Ticket table with new information.
     for ($i = 1; $i < $output['tableHeight']; $i++){
         //get the row's ticketID, the oldStatus (before change/in database) and newStatus (what is on the current page.)
-        $ticketID = $output['value0a' . $i];
-        $newStatus = $output['value3a' . $i];
-        if ($output['value9a' . $i] != ''){
-            $techRef = getRefNumber($conn,$output['value9a' . $i]);
+        $ticketID = $output['value0a' . $i]; //value0aX = ID
+        $newStatus = $output['value3a' . $i]; //value3aX = status
+        if ($output['value10a' . $i] != ''){ //value10aX = tech
+            $techRef = getRefNumber($conn,$output['value10a' . $i]);
         }
         else{
             $techRef = '';

@@ -61,7 +61,7 @@ function main(){
             $ticketid = $row[0];
             //Set two classes for even/odd rows because IM AN IDIOT AND DIDNT GOOGLE CSS HAS THIS BUILT IN (to show different background colours on rows)
             if ($height % 2 == 0){
-                if($i == 4){//TODO: Fill in link. Make sure GET Sends.
+                if($i == 4){
                     $tableInfo = $tableInfo . "<td class='ticketCommentCellEven'> <a id=forumLink class='nav-link' href='./messagePage.php?ticket_id=$ticketid'>Click To See Forum </a>";
                 }
                 else{
@@ -69,7 +69,7 @@ function main(){
                 }
             }
             else{
-                if($i == 4){//TODO: Fill in link. Make sure GET Sends.
+                if($i == 4){
                     $tableInfo = $tableInfo . "<td class='ticketCommentCellOdd'> <a id=forumLink class='nav-link' href='./messagePage.php?ticket_id=$ticketid'>Click To See Forum </a>";
                 }
                 else{
@@ -77,7 +77,7 @@ function main(){
                 }
             }
             //Admin can change the values for Status, Assigned Tech
-            if ($isAdmin == true && $i == 11){ 
+            if ($isAdmin == true && $i == 10){ 
                 $tableInfo = $tableInfo . 
                 "
                     <select class='ticketInput' type='text' name='value" . $i . "a" .  $height . "'>
@@ -87,7 +87,7 @@ function main(){
                 </td>";
             }
             //Admin can change the value for closed using a drop box, if closed == null
-            elseif ($isAdmin == true && $i == 3 && $value != 'Closed'){
+            elseif ($isAdmin == true && $i == 3){
                 if($value == 'Unassigned'){
                     $tableInfo = $tableInfo .
                     "<select name='value" . $i . "a" .  $height . "'>
@@ -104,6 +104,14 @@ function main(){
                         <option value='Closed'>Closed</option>
                     </select></td>";
                 }
+                elseif($value == 'Closed'){
+                    $tableInfo = $tableInfo .
+                    "<select name='value" . $i . "a" .  $height . "'>
+                        <option value='Closed'>Closed</option>
+                        <option value='In Progress'>In Progress</option>
+                        <option value='Unassigned'>Unassigned</option>
+                    </select></td>";
+                }
                 else{ 
                     $tableInfo = $tableInfo . 
                     "<select name='value" . $i . "a" .  $height . "'>
@@ -114,7 +122,7 @@ function main(){
                     </select></td>";
                 }//end else
             }//end elseif admin, status, 'closed'
-            elseif($isAdmin == true && $i == 12){ //invoice link
+            elseif($isAdmin == true && $i == 11){ //invoice link
                 $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value=$value>
                                         <a id=invoiceLink class=nav-link href='./invoicePage.php?ticket_id=$ticketid'>Invoice</a> </td>";
             }
@@ -185,7 +193,7 @@ function getOptions($conn,$attributeName,$nullMessage){
     //select all drop down menu options.
     
     if ($attributeName == 'requested_by'){ //`requested_by`
-        $sqlRoom = "SELECT DISTINCT username FROM `profile`;";
+        $sqlRoom = "SELECT DISTINCT concat(first_name, ' ', last_name) FROM `profile`;";
     }
     elseif ($attributeName == 'assigned_tech'){ //`assigned_tech`
         $sqlRoom = "SELECT DISTINCT username FROM `profile`;";
@@ -221,7 +229,7 @@ function appendSearchInfo($sql,$sqlWhereSet,$postName,$attributeName){
                 $sql = $sql . " where `$attributeName` LIKE '" . $_POST[$postName] . "%'";
             }
             elseif ($attributeName == 'requested_by'){
-                $sql = $sql . " where userP.username = '" . $_POST[$postName] . "'";
+                $sql = $sql . " where userP.email = '" . $_POST[$postName] . "'";
             }
             elseif ($attributeName == 'assigned_tech'){
                 $sql = $sql . " where techP.username = '" . $_POST[$postName] . "'";
@@ -236,7 +244,7 @@ function appendSearchInfo($sql,$sqlWhereSet,$postName,$attributeName){
                 $sql = $sql . " and `$attributeName` = '" . $_POST[$postName] . "%'";
             }//end if date format
             elseif ($attributeName == 'requested_by'){
-                $sql = $sql . " and userP.username = '" . $_POST[$postName] . "'";
+                $sql = $sql . " and userP.email = '" . $_POST[$postName] . "'";
             }
             elseif ($attributeName == 'assigned_tech'){
                 $sql = $sql . " and techP.username = '" . $_POST[$postName] . "'";
@@ -279,7 +287,6 @@ function getTableHeader($isAdmin){
             <th class='ticketHeader'>Requested By</th>
             <th class='ticketHeader'>Requested By</th>
             <th class='ticketHeader'>Supervisor</th>
-            <th class='ticketHeader'>Supervisor Code</th>
             <th class='ticketHeader'>Assigned Tech</th>
             <th class='ticketHeader'>Invoice</th>
         ";
@@ -295,7 +302,6 @@ function getTableHeader($isAdmin){
             <th class='ticketHeader'>Created</th>
             <th class='ticketHeader'>Closed</th>
             <th class='ticketHeader'>Supervisor</th>
-            <th class='ticketHeader'>Supervisor Code</th>
             <th class='ticketHeader'>Assigned Tech</th>
         ";
     }
@@ -313,11 +319,10 @@ function getSQLQuery($isAdmin,$fromRow, $rowStep,$userID){
             ELSE userP.email 
         END,
         CASE 
-            WHEN userP.username IS NULL THEN '  '
-            ELSE userP.username 
+            WHEN concat(userP.first_name, ' ', userP.last_name) IS NULL THEN '  '
+            ELSE concat(userP.first_name, ' ', userP.last_name)
         END,
-        supervisor_name,
-        supervisor_code,
+        concat(supervisor_name, ' ', supervisor_code),
         CASE 
             WHEN techP.username IS NULL THEN '  '
             ELSE techP.username 
