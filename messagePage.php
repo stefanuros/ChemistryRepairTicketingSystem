@@ -110,7 +110,8 @@
 			// Loop through the data
 			for($i = 0; $i < sizeof($m); $i++) 
 			{
-				if(sizeof($m[$i]['content']) > 0)
+
+				if($m[$i]['content'] != "")
 				{
 					$prevTime = date_create_from_format("Y-m-d H:i:s", $prev['timestamp']);
 					$date = date_create_from_format("Y-m-d H:i:s", $m[$i]['timestamp']);
