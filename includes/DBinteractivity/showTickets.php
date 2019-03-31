@@ -46,7 +46,7 @@ function main(){
 
     $tableInfo = getTableheader($isAdmin);
     $sql = getSQLQuery($isAdmin,$fromRow, $rowStep,$uid);
-    
+    $testOutput = $testOutput . $sql;
     //fill the table with ALL information.
     $sqlPrepared = $conn->prepare($sql);
     $sqlPrepared->execute(); //should be in a try/catch, but in this scenario it isnt required.
@@ -201,7 +201,7 @@ function getOptions($conn,$attributeName,$nullMessage){
     $height = 1;
     //While there are rows left in the SQL
     while($row = $sqlRoomPrep->fetch(PDO::FETCH_NUM)) {
-        $givenOption = $givenOption . "<option value="  . $row[0] . ">" . $row[0] . " </option>";
+        $givenOption = $givenOption . "<option value='"  . $row[0] . "'>" . $row[0] . " </option>";
     }//end while
     return $givenOption;
 }//end setOption
@@ -269,7 +269,7 @@ function getTableHeader($isAdmin){
     if($isAdmin){
         $tableHeader =  "
             <table class='ticketTable table table-striped table-dark table-bordered' >
-            <th class='ticketHeader'>Ticket ID</th>
+            <th class='ticketHeader'>ID</th>
             <th class='ticketHeader'>Machine Name</th>
             <th class='ticketHeader'>Room</th>
             <th class='ticketHeader'>Status</th>
