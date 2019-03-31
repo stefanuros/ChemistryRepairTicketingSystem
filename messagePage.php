@@ -80,7 +80,8 @@
 		// Get the result
 		$resp = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		if($resp['c'] <= "0")
+		// If there are no rows where this user has this ticket, and theyre not an admin
+		if($resp['c'] <= "0" && !$isAdmin)
 		{
 			// Redirect to login page
 			header('Location: index.php');
