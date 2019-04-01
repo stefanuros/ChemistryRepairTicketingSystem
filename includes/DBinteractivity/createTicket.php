@@ -71,7 +71,7 @@ if(isset($_GET['machine_name']) &&
 
 
 		// Also insert new message using comment and description
-		$stmt = $conn->prepare("INSERT INTO messages_list VALUES (:t, NULL, :u, NULL, :d);");
+		$stmt = $conn->prepare("INSERT INTO messages_list VALUES (:t, NULL, :u, NULL, :d, DEFAULT);");
 		$stmt->execute(
 			array(
 				':t' => $ticketCount,
@@ -82,7 +82,7 @@ if(isset($_GET['machine_name']) &&
 
 		if($comments != "")
 		{
-			$stmt = $conn->prepare("INSERT INTO messages_list VALUES (:t, NULL, :u, NULL, :c);");
+			$stmt = $conn->prepare("INSERT INTO messages_list VALUES (:t, NULL, :u, NULL, :c, DEFAULT);");
 			$stmt->execute(
 				array(
 					':t' => $ticketCount,

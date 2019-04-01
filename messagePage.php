@@ -98,7 +98,7 @@
 		<?php 
 
 			// Get all of the messages
-			$stmt = $conn->prepare('SELECT m.user_id as u, concat(first_name, " ", last_name) as name, timestamp, content FROM (SELECT * FROM `messages_list` WHERE ticket_id=:t) m LEFT JOIN profile p ON m.user_id=p.unique_id ORDER BY timestamp ASC;'); 
+			$stmt = $conn->prepare('SELECT m.user_id as u, concat(first_name, " ", last_name) as name, timestamp, content, isInfo FROM (SELECT * FROM `messages_list` WHERE ticket_id=:t) m LEFT JOIN profile p ON m.user_id=p.unique_id ORDER BY timestamp ASC;'); 
 			// Execute it
 			$stmt->execute(array(
 				':t' => $_GET['ticket_id']
@@ -111,54 +111,92 @@
 			// Loop through the data
 			for($i = 0; $i < sizeof($m); $i++) 
 			{
+				// Set the date of the current message
+				$date = date_create_from_format("Y-m-d H:i:s", $m[$i]['timestamp']);
 
-				if($m[$i]['content'] != "")
+				// Set when ticket was created
+				if($i == 0)
 				{
-					$prevTime = date_create_from_format("Y-m-d H:i:s", $prev['timestamp']);
-					$date = date_create_from_format("Y-m-d H:i:s", $m[$i]['timestamp']);
-					
-					// If the previous message was from the same person as the current message
-					$skipName = ($prev['u'] == $m[$i]['u'] && $i != 0 && $date->diff($prevTime)->i < 10);
-					$prev = $m[$i];
+					?>
 
-					// If the message is written by the current user
-					if($m[$i]['u'] == $uid) { ?>
-						<div class="row m-0 p-1">
-							<div class="col-12 p-0 m-0">
-								<?php if(!$skipName) { ?>
-									<div class="row p-0 m-0">
-										<small class="col-4 p-0"></small>
-										<small class="col-4 text-muted text-center p-0"><?php echo date_format($date, "M j, Y, g:i A") ?></small>
-										<small class="col-4 text-muted text-right p-0"><?php echo htmlspecialchars($m[$i]['name']) ?></small>
-									</div>
-								<?php } ?>
-								<div class="row p-0 m-0 justify-content-end">
-									<div class="d-flex bg-success rounded m-0 py-1 px-2" style="max-width: 65%;">
-										<?php echo htmlspecialchars($m[$i]['content']) ?>
+					<div class="row m-0 p-1">
+						<div class="col-12 p-0 m-0">
+							<div class="row p-0 m-0">
+								<small class="col-12 text-muted text-center p-0">Ticket <b><i>Created</i></b> on <?php echo date_format($date, "M j, Y, g:i A") ?></small>
+							</div>
+						</div>
+					</div>
+
+					<?php 
+				}
+
+				// Checks if the message is a text message or an info message
+				// Make the info message
+				if($m[$i]['isInfo'] == "1")
+				{
+					?>
+
+					<div class="row m-0 p-1">
+						<div class="col-12 p-0 m-0">
+							<div class="row p-0 m-0">
+								<small class="col-12 text-muted text-center p-0">Ticket set to <b><i><?php echo htmlspecialchars($m[$i]['content']) ?></i></b> by <?php echo htmlspecialchars($m[$i]['name']) ?> on <?php echo date_format($date, "M j, Y, g:i A") ?></small>
+							</div>
+						</div>
+					</div>
+
+					<?php 
+				}
+				// Make the regular message
+				else
+				{
+					if($m[$i]['content'] != "")
+					{
+						// Get the date of the previous message
+						$prevTime = date_create_from_format("Y-m-d H:i:s", $prev['timestamp']);
+						
+						// If the previous message was from the same person as the current message
+						$skipName = ($prev['u'] == $m[$i]['u'] && $i != 0 && $date->diff($prevTime)->i < 10);
+						$prev = $m[$i];
+
+						// If the message is written by the current user
+						if($m[$i]['u'] == $uid) { ?>
+							<div class="row m-0 p-1">
+								<div class="col-12 p-0 m-0">
+									<?php if(!$skipName) { ?>
+										<div class="row p-0 m-0">
+											<small class="col-4 p-0"></small>
+											<small class="col-4 text-muted text-center p-0"><?php echo date_format($date, "M j, Y, g:i A") ?></small>
+											<small class="col-4 text-muted text-right p-0"><?php echo htmlspecialchars($m[$i]['name']) ?></small>
+										</div>
+									<?php } ?>
+									<div class="row p-0 m-0 justify-content-end">
+										<div class="d-flex bg-success rounded m-0 py-1 px-2" style="max-width: 65%;">
+											<?php echo htmlspecialchars($m[$i]['content']) ?>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					<?php }	
-					// Else, the message is written by someone else
-					else { ?>
-						<div class="row m-0 p-1">
-							<div class="col-12 p-0 m-0">
-								<?php if(!$skipName) { ?>
+						<?php }	
+						// Else, the message is written by someone else
+						else { ?>
+							<div class="row m-0 p-1">
+								<div class="col-12 p-0 m-0">
+									<?php if(!$skipName) { ?>
+										<div class="row p-0 m-0">
+											<small class="col-4 text-muted text-left p-0"><?php echo htmlspecialchars($m[$i]['name']) ?></small>
+											<small class="col-4 text-muted text-center p-0"><?php echo date_format($date, "M j, Y, g:i A") ?></small>
+											<small class="col-4 p-0"></small>
+										</div>
+									<?php } ?>
 									<div class="row p-0 m-0">
-										<small class="col-4 text-muted text-left p-0"><?php echo htmlspecialchars($m[$i]['name']) ?></small>
-										<small class="col-4 text-muted text-center p-0"><?php echo date_format($date, "M j, Y, g:i A") ?></small>
-										<small class="col-4 p-0"></small>
-									</div>
-								<?php } ?>
-								<div class="row p-0 m-0">
-									<div class="d-flex bg-secondary rounded m-0 py-1 px-2" style="max-width: 65%;">
-										<?php echo htmlspecialchars($m[$i]['content']) ?>
+										<div class="d-flex bg-secondary rounded m-0 py-1 px-2" style="max-width: 65%;">
+											<?php echo htmlspecialchars($m[$i]['content']) ?>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					<?php }
+						<?php }
+					}
 				}
 			}
 		?>
