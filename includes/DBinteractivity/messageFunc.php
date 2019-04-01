@@ -27,7 +27,7 @@ if(isset($_POST["ticket_id"]))
 	include_once $path . '/includes/connect.php';
 
 	// Prepare the select statement
-	$stmt = $conn->prepare('INSERT INTO messages_list VALUES (:t, NULL, :u, NULL, :m);'); 
+	$stmt = $conn->prepare('INSERT INTO messages_list VALUES (:t, NULL, :u, NULL, :m, DEFAULT);'); 
 	// Execute it
 	$stmt->execute(array(
 		':t' => $_POST['ticket_id'],
