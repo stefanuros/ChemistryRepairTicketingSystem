@@ -8,12 +8,29 @@ to the database.
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+$topLayer = str_replace($_SERVER['DOCUMENT_ROOT'], "", $_SERVER['SCRIPT_FILENAME']);
+$path = $_SERVER['DOCUMENT_ROOT'] . "/" . explode("/", $topLayer)[1];
+
+require $path . '/includes/libs/PHPMailer/src/Exception.php';
+require $path . '/includes/libs/PHPMailer/src/PHPMailer.php';
+require $path . '/includes/libs/PHPMailer/src/SMTP.php';
+// include_once '../config.php';
+// include_once '../connect.php';
+// include_once '../authenticate.php';
+$mail = new PHPMailer();
+
 
 /* for orginizational purposes. */
-function main(){
-    include_once '../config.php';
+function main($mail){
+    // include_once '../config.php';
     include_once '../connect.php';
-    //include_once '../authenticate.php';
+    include_once '../authenticate.php';
+    if(!$auth){
+        // User is not authenticated
+        //Send an error message that was created in authenticate.php
+        echo $jsonMsg;
+        exit();
+    }
 
     date_default_timezone_set('America/Toronto');
 
@@ -54,9 +71,8 @@ function main(){
                 $r = getUserEmail($conn,$ticketID); 
                 $s = "Status change of Ticket #" . $ticketID; 
                 $b = "This email is to inform you that your ticket # " . $ticketID . " has had the status updated from: " . $oldStatus . " To: " . $newStatus; 
-                //sendEmail("T.Szendrey@hotmail.ca",$s,$b);
-                $userRef = getUserRefFromTicketID($conn,$ticketID);
-                updateMessage($conn,$ticketID,$userRef,$newStatus);
+                sendEmail("StefanUrosgmail.ca",$s,$b,$mail);
+                updateMessage($conn,$ticketID,$uid,$newStatus);
             }//end old != new
             // echo "  Updated     ";
         }catch(PDOException $e){
@@ -81,22 +97,6 @@ function getRefNumberFromUsername($conn,$username){
     return $refNumber;
 }
 
-function getUserRefFromTicketID($conn,$ticketID){
-    $sql = "SELECT p.unique_id
-    FROM
-    (tickets
-    LEFT JOIN profile p ON tickets.requested_by = p.unique_id)
-    where tickets.ticket_id = $ticketID;";
-    $sqlPrepared = $conn->prepare($sql);
-    if(!$sqlPrepared->execute()){
-        echo "The given username: $username 's unique id could not be found.";
-        $refNumber = '';
-    }
-    $row = $sqlPrepared->fetch(PDO::FETCH_NUM);
-    $refNumber = $row[0];
-    return $refNumber;   
-}
-
 function getUserEmail($conn, $ticketID){
     $sql = "SELECT `profile`.email 
         from (`tickets`
@@ -109,21 +109,21 @@ function getUserEmail($conn, $ticketID){
     return $email;
 }
 
-function updateMessage($conn, $ticketID,$userID,$status){
-    $insertMessage = "INSERT INTO messages_list VALUES ('$ticketID', NULL, '$userID', NULL, '$status', 1);";
+function updateMessage($conn, $ticketID,$uid,$status){
+    $insertMessage = "INSERT INTO messages_list VALUES ('$ticketID', NULL, '$uid', NULL, '$status', 1);";
     $stmt = $conn->prepare($insertMessage);
     $stmt->execute();
 }
 
-function sendEmail($r,$s,$b){   
-    $topLayer = str_replace($_SERVER['DOCUMENT_ROOT'], "", $_SERVER['SCRIPT_FILENAME']);
-    $path = $_SERVER['DOCUMENT_ROOT'] . "/" . explode("/", $topLayer)[1];
+function sendEmail($r,$s,$b,$mail){   
+    // $topLayer = str_replace($_SERVER['DOCUMENT_ROOT'], "", $_SERVER['SCRIPT_FILENAME']);
+    // $path = $_SERVER['DOCUMENT_ROOT'] . "/" . explode("/", $topLayer)[1];
 
-    require $path . '/includes/libs/PHPMailer/src/Exception.php';
-    require $path . '/includes/libs/PHPMailer/src/PHPMailer.php';
-    require $path . '/includes/libs/PHPMailer/src/SMTP.php';
+    // require $path . '/includes/libs/PHPMailer/src/Exception.php';
+    // require $path . '/includes/libs/PHPMailer/src/PHPMailer.php';
+    // require $path . '/includes/libs/PHPMailer/src/SMTP.php';
 
-    $mail = new PHPMailer();
+    // $mail = new PHPMailer();
 
     if(	isset($r) &&
         isset($s) &&
@@ -167,5 +167,5 @@ function sendEmail($r,$s,$b){
     }
 
 }
-main();
+main($mail);
 ?>
