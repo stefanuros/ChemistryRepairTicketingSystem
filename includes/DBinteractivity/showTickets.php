@@ -149,7 +149,13 @@ function main(){
                 $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value='$value'>
                                         <a id=invoiceLink class=nav-link href='./invoicePage.php?ticket_id=$ticketid'>Invoice</a> </td>";
             }
-            
+            //closed time (for both admin and user)
+            elseif($i == 6){ 
+                if ($row[3] != 'Closed'){ //display the value of closed time
+                    $tableInfo = $tableInfo . "$value";
+                }}
+                $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value=$value></td>";
+            }
             //Else: The column cannot be edited. It should display a value and have a hidden input of the value aswell so 
             //      The information can be used in a $_POST for saving changes.
             else{

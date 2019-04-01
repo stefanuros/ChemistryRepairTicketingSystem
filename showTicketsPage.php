@@ -21,11 +21,11 @@ This will also display a table full of everyone's tickets, or the tickets that h
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="public/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
 
-        <!--TODO FontAwesome stylesheet(s)
+        <!-- FontAwesome stylesheet(s) -->
         <link rel="stylesheet" href="public/font/fontawesome-5.7.1/css/all.css">
         <link rel="stylesheet" type="text/css" href="public/font/fontawesome-5.7.1/css/fontawesome.min.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-        -->
+       
        
         <link href="public/css/style.css" rel="stylesheet">
        
@@ -120,6 +120,6 @@ This will also display a table full of everyone's tickets, or the tickets that h
 </form>
 </body>
     <?php
-		// include_once 'footer.php';
+		include_once 'footer.php';
 	?>
 </html>
