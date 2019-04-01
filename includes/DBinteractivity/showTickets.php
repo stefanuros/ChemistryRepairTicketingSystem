@@ -50,7 +50,7 @@ function main(){
 
     $tableInfo = getTableheader($isAdmin);
     $sql = getSQLQuery($isAdmin,$fromRow, $rowStep,$uid);
-    $testOutput = $testOutput . $sql;
+    
     //fill the table with ALL information.
     $sqlPrepared = $conn->prepare($sql);
     $sqlPrepared->execute(); //should be in a try/catch, but in this scenario it isnt required.
@@ -258,7 +258,7 @@ function appendSearchInfo($sql,$sqlWhereSet,$postName,$attributeName){
                 $sql = $sql . " where `$attributeName` LIKE '" . $_POST[$postName] . "%'";
             }
             elseif ($attributeName == 'requested_by'){
-                $sql = $sql . " where userP.email = '" . $_POST[$postName] . "'";
+                $sql = $sql . " where concat(userP.first_name,' ',userP.lasT_name) = '" . $_POST[$postName] . "'";
             }
             elseif ($attributeName == 'assigned_tech'){
                 $sql = $sql . " where techP.username = '" . $_POST[$postName] . "'";
@@ -273,7 +273,7 @@ function appendSearchInfo($sql,$sqlWhereSet,$postName,$attributeName){
                 $sql = $sql . " and `$attributeName` = '" . $_POST[$postName] . "%'";
             }//end if date format
             elseif ($attributeName == 'requested_by'){
-                $sql = $sql . " and userP.email = '" . $_POST[$postName] . "'";
+                $sql = $sql . " and concat(userP.first_name,' ',userP.lasT_name) = '" . $_POST[$postName] . "'";
             }
             elseif ($attributeName == 'assigned_tech'){
                 $sql = $sql . " and techP.username = '" . $_POST[$postName] . "'";
