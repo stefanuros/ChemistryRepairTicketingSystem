@@ -30,15 +30,12 @@ select.searchInput:not(option)
     width: 88%; Leave ~2% for border widths ect.
 }  */
 
-.ticketInput{
-    /* width: 100%; Prevents an awkward interaction with a scroll bar when unnecessary */
-}
 
 /* .ticketTable, .ticketHeader{
     border: 1px solid whitesmoke;
 } */
 
-.ticketCommentCellEven{
+.ticketCommentCell{
     /* border: 1px solid whitesmoke; */
     max-width: 180px;
     max-height: 90px;
@@ -46,16 +43,6 @@ select.searchInput:not(option)
     overflow: auto;
     text-align: center;
     resize: both;
-}
-.ticketCommentCellOdd{
-    /* border: 1px solid whitesmoke; */
-    max-width: 180px;
-    max-height: 90px;
-    min-height: 60px;
-    overflow: auto;
-    text-align: center;
-    resize: both;
-    /* background-color: black; */
 }
 /* .ticketCellOdd{
     border: 1px solid whitesmoke;
