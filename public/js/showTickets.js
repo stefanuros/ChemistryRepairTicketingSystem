@@ -12,6 +12,7 @@ $(document).ready(function(){
     $.post("./includes/DBinteractivity/showTickets.php",{}, 
     // data = echo in showtickets.php
     function(data){
+        // console.log(data);
         // throw all the given information into a <div></div> (creating a table with all the requested information)
         
         // console.log(data);
