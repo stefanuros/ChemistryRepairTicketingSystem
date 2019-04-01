@@ -101,6 +101,14 @@ function main(){
                     </select>
                 </td>";
             }
+            //Supervisor information.
+            elseif (($isAdmin && $i == 9) || (!$isAdmin && $i == 7)){
+                $displayValue = explode(" ",$value);
+                //displayValue[0] = supervisor name. (a name, or null)
+                //displayValue[1] = supervisor code. (a code or null)
+                $tableInfo = $tableInfo . $displayValue[0] . "<br>" . $displayValue[1];
+                $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value='$value'></td>";
+            }
             //Admin can change the value for closed using a drop box, if closed == null
             elseif ($isAdmin == true && $i == 3){
                 if($value == 'Unassigned'){
@@ -138,7 +146,7 @@ function main(){
                 }//end else
             }//end elseif admin, status, 'closed'
             elseif($isAdmin == true && $i == 11){ //invoice link
-                $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value=$value>
+                $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value='$value'>
                                         <a id=invoiceLink class=nav-link href='./invoicePage.php?ticket_id=$ticketid'>Invoice</a> </td>";
             }
             
