@@ -151,9 +151,9 @@ function main(){
             }
             //closed time (for both admin and user)
             elseif($i == 6){ 
-                if ($row[3] != 'Closed'){ //display the value of closed time
-                    $tableInfo = $tableInfo . "$value";
-                }}
+                if ($row[3] == 'Closed'){ //row[3] = status
+                    $tableInfo = $tableInfo . $value;
+                }
                 $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value=$value></td>";
             }
             //Else: The column cannot be edited. It should display a value and have a hidden input of the value aswell so 
