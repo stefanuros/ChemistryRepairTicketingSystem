@@ -50,7 +50,7 @@ function sendMsg()
 		ta[0].style.height = Math.max(38, ta[0].scrollHeight) + 'px';
 		
 		// Getting info for the new message
-		var date = $.format.date(new Date(), 'MMM d, yyyy h:mm a');
+		var date = $.format.date(new Date(), 'MMM d, yyyy, h:mm a');
 		
 		// Make a new message
 		$("#message-marker").before(`
