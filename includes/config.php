@@ -21,6 +21,19 @@ $jwtkey = "B1A81966AD5E4724A649D3F227875";
 $eUser = "queenschemistryrepair";
 $ePass = "chemistry2019";
 
-// Turn on errors (0 for off, 1 for on)
-error_reporting(0);
+// Whether email notifications should be enabled
+$activateEmail = true;
+
+// Whether errors should be displayed
+$showErrors = false;
+if($showErrors)
+{
+	error_reporting(E_ALL);
+	ini_set('error_reporting', E_ALL);
+}
+else
+{
+	error_reporting(0);
+}
+
 ?>
