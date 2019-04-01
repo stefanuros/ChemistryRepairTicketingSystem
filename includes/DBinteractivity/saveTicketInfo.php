@@ -6,17 +6,14 @@ This will be called by showTickets.js and be used to save the information in a d
 to the database.
 */
 
-/* for orginizational purposes. */
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
+/* for orginizational purposes. */
 function main(){
     include_once '../config.php';
     include_once '../connect.php';
     //include_once '../authenticate.php';
-
-    //if (!$auth){
-    //    echo $jsonMsg;
-    //    exit();
-    //}
 
     date_default_timezone_set('America/Toronto');
 
@@ -29,7 +26,7 @@ function main(){
         $ticketID = $output['value0a' . $i]; //value0aX = ID
         $newStatus = $output['value3a' . $i]; //value3aX = status
         if ($output['value10a' . $i] != ''){ //value10aX = tech
-            $techRef = getRefNumber($conn,$output['value10a' . $i]);
+            $techRef = getRefNumberFromUsername($conn,$output['value10a' . $i]);
         }
         else{
             $techRef = '';
@@ -43,18 +40,25 @@ function main(){
         $oldStatusFetch = $sqlPrep->fetch(PDO::FETCH_NUM);
         $oldStatus = $oldStatusFetch[0];
         //If the user has just closed a ticket, update the closed_time aswell as the status.
-        echo "----------- Row: $i Ticket: $ticketID assigned_tech: $techRef ---------";
+        // echo "----------- Row: $i Ticket: $ticketID assigned_tech: $techRef ---------";
         if($oldStatus != 'Closed' && $newStatus == 'Closed'){
             $sqlUpdate = "UPDATE `tickets` set `status` = '" . $newStatus . "', `closed_time` = '" . date("Y-m-d h:i:s") . "', assigned_tech = '$techRef' where `ticket_id` = " . $ticketID . ";";
-        }
+         }
         //Otherwise only update the status.
         else{
             $sqlUpdate = "UPDATE `tickets` set `status` = '" . $newStatus . "', assigned_tech = '$techRef' where `ticket_id` = " . $ticketID . ";";
         }
-        echo $sqlUpdate;
         try{
             $sqlResult = $conn->query($sqlUpdate);
-            echo "  Updated     ";
+            if ($oldStatus != $newStatus){
+                $r = getUserEmail($conn,$ticketID); 
+                $s = "Status change of Ticket #" . $ticketID; 
+                $b = "This email is to inform you that your ticket # " . $ticketID . " has had the status updated from: " . $oldStatus . " To: " . $newStatus; 
+                //sendEmail("T.Szendrey@hotmail.ca",$s,$b);
+                $userRef = getUserRefFromTicketID($conn,$ticketID);
+                updateMessage($conn,$ticketID,$userRef,$newStatus);
+            }//end old != new
+            // echo "  Updated     ";
         }catch(PDOException $e){
             echo $e;
         }
@@ -65,7 +69,7 @@ function main(){
 inputs: $username: the username given, this will be the username in the table profile.
 outputs: $refNumber: reference number. This will be the unique_id in profile, or the requested_by/assigned_tech for tickets.
 */
-function getRefNumber($conn,$username){
+function getRefNumberFromUsername($conn,$username){
     $sql = "SELECT DISTINCT unique_id FROM `profile` WHERE `username` = '" . $username . "';";
     $sqlPrepared = $conn->prepare($sql);
     if(!$sqlPrepared->execute()){
@@ -77,5 +81,91 @@ function getRefNumber($conn,$username){
     return $refNumber;
 }
 
+function getUserRefFromTicketID($conn,$ticketID){
+    $sql = "SELECT p.unique_id
+    FROM
+    (tickets
+    LEFT JOIN profile p ON tickets.requested_by = p.unique_id)
+    where tickets.ticket_id = $ticketID;";
+    $sqlPrepared = $conn->prepare($sql);
+    if(!$sqlPrepared->execute()){
+        echo "The given username: $username 's unique id could not be found.";
+        $refNumber = '';
+    }
+    $row = $sqlPrepared->fetch(PDO::FETCH_NUM);
+    $refNumber = $row[0];
+    return $refNumber;   
+}
+
+function getUserEmail($conn, $ticketID){
+    $sql = "SELECT `profile`.email 
+        from (`tickets`
+        LEFT JOIN `profile` ON tickets.requested_by = `profile`.unique_id)
+        where tickets.ticket_id = " . $ticketID . ";";
+    $sqlPrep = $conn->query($sql);
+    $sqlPrep->execute();
+    $getEmail = $sqlPrep->fetch(PDO::FETCH_NUM);
+    $email = $getEmail[0];
+    return $email;
+}
+
+function updateMessage($conn, $ticketID,$userID,$status){
+    $insertMessage = "INSERT INTO messages_list VALUES ('$ticketID', NULL, '$userID', NULL, '$status', 1);";
+    $stmt = $conn->prepare($insertMessage);
+    $stmt->execute();
+}
+
+function sendEmail($r,$s,$b){   
+    $topLayer = str_replace($_SERVER['DOCUMENT_ROOT'], "", $_SERVER['SCRIPT_FILENAME']);
+    $path = $_SERVER['DOCUMENT_ROOT'] . "/" . explode("/", $topLayer)[1];
+
+    require $path . '/includes/libs/PHPMailer/src/Exception.php';
+    require $path . '/includes/libs/PHPMailer/src/PHPMailer.php';
+    require $path . '/includes/libs/PHPMailer/src/SMTP.php';
+
+    $mail = new PHPMailer();
+
+    if(	isset($r) &&
+        isset($s) &&
+        isset($b))
+    {
+        try
+        {
+            $mail->isSMTP();
+            $mail->Host = "smtp.gmail.com";
+            $mail->SMTPAuth = true;
+            $mail->Username = $eUser . "@gmail.com"; //looks fishy
+            $mail->Password = $ePass;
+            $mail->SMTPSecure = "ssl";
+            $mail->Port = "465";
+            
+            $recipient = $r;
+            $subject = $s;
+            $body = $b;
+            
+            // Recipents
+            $mail->SetFrom('no-reply@QueensChemistryRepair.com');
+            $mail->AddAddress($recipient);
+            
+            // Content
+            $mail->isHTML();
+            $mail->Subject = $subject;
+            $mail->Body = $body;
+            
+            $mail->Send();
+
+            echo "200 OK";
+        }
+        catch(Exception $e)
+        {
+            echo "Error: " . $e;
+        }
+    }
+    else
+    {
+        echo "Error: " . $e;
+    }
+
+}
 main();
 ?>
