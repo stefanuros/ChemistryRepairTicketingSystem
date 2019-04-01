@@ -167,10 +167,10 @@ function main(){
 //returns the total amount of Rows in tickets table.
 function getTotalRows($conn,$isAdmin,$uid){
     if($isadmin){
-        $sql = "select count(ticket_id) from tickets;";
+        $sql = "SELECT count(ticket_id) from tickets;";
     }
     else{
-        $sql = "select count(ticket_id) from tickets where requested_by = '$uid';";
+        $sql = "SELECT count(ticket_id) from tickets where requested_by = '$uid';";
     }
     $sqlGetTotalRows = $conn->prepare($sql);
     if(!$sqlGetTotalRows->execute()) {
@@ -337,8 +337,7 @@ function getSQLQuery($isAdmin,$fromRow, $rowStep,$userID){
     else{
         $sqlWhereSet = true;
         $sql = "select ticket_id,machine_name,room,status,concat(comment,' ',other_comments),created_time,closed_time,
-        supervisor_name,
-        supervisor_code,
+        concat(supervisor_name, ' ', supervisor_code),
         CASE 
             WHEN techP.username IS NULL THEN '  '
             ELSE techP.username 
