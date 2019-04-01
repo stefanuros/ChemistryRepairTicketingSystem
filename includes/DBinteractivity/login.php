@@ -201,10 +201,10 @@ function createUser($conn, $result, $username, $uid)
 	$stmt = $conn->prepare("INSERT INTO profile (username, email, admin, first_name, last_name, unique_id) VALUES (:username, :email, 0, :fname, :lname, :uid);");
 	$stmt->execute(
 		array(
-			':username' => $username,
-			':email' => $mail,
-			':fname' => $fn,
-			':lname' => $sn,
+			':username' => htmlspecialchars($username),
+			':email' => htmlspecialchars($mail),
+			':fname' => htmlspecialchars($fn),
+			':lname' => htmlspecialchars($sn),
 			':uid' => $uid,
 		)
 	);
@@ -226,10 +226,10 @@ function updateUser($conn, $result, $username)
 	$stmt = $conn->prepare("UPDATE profile SET email=:email, first_name=:fname, last_name=:lname WHERE username = :username;");
 	$stmt->execute(
 		array(
-			':username' => $username,
-			':email' => $mail,
-			':fname' => $fn,
-			':lname' => $sn
+			':username' => htmlspecialchars($username),
+			':email' => htmlspecialchars($mail),
+			':fname' => htmlspecialchars($fn),
+			':lname' => htmlspecialchars($sn)
 		)
 	);
 }

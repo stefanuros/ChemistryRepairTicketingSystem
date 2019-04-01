@@ -127,12 +127,12 @@ $(document).ready(function() {
 		// Submitting the ticket
 		$.get("./includes/DBinteractivity/createTicket.php", 
 		{
-			machine_name: getMachineName,
-			room: getRoom,
-			description: description,
-			super_code: superCode,
-			super_name: superName,
-			comments: comment
+			machine_name: escapeHtml(getMachineName),
+			room: escapeHtml(getRoom),
+			description: escapeHtml(description),
+			super_code: escapeHtml(superCode),
+			super_name: escapeHtml(superName),
+			comments: escapeHtml(comment)
 
 		}, function(data){
 
@@ -198,6 +198,16 @@ $(document).ready(function() {
 		});
 	})
 });
+
+function escapeHtml(text)
+{
+	return text
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&#039;");
+}
 
 function setAlert(msg, type)
 {
