@@ -30,7 +30,7 @@ function sendMsg()
 {
 	// Get the message text
 	var ta = $("#enter-message");
-	var text = ta[0].value;
+	var text = escapeHtml(ta[0].value);
 
 	if(text.length <= 0)
 	{
@@ -75,4 +75,14 @@ function sendMsg()
 		var objDiv = document.getElementById("msg-container");
 		objDiv.scrollTop = objDiv.scrollHeight;
 	});
+}
+
+function escapeHtml(text)
+{
+	return text
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&#039;");
 }
