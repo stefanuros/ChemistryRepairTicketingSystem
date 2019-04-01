@@ -17,7 +17,11 @@ array(
     "requestedByOptions" => $requestedByOptions, //Used for drop down options
     "assignedTechOptions" => $assignedTechOptions, //Used for drop down options
     "tableHeight" => $tableHeightOutput, //Thrown into a hidden int on the front page, which will be later used in the saveTickets.php file.
-    "testOutput" => $testOutput //Used for console.log();
+    "colCount" => $colCountOutput, //Should be deteled, no longer used for anything. May still be in the .js file as well. Havent checked.
+    "fromRow" => $fromRow, //Current row that is displayed (for the limit section of the SQL). in the below example, 0, then 10. Used in a hidden input.
+    "tablePageMessage" => $tablePageMessage, //The message saying: "Showing: 0 to 10 out of: 45", "Showing: 10 to 20 out of: 45" ect
+    "totalRows" => $totalRows, //the total amount of rows (in the above eg 45)
+    "testOutput" => $testOutput //used for testing purposes.
 )
 
 */
@@ -59,7 +63,14 @@ function main(){
         for ($j = 0; $j < sizeof($row); $j++){
             $value = $row[$j];
             $ticketid = $row[0];
-            //Set two classes for even/odd rows because IM AN IDIOT AND DIDNT GOOGLE CSS HAS THIS BUILT IN (to show different background colours on rows)
+            //TODO: Make this change after the presentation to ensure it doesnt fuck with anyones stuff.
+            // if($i == 4){
+            //     $tableInfo = $tableInfo . "<td class='ticketCommentCellEven'> <a id=forumLink class='nav-link' href='./messagePage.php?ticket_id=$ticketid'>Click To See Forum </a>";
+            // }
+            // else{
+            //     $tableInfo = $tableInfo . "<td class='ticketCellEven'>";
+            // }
+
             if ($height % 2 == 0){
                 if($i == 4){
                     $tableInfo = $tableInfo . "<td class='ticketCommentCellEven'> <a id=forumLink class='nav-link' href='./messagePage.php?ticket_id=$ticketid'>Click To See Forum </a>";
@@ -76,6 +87,10 @@ function main(){
                     $tableInfo = $tableInfo . "<td class='ticketCellOdd'>";
                 }
             }
+
+
+            //TODO: end above.
+
             //Admin can change the values for Status, Assigned Tech
             if ($isAdmin == true && $i == 10){ 
                 $tableInfo = $tableInfo . 
@@ -165,7 +180,6 @@ function main(){
 /*---Helper Functions Found Below--------------------------------------------------------------------------------------------------------------------------------- */
 /*---------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 //returns the total amount of Rows in tickets table.
-//ADDING A LINE SO IT REGISTERS THE CHANGE ON GIT
 function getTotalRows($conn,$isAdmin,$uid){
     if($isAdmin){
         $sql = "SELECT count(ticket_id) from tickets;";
