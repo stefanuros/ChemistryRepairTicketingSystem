@@ -29,7 +29,8 @@ else
 	else
 	{
 		//Send them to the user home
-		header("Location: createTicketPage.php");
+		// header("Location: createTicketPage.php");
+		header("Location: showTicketsPage.php");
 		die();
 	}
 }
