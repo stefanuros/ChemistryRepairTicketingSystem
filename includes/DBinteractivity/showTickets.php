@@ -288,7 +288,7 @@ function appendSearchInfo($sql,$sqlWhereSet,$postName,$attributeName){
 
 /* */
 function getAdmins($conn){
-    $givenOption = "<option value=''> </option>";
+    $givenOption = "";
     $sqlRoom = "SELECT DISTINCT `username` FROM `profile` where admin=1;";
     $sqlRoomPrep = $conn->prepare($sqlRoom);
     if(!$sqlRoomPrep->execute()) {
