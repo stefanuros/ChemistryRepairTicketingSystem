@@ -61,36 +61,14 @@ function main(){
         $tableInfo = $tableInfo . "<tr>";
         $i = 0;
         for ($j = 0; $j < sizeof($row); $j++){
-            $value = $row[$j];
-            $ticketid = $row[0];
-            //TODO: Make this change after the presentation to ensure it doesnt fuck with anyones stuff.
-            // if($i == 4){
-            //     $tableInfo = $tableInfo . "<td class='ticketCommentCellEven'> <a id=forumLink class='nav-link' href='./messagePage.php?ticket_id=$ticketid'>Click To See Forum </a>";
-            // }
-            // else{
-            //     $tableInfo = $tableInfo . "<td class='ticketCellEven'>";
-            // }
-
-            if ($height % 2 == 0){
-                if($i == 4){
-                    $tableInfo = $tableInfo . "<td class='ticketCommentCellEven'> <a id=forumLink class='nav-link' href='./messagePage.php?ticket_id=$ticketid'>Click To See Forum </a>";
-                }
-                else{
-                    $tableInfo = $tableInfo . "<td class='ticketCellEven'>";
-                }
+            $value = htmlspecialchars($row[$j]);
+            $ticketid = htmlspecialchars($row[0]);
+            if($i == 4){
+                $tableInfo = $tableInfo . "<td class='ticketCommentCell'> <a id=forumLink class='nav-link' href='./messagePage.php?ticket_id=$ticketid'>Click To See Forum </a>";
             }
             else{
-                if($i == 4){
-                    $tableInfo = $tableInfo . "<td class='ticketCommentCellOdd'> <a id=forumLink class='nav-link' href='./messagePage.php?ticket_id=$ticketid'>Click To See Forum </a>";
-                }
-                else{
-                    $tableInfo = $tableInfo . "<td class='ticketCellOdd'>";
-                }
+                $tableInfo = $tableInfo . "<td class='ticketCell'>";
             }
-
-
-            //TODO: end above.
-
             //Admin can change the values for Status, Assigned Tech
             if ($isAdmin == true && $i == 10){ 
                 $tableInfo = $tableInfo . 
