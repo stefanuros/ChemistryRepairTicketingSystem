@@ -64,10 +64,10 @@ function main(){
             $value = $row[$j];
             $ticketid = $row[0];
             if($i == 4){
-                $tableInfo = $tableInfo . "<td class='ticketCommentCellEven'> <a id=forumLink class='nav-link' href='./messagePage.php?ticket_id=$ticketid'>Click To See Forum </a>";
+                $tableInfo = $tableInfo . "<td class='ticketCommentCell'> <a id=forumLink class='nav-link' href='./messagePage.php?ticket_id=$ticketid'>Click To See Forum </a>";
             }
             else{
-                $tableInfo = $tableInfo . "<td class='ticketCellEven'>";
+                $tableInfo = $tableInfo . "<td class='ticketCell'>";
             }
             //Admin can change the values for Status, Assigned Tech
             if ($isAdmin == true && $i == 10){ 
@@ -78,6 +78,13 @@ function main(){
                     $listOfAdmins 
                     </select>
                 </td>";
+            }
+            elseif($i == 4){ //comments
+                $displayValue = explode(" ",$value);
+                //displayValue[0] = comment. (or null)
+                //displayValue[1] = additional comment (or null)
+                $tableInfo = $tableInfo . $displayValue[0] . "<br>" . $displayValue[1];
+                $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value='$value'></td>";
             }
             //Supervisor information.
             elseif (($isAdmin && $i == 9) || (!$isAdmin && $i == 7)){
