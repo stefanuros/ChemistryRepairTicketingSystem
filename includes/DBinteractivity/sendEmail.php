@@ -19,6 +19,13 @@ if(!$auth)
 	exit();
 }
 
+// If emails are not activated, exit
+if(!$activateEmail)
+{
+	echo "Emails deactived. Check the config file";
+	exit();
+}
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
