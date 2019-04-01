@@ -165,8 +165,9 @@ function main(){
 /*---Helper Functions Found Below--------------------------------------------------------------------------------------------------------------------------------- */
 /*---------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 //returns the total amount of Rows in tickets table.
+//ADDING A LINE SO IT REGISTERS THE CHANGE ON GIT
 function getTotalRows($conn,$isAdmin,$uid){
-    if($isadmin){
+    if($isAdmin){
         $sql = "SELECT count(ticket_id) from tickets;";
     }
     else{
