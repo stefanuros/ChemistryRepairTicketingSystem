@@ -6,23 +6,9 @@ This will be called by showTickets.js and be used to save the information in a d
 to the database.
 */
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-$topLayer = str_replace($_SERVER['DOCUMENT_ROOT'], "", $_SERVER['SCRIPT_FILENAME']);
-$path = $_SERVER['DOCUMENT_ROOT'] . "/" . explode("/", $topLayer)[1];
-
-require $path . '/includes/libs/PHPMailer/src/Exception.php';
-require $path . '/includes/libs/PHPMailer/src/PHPMailer.php';
-require $path . '/includes/libs/PHPMailer/src/SMTP.php';
-// include_once '../config.php';
-// include_once '../connect.php';
-// include_once '../authenticate.php';
-$mail = new PHPMailer();
-
-
 /* for orginizational purposes. */
-function main($mail){
-    // include_once '../config.php';
+function main(){
+    include_once '../config.php';
     include_once '../connect.php';
     include_once '../authenticate.php';
     if(!$auth){
@@ -71,7 +57,7 @@ function main($mail){
                 $r = getUserEmail($conn,$ticketID); 
                 $s = "Status change of Ticket #" . $ticketID; 
                 $b = "This email is to inform you that your ticket # " . $ticketID . " has had the status updated from: " . $oldStatus . " To: " . $newStatus; 
-                sendEmail("StefanUrosgmail.ca",$s,$b,$mail);
+                //TODO: sendEmail($r,$s,$b); To attempt to create this function please see SendMail.php
                 updateMessage($conn,$ticketID,$uid,$newStatus);
             }//end old != new
             // echo "  Updated     ";
@@ -115,57 +101,5 @@ function updateMessage($conn, $ticketID,$uid,$status){
     $stmt->execute();
 }
 
-function sendEmail($r,$s,$b,$mail){   
-    // $topLayer = str_replace($_SERVER['DOCUMENT_ROOT'], "", $_SERVER['SCRIPT_FILENAME']);
-    // $path = $_SERVER['DOCUMENT_ROOT'] . "/" . explode("/", $topLayer)[1];
-
-    // require $path . '/includes/libs/PHPMailer/src/Exception.php';
-    // require $path . '/includes/libs/PHPMailer/src/PHPMailer.php';
-    // require $path . '/includes/libs/PHPMailer/src/SMTP.php';
-
-    // $mail = new PHPMailer();
-
-    if(	isset($r) &&
-        isset($s) &&
-        isset($b))
-    {
-        try
-        {
-            $mail->isSMTP();
-            $mail->Host = "smtp.gmail.com";
-            $mail->SMTPAuth = true;
-            $mail->Username = $eUser . "@gmail.com"; //looks fishy
-            $mail->Password = $ePass;
-            $mail->SMTPSecure = "ssl";
-            $mail->Port = "465";
-            
-            $recipient = $r;
-            $subject = $s;
-            $body = $b;
-            
-            // Recipents
-            $mail->SetFrom('no-reply@QueensChemistryRepair.com');
-            $mail->AddAddress($recipient);
-            
-            // Content
-            $mail->isHTML();
-            $mail->Subject = $subject;
-            $mail->Body = $body;
-            
-            $mail->Send();
-
-            echo "200 OK";
-        }
-        catch(Exception $e)
-        {
-            echo "Error: " . $e;
-        }
-    }
-    else
-    {
-        echo "Error: " . $e;
-    }
-
-}
-main($mail);
+main();
 ?>
