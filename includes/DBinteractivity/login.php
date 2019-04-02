@@ -47,8 +47,9 @@ if (isset($_POST['username']) && isset($_POST['password']))
 
 
 	//Checking if cookies are enabled
-	setcookie("test_cookie", "test", time() + 3600, '/');
-	if(count($_COOKIE) > 0)
+	// setcookie("test_cookie", "test", time() + 3600, '/');
+	// if(isset($_COOKIE['test_cookie']))
+	if(true)
 	{
 		//If cookies are enabled, delete the test cookie
 		setcookie("test_cookie", "", time() - 3600);

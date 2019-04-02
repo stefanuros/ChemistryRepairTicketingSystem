@@ -8,6 +8,11 @@ $(document).ready(function() {
 	$(".validate-form").submit( function() {
 		event.preventDefault();
 
+		if(!checkCookie())
+		{
+			alert("You need to enable cookies to log in.");
+		}
+
 		//Make a post request to login.php
 		var getUser = $('#getUsername')[0].value;
 		var getPass = $('#getPassword')[0].value;
@@ -19,6 +24,8 @@ $(document).ready(function() {
 			username: getUser,
 			password: getPass
 		}, function(data){
+			// console.log(data);
+			
 			try
 			{
 				data = JSON.parse(data);
@@ -198,6 +205,17 @@ $(document).ready(function() {
 		});
 	})
 });
+
+function checkCookie(){
+    // Quick test if browser has cookieEnabled host property
+    if (navigator.cookieEnabled) return true;
+    // Create cookie
+    document.cookie = "cookietest=1";
+    var ret = document.cookie.indexOf("cookietest=") != -1;
+    // Delete cookie
+    document.cookie = "cookietest=1; expires=Thu, 01-Jan-1970 00:00:01 GMT";
+    return ret;
+}
 
 function escapeHtml(text)
 {
