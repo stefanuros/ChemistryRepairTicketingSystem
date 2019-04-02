@@ -25,7 +25,7 @@ $ePass = "chemistry2019";
 $activateEmail = true;
 
 // Whether errors should be displayed
-$showErrors = false;
+$showErrors = true;
 if($showErrors)
 {
 	error_reporting(E_ALL);

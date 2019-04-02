@@ -63,6 +63,8 @@ This will also display a table full of everyone's tickets, or the tickets that h
 <!-- <h1>All Tickets</h1> -->
 <hr>
 
+<div id="alertMarker"></div>
+
 <div class='TicketSearchMenu container ml-lg-3' style="min-width: 678px; max-width: 1000px;">
     <form id='showTicketForm'>
         <div class="row">
