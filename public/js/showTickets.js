@@ -85,6 +85,16 @@ $(document).ready(function(){
 		//data = echo in saveTicketInfo.php
 		function(data){
 			sendToEmailer(data);
+
+			if(data.length > 0)
+			{
+				setAlert("Saving date. Please wait...", "warning");
+			}
+			else
+			{
+				setAlert("Data saved.", "success");
+			}
+
 		});//end $.post
 		// location.reload(); 
 	});//end showTicketForm lambda function.
@@ -183,17 +193,23 @@ an with index's r,s,b.
 use Stef's sendEmail.php with said information.
 */
 function sendToEmailer(emailData){
-	setAlert("Saving Status. Please wait...", "success");
 	const subst = '}\n{';
 	const str = emailData;
 	const regex = /}{/gm;
 	const result = str.replace(regex, subst);
-	// console.log(parsedData);
+	// console.log("-" + (result.length > 0) + "-");
+
+	if(result.length == 0)
+	{
+		return;
+	}
+
 	var parsedData = result.split('\n');
 	var count = 0;
+
 	for (var i = 0; i < parsedData.length; i++){
 		singleEmailData = parsedData[i];
-		//console.log(singleEmailData);
+		// console.log(singleEmailData);
 		var singleParsedData = JSON.parse(singleEmailData); 
 		// console.log(singleParsedData);
 
@@ -205,6 +221,7 @@ function sendToEmailer(emailData){
 			count++;
 			if(count >= parsedData.length){
 				location.reload();
+				return true;
 			}
 		});
 	}//end for
