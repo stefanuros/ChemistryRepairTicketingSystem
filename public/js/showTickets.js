@@ -84,7 +84,6 @@ $(document).ready(function(){
 		}, 
 		//data = echo in saveTicketInfo.php
 		function(data){
-			setAlert("Saving data. Please wait...", "success");
 			sendToEmailer(data);
 		});//end $.post
 		// location.reload(); 
@@ -184,6 +183,7 @@ an with index's r,s,b.
 use Stef's sendEmail.php with said information.
 */
 function sendToEmailer(emailData){
+	setAlert("Saving Status. Please wait...", "success");
 	const subst = '}\n{';
 	const str = emailData;
 	const regex = /}{/gm;
