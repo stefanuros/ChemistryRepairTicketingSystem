@@ -73,7 +73,7 @@ if(	isset($_GET['r']) &&
 }
 else
 {
-	echo "Error: " . $e;
+	echo "Error: Missing expected GET";
 }
 
 ?>

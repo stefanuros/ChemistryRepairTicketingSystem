@@ -20,8 +20,8 @@ function main(){
 
     date_default_timezone_set('America/Toronto');
 
-    //parse the POST data.
-    parse_str($_POST['data'],$output);
+    //parse the POST input.
+    parse_str($_POST['input'],$output);
 
     //Updates Ticket table with new information.
     for ($i = 1; $i < $output['tableHeight']; $i++){
@@ -57,7 +57,13 @@ function main(){
                 $r = getUserEmail($conn,$ticketID); 
                 $s = "Status change of Ticket #" . $ticketID; 
                 $b = "This email is to inform you that your ticket # " . $ticketID . " has had the status updated from: " . $oldStatus . " To: " . $newStatus; 
-                //TODO: sendEmail($r,$s,$b); To attempt to create this function please see SendMail.php
+                echo json_encode(
+                    array(
+                        "r" => $r,
+                        "s" => $s,
+                        "b" => $b
+                    )
+                );
                 updateMessage($conn,$ticketID,$uid,$newStatus);
             }//end old != new
             // echo "  Updated     ";

@@ -16,7 +16,7 @@ $(document).ready(function(){
         // throw all the given information into a <div></div> (creating a table with all the requested information)
         
         // console.log(data);
-        var temp = jQuery.parseJSON(data);
+        var temp = JSON.parse(data);
         document.getElementById('TicketTable').innerHTML = temp["tableInfo"];
         document.getElementById('getRoom').innerHTML = temp["roomOptions"];
         document.getElementById('getMachineName').innerHTML = temp["machineOptions"];
@@ -58,7 +58,7 @@ $(document).ready(function(){
         //data = echo in showtickets.php
         function(data){
             //throw all the given information into a <div></div> (creating a table with all the requested information)
-            var temp = jQuery.parseJSON(data);
+            var temp = JSON.parse(data);
             document.getElementById('TicketTable').innerHTML = temp["tableInfo"];
             document.getElementById('getRoom').innerHTML = temp["roomOptions"];
             document.getElementById('getMachineName').innerHTML = temp["machineOptions"];
@@ -80,13 +80,13 @@ $(document).ready(function(){
         var formdata = $(this).serialize();
 
         $.post("./includes/DBinteractivity/saveTicketInfo.php",{
-            data: formdata
+            input: formdata
         }, 
         //data = echo in saveTicketInfo.php
         function(data){
-            console.log(data);
+            sendToEmailer(data);
         });//end $.post
-        location.reload(); 
+        // location.reload(); 
     });//end showTicketForm lambda function.
 }); //end $(document).ready(function(){}); 
 
@@ -107,7 +107,7 @@ function rightArrowButtonDown(){
     //data = echo in showtickets.php
     function(data){
         //throw all the given information into a <div></div> (creating a table with all the requested information)
-        var temp = jQuery.parseJSON(data);
+        var temp = JSON.parse(data);
         document.getElementById('fromRow').value = temp['fromRow'];
         document.getElementById('TicketTable').innerHTML = temp["tableInfo"];
         document.getElementById('getRoom').innerHTML = temp["roomOptions"];
@@ -137,7 +137,7 @@ function leftArrowButtonDown(){
     //data = echo in showtickets.php
     function(data){
         //throw all the given information into a <div></div> (creating a table with all the requested information)
-        var temp = jQuery.parseJSON(data);
+        var temp = JSON.parse(data);
         document.getElementById('fromRow').value = temp['fromRow'];
         document.getElementById('TicketTable').innerHTML = temp["tableInfo"];
         document.getElementById('getRoom').innerHTML = temp["roomOptions"];
@@ -157,3 +157,36 @@ function logout()
 	document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 	window.location.replace("index.php");
 }
+
+
+/*
+grabs the data in an array, or potentially a lot lof arrays. 
+emailData = {} OR {}{}{}{}...
+make it {}\n{}\n{}.....
+split based off of \n into multiple arrays
+for each single array, JSON.parse that from a string = {r: user's email INFO, s: subject INFO, b: body INFO} to 
+an with index's r,s,b.
+use Stef's sendEmail.php with said information.
+*/
+function sendToEmailer(emailData){
+    const subst = '}\n{';
+    const str = emailData;
+    const regex = /}{/gm;
+    const result = str.replace(regex, subst);
+    //console.log(parsedData);
+    var parsedData = result.split('\n');
+    for (var i = 0; i < parsedData.length; i++){
+        singleEmailData = parsedData[i];
+        //console.log(singleEmailData);
+        var singleParsedData = JSON.parse(singleEmailData); 
+        //console.log(singleParsedData);
+
+        $.get("./includes/DBinteractivity/sendEmail.php",{
+            r: singleParsedData['r'], 
+            s: singleParsedData['s'],
+            b: singleParsedData['b']
+        });
+    }//end for
+
+    location.reload();
+}//end sendToEmailer
