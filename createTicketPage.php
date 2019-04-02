@@ -73,8 +73,7 @@
 			//Get the result from the query
 			$info = $stmt->fetch(PDO::FETCH_ASSOC);
 		?>
-		// var em = "<?php echo htmlspecialchars($info['email']) ?>";
-		var em = "<?php echo htmlspecialchars("stefanuros@gmail.com") ?>"; // TODO remove this line and uncomment the one above
+		var em = "<?php echo htmlspecialchars($info['email']) ?>";
 		var name = "<?php echo htmlspecialchars($info['name']) ?>";
 	</script>
 
