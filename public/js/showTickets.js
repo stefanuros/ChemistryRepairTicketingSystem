@@ -27,7 +27,7 @@ $(document).ready(function(){
 		document.getElementById('tablePageMessageTop').innerHTML = temp['tablePageMessage'];
 		document.getElementById('tablePageMessageBottom').innerHTML = temp['tablePageMessage'];
 		document.getElementById('totalRows').value = temp['totalRows'];
-		console.log(temp["testOutput"]);
+		// console.log(temp["testOutput"]);
 	});//end $.post    
 	/* ---On Submit Table Right Arrow------------------------------------------------------------------------------------------------------------------------------ */
 	
@@ -69,7 +69,7 @@ $(document).ready(function(){
 			document.getElementById('tablePageMessageTop').innerHTML = temp['tablePageMessage'];
 			document.getElementById('tablePageMessageBottom').innerHTML = temp['tablePageMessage'];
 			document.getElementById('totalRows').value = temp['totalRows'];
-			console.log(temp["testOutput"]);
+			// console.log(temp["testOutput"]);
 		});//end $.post
 	});//end showTicketForm lambda function.
 
@@ -120,7 +120,7 @@ function rightArrowButtonDown(){
 	var getFromRow = parseInt(document.getElementById('fromRow').value);
 	var getRowStep = 10; //If this hardcoded value changes. Also change it in showTickets.php .... I know im a horrible person.
 	var rowLimit = parseInt(document.getElementById('totalRows').value);
-	console.log(rowLimit);
+	// console.log(rowLimit);
 	if (getFromRow + getRowStep <= rowLimit){
 		getFromRow = getFromRow + getRowStep;
 	}
