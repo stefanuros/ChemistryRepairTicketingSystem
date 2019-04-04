@@ -12,10 +12,6 @@ $(document).ready(function(){
 	$.post("./includes/DBinteractivity/showTickets.php",{}, 
 	// data = echo in showtickets.php
 	function(data){
-		// console.log(data);
-		// throw all the given information into a <div></div> (creating a table with all the requested information)
-		
-		// console.log(data);
 		var temp = JSON.parse(data);
 		document.getElementById('TicketTable').innerHTML = temp["tableInfo"];
 		document.getElementById('getRoom').innerHTML = temp["roomOptions"];
@@ -60,11 +56,6 @@ $(document).ready(function(){
 			//throw all the given information into a <div></div> (creating a table with all the requested information)
 			var temp = JSON.parse(data);
 			document.getElementById('TicketTable').innerHTML = temp["tableInfo"];
-			document.getElementById('getRoom').innerHTML = temp["roomOptions"];
-			document.getElementById('getMachineName').innerHTML = temp["machineOptions"];
-			document.getElementById('getStatus').innerHTML = temp["statusOptions"];
-			document.getElementById('getRequestedBy').innerHTML = temp["requestedByOptions"];
-			document.getElementById('getAssignedTech').innerHTML = temp["assignedTechOptions"];
 			document.getElementById('tableHeight').value = temp['tableHeight'];
 			document.getElementById('tablePageMessageTop').innerHTML = temp['tablePageMessage'];
 			document.getElementById('tablePageMessageBottom').innerHTML = temp['tablePageMessage'];
@@ -120,13 +111,28 @@ function rightArrowButtonDown(){
 	var getFromRow = parseInt(document.getElementById('fromRow').value);
 	var getRowStep = 10; //If this hardcoded value changes. Also change it in showTickets.php .... I know im a horrible person.
 	var rowLimit = parseInt(document.getElementById('totalRows').value);
-	// console.log(rowLimit);
+	var getTicketID = $('#getTicketID')[0].value;
+	var getMachineName = $('#getMachineName')[0].value;
+	var getRoom = $('#getRoom')[0].value;
+	var getStatus = $('#getStatus')[0].value;
+	var getCreated = $('#getCreated')[0].value;
+	var getClosed = $("#getClosed")[0].value;
+	var getRequestedBy = $("#getRequestedBy")[0].value;
+	var getAssignedTech = $("#getAssignedTech")[0].value;
 	if (getFromRow + getRowStep <= rowLimit){
 		getFromRow = getFromRow + getRowStep;
 	}
 	$.post("./includes/DBinteractivity/showTickets.php",{
 		fromRow: getFromRow,
-		rowStep: getRowStep
+		rowStep: getRowStep,
+		ticketID: getTicketID,
+		machineName: getMachineName,
+		room: getRoom,
+		status: getStatus,
+		createdBy: getCreated,
+		closedBy: getClosed,
+		requestedBy: getRequestedBy,
+		assignedTech: getAssignedTech
 	},
 	//data = echo in showtickets.php
 	function(data){
@@ -134,11 +140,6 @@ function rightArrowButtonDown(){
 		var temp = JSON.parse(data);
 		document.getElementById('fromRow').value = temp['fromRow'];
 		document.getElementById('TicketTable').innerHTML = temp["tableInfo"];
-		document.getElementById('getRoom').innerHTML = temp["roomOptions"];
-		document.getElementById('getMachineName').innerHTML = temp["machineOptions"];
-		document.getElementById('getStatus').innerHTML = temp["statusOptions"];
-		document.getElementById('getRequestedBy').innerHTML = temp["requestedByOptions"];
-		document.getElementById('getAssignedTech').innerHTML = temp["assignedTechOptions"];
 		document.getElementById('tableHeight').value = temp['tableHeight'];
 		document.getElementById('tablePageMessageTop').innerHTML = temp['tablePageMessage'];
 		document.getElementById('tablePageMessageBottom').innerHTML = temp['tablePageMessage'];
@@ -164,11 +165,6 @@ function leftArrowButtonDown(){
 		var temp = JSON.parse(data);
 		document.getElementById('fromRow').value = temp['fromRow'];
 		document.getElementById('TicketTable').innerHTML = temp["tableInfo"];
-		document.getElementById('getRoom').innerHTML = temp["roomOptions"];
-		document.getElementById('getMachineName').innerHTML = temp["machineOptions"];
-		document.getElementById('getStatus').innerHTML = temp["statusOptions"];
-		document.getElementById('getRequestedBy').innerHTML = temp["requestedByOptions"];
-		document.getElementById('getAssignedTech').innerHTML = temp["assignedTechOptions"];
 		document.getElementById('tableHeight').value = temp['tableHeight'];
 		document.getElementById('tablePageMessageTop').innerHTML = temp['tablePageMessage'];
 		document.getElementById('tablePageMessageBottom').innerHTML = temp['tablePageMessage'];

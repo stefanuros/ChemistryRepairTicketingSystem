@@ -50,7 +50,7 @@ function main(){
 
     $tableInfo = getTableheader($isAdmin);
     $sql = getSQLQuery($isAdmin,$fromRow, $rowStep,$uid);
-    
+    $testOutput = $testOutput . $sql;
     //fill the table with ALL information.
     $sqlPrepared = $conn->prepare($sql);
     $sqlPrepared->execute(); //should be in a try/catch, but in this scenario it isnt required.
@@ -255,7 +255,7 @@ function appendSearchInfo($sql,$sqlWhereSet,$postName,$attributeName){
         else{
             if ($attributeName == 'created_time' || $attributeName == 'closed_time'){
                 //As its generalized it will search for a LIKE VALUE% as this allows the user to write YYYY-mm-dd and not add the hh:mm:ss
-                $sql = $sql . " and `$attributeName` = '" . $_POST[$postName] . "%'";
+                $sql = $sql . " and `$attributeName` LIKE '" . $_POST[$postName] . "%'";
             }//end if date format
             elseif ($attributeName == 'requested_by'){
                 $sql = $sql . " and concat(userP.first_name,' ',userP.lasT_name) = '" . $_POST[$postName] . "'";
