@@ -145,7 +145,7 @@
 
 			<script>
 				var superName = "SUPERVISOR: <?php echo htmlspecialchars($super['sn']) ?>";
-				var superCode = "CODE: <?php echo htmlspecialchars($super['sc']) ?>";
+				var superCode = "PROJECT CODE: <?php echo htmlspecialchars($super['sc']) ?>";
 			</script>
 
 			<?php for($i = 0; $i < sizeof($parts); $i++) { ?>
