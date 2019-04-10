@@ -79,10 +79,11 @@ function main(){
                     </select>
                 </td>";
             }
+            elseif(($isAdmin && $i == 1) || ($isAdmin && $i == 2)){ //machine name and room are now editable by admins.
+                $tableInfo = $tableInfo . "<input type='text' name='value" . $i . "a" .  $height . "' value=$value></td>";
+            }
             elseif($i == 4){ //comments
                 $displayValue = explode(" ",$value);
-                //displayValue[0] = comment. (or null)
-                //displayValue[1] = additional comment (or null)
                 $tableInfo = $tableInfo . $displayValue[0] . "<br>" . $displayValue[1];
                 $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value='$value'></td>";
             }
@@ -136,7 +137,7 @@ function main(){
             }
             //closed time (for both admin and user)
             elseif($i == 6){ 
-                if ($row[3] == 'Closed'){ //row[3] = status
+                if ($row[3] == 'Closed'){ //row[3] = status. (only show closed date value when its closed)
                     $tableInfo = $tableInfo . $value;
                 }
                 $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value=$value></td>";

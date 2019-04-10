@@ -28,6 +28,8 @@ function main(){
         //get the row's ticketID, the oldStatus (before change/in database) and newStatus (what is on the current page.)
         $ticketID = $output['value0a' . $i]; //value0aX = ID
         $newStatus = $output['value3a' . $i]; //value3aX = status
+        $machineName = $output['value1a' . $i];
+        $room = $output['value2a' . $i];
         if ($output['value10a' . $i] != ''){ //value10aX = tech
             $techRef = getRefNumberFromUsername($conn,$output['value10a' . $i]);
         }
@@ -45,11 +47,11 @@ function main(){
         //If the user has just closed a ticket, update the closed_time aswell as the status.
         // echo "----------- Row: $i Ticket: $ticketID assigned_tech: $techRef ---------";
         if($oldStatus != 'Closed' && $newStatus == 'Closed'){
-            $sqlUpdate = "UPDATE `tickets` set `status` = '" . $newStatus . "', `closed_time` = '" . date("Y-m-d h:i:s") . "', assigned_tech = '$techRef' where `ticket_id` = " . $ticketID . ";";
+            $sqlUpdate = "UPDATE `tickets` set `status` = '" . $newStatus . "', `closed_time` = '" . date("Y-m-d h:i:s") . "', `machine_name` = '" . $machineName . "', `room` = '" . $room . "', assigned_tech = '$techRef' where `ticket_id` = " . $ticketID . ";";
          }
         //Otherwise only update the status.
         else{
-            $sqlUpdate = "UPDATE `tickets` set `status` = '" . $newStatus . "', assigned_tech = '$techRef' where `ticket_id` = " . $ticketID . ";";
+            $sqlUpdate = "UPDATE `tickets` set `status` = '" . $newStatus . "',`machine_name` = '" . $machineName . "', `room` = '" . $room . "', assigned_tech = '$techRef' where `ticket_id` = " . $ticketID . ";";
         }
         try{
             $sqlResult = $conn->query($sqlUpdate);
