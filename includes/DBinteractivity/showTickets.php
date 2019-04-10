@@ -80,7 +80,7 @@ function main(){
                 </td>";
             }
             elseif(($isAdmin && $i == 1) || ($isAdmin && $i == 2)){ //machine name and room are now editable by admins.
-                $tableInfo = $tableInfo . "<input type='text' name='value" . $i . "a" .  $height . "' value=$value></td>";
+                $tableInfo = $tableInfo . "<input type='text' name='value" . $i . "a" .  $height . "' value='$value'></td>";
             }
             elseif($i == 4){ //comments
                 $displayValue = explode(" ",$value);
@@ -140,13 +140,13 @@ function main(){
                 if ($row[3] == 'Closed'){ //row[3] = status. (only show closed date value when its closed)
                     $tableInfo = $tableInfo . $value;
                 }
-                $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value=$value></td>";
+                $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value='$value'></td>";
             }
             //Else: The column cannot be edited. It should display a value and have a hidden input of the value aswell so 
             //      The information can be used in a $_POST for saving changes.
             else{
                 $tableInfo = $tableInfo . "$value ";
-                $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value=$value></td>";
+                $tableInfo = $tableInfo . "<input type=hidden name='value" . $i . "a" .  $height . "' value='$value'></td>";
             }//end isAdmin, editable column
             $i = $i + 1;
         }//end fore loop
