@@ -93,7 +93,7 @@
 	</script>
 
 	<hr>
-	<div class="container bg-dark mx-auto rounded-top p-2 pb-4" id="msg-container" style="max-height: 800px; min-height: 700px; min-width: 678px; max-width: 1200px; overflow-y: auto;">
+	<div class="container bg-dark mx-auto rounded-top p-2 pb-4" id="msg-container" style="max-height: 800px; min-height: 200px; min-width: 678px; max-width: 1200px; overflow-y: auto;">
 
 		<?php 
 
@@ -134,17 +134,42 @@
 				// Make the info message
 				if($m[$i]['isInfo'] == "1")
 				{
-					?>
+					// str.substring(4, str.length)
 
-					<div class="row m-0 p-1">
-						<div class="col-12 p-0 m-0">
-							<div class="row p-0 m-0">
-								<small class="col-12 text-muted text-center p-0">Ticket set to <b><i><?php echo htmlspecialchars($m[$i]['content']) ?></i></b> by <?php echo htmlspecialchars($m[$i]['name']) ?> on <?php echo date_format($date, "M j, Y, g:i A") ?></small>
+					// Invoice Link
+					if(substr($m[$i]['content'], 0, 4) == "link")
+					{
+						?>
+
+						<div class="row m-0 p-1">
+							<div class="col-12 p-0 m-0">
+								<div class="row p-0 m-0">
+									<small class="col-12 text-muted text-center p-0">
+										<button class="btn btn-link px-1 py-0" onclick="invoiceLink(`<?php echo substr($m[$i]['content'], 4) ?>`);"><small>
+											Click here to view invoice sent by <?php echo htmlspecialchars($m[$i]['name']) ?> on <?php echo date_format($date, "M j, Y, g:i A") ?>
+										</small></button>
+									</small>
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<?php 
+						<?php 
+					}
+					// Info message
+					else
+					{
+						?>
+
+						<div class="row m-0 p-1">
+							<div class="col-12 p-0 m-0">
+								<div class="row p-0 m-0">
+									<small class="col-12 text-muted text-center p-0">Ticket set to <b><i><?php echo htmlspecialchars($m[$i]['content']) ?></i></b> by <?php echo htmlspecialchars($m[$i]['name']) ?> on <?php echo date_format($date, "M j, Y, g:i A") ?></small>
+								</div>
+							</div>
+						</div>
+
+						<?php 
+					}
 				}
 				// Make the regular message
 				else

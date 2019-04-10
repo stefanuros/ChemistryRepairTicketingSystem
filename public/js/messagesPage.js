@@ -86,3 +86,9 @@ function escapeHtml(text)
 		.replace(/"/g, "&quot;")
 		.replace(/'/g, "&#039;");
 }
+
+// Function for displaying the invoice from the link
+function invoiceLink(url)
+{
+	window.open(decodeURI(url), '_blank');
+}

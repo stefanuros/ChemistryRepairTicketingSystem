@@ -195,7 +195,7 @@ $(document).ready(function() {
 					s: subject,
 					b: body
 				}, function(e){
-					console.log(e);
+					// console.log(e);
 				})
 			}
 			else

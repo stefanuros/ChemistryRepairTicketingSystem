@@ -74,6 +74,7 @@
 		<div class="card mx-auto mb-3 border-0" style="min-width: 750px; max-width: 1200px; background: transparent;">
 			<div class="card-body p-0">
 				<button type="button" class="btn btn-primary float-right" onclick="generatePDF()"><i class="far fa-save"></i>&nbspSave Invoice</button>
+				<button type="button" class="btn btn-primary float-left" onclick="sendInvoice()"><i class="far fa-paper-plane"></i>&nbspSend Invoice to User</button>
 			</div>
 		</div>
 
