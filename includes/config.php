@@ -18,14 +18,14 @@ $adurl = "ldap.forumsys.com";
 $jwtkey = "B1A81966AD5E4724A649D3F227875";
 
 // Email info
-$eUser = "queenschemistryrepair";
-$ePass = "chemistry2019";
+$eUser = "chemrepair"; // Email username goes here (not including @queensu.ca)
+$ePass = ""; // Password for the email account goes here
 
 // Whether email notifications should be enabled
-$activateEmail = true;
+$activateEmail = false; // This is disabled so it doesnt break anything while we dont have the password for an email account
 
 // Whether errors should be displayed
-$showErrors = true;
+$showErrors = false;
 if($showErrors)
 {
 	error_reporting(E_ALL);

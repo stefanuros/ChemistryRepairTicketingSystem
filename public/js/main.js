@@ -170,22 +170,22 @@ $(document).ready(function() {
 				var subject = "Confirmation of ticket #" +data['ticket_id']+ " submission";
 				var body = `
 					<p>Hello `+ name +`,</p>
-					<br>
-					<p>This is an automated email to confirm that you have submitted a ticket to the Queens Chemistry Repair Department.</p>
-					<p>You can find information on this ticket by going to our website, selecting the "Tickets" tab at the top right, and viewing ticket #`+data['ticket_id']+`.</p>
-					<p>To communicate with the technician in charge of your ticket, view your ticket and select "View forum" under the comments tab. Replies to this email will not be seen.</p>
+					<p>This is an automated email to confirm that you have submitted a ticket to the Queens Chemistry Repair Department.<br />
+					You can find information on this ticket by going to our website, selecting the "Tickets" tab at the top right, and viewing ticket #`+data['ticket_id']+`.<br />
+					To communicate with the technician in charge of your ticket, view your ticket and select "View forum" under the comments tab. Replies to this email will not be seen.</p>
+					
 					<p>Below you will find a summary of your ticket</p>
 					<hr>
-					<p>Machine Name: `+getMachineName+`</p>
-					<p>Room: `+getRoom+`</p>
-					<p>Problem Description: `+description+`</p>
-					<p>Supervisor Code: `+superCode+`</p>
-					<p>Supervisor Name: `+superName+`</p>
-					<p>Other Comments: `+comment+`</p>
+					<p>Machine Name: `+getMachineName+`<br />
+					Room: `+getRoom+`<br />
+					Problem Description: `+description+`<br />
+					Supervisor Code: `+superCode+`<br />
+					Supervisor Name: `+superName+`<br />
+					Other Comments: `+comment+`</p>
 					<hr>
 					<br>
-					<p>Our technicians will get to work on your repair as soon as possible.</p>
-					<p>If you have any questions, please contact ed.maracle@queensu.ca</p>
+					<p>Our technicians will get to work on your repair as soon as possible.<br />
+					If you have any questions, please contact chemrepair@queensu.ca</p>
 				`;
 				
 				// Send an email of confirmation
