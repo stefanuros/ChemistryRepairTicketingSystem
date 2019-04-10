@@ -41,24 +41,32 @@ if(	isset($_GET['r']) &&
 {
 	try
 	{
+		// $mail->SMTPDebug = 2;
 		$mail->isSMTP();
-		$mail->Host = "smtp.gmail.com";
+		// $mail->Host = "smtp.gmail.com";
+		$mail->Host = "smtp-mail.outlook.com";
 		$mail->SMTPAuth = true;
-		$mail->Username = $eUser . "@gmail.com";
+		// $mail->Username = $eUser . "@gmail.com";
+		$mail->Username = $eUser . "@queensu.ca";
 		$mail->Password = $ePass;
-		$mail->SMTPSecure = "ssl";
-		$mail->Port = "465";
+		// $mail->SMTPSecure = "ssl";
+		$mail->SMTPSecure = "tls";
+		// $mail->Port = "465";
+		$mail->Port = "587";
 		
 		$recipient = $_GET['r'];
 		$subject = $_GET['s'];
 		$body = $_GET['b'];
 		
 		// Recipents
-		$mail->SetFrom('no-reply@QueensChemistryRepair.com');
+		$mail->SetFrom($eUser . "@queensu.ca");
+		
 		$mail->AddAddress($recipient);
+		// Send an email to chemRepair as well
+		$mail->AddAddress($eUser . "@queensu.ca");
 		
 		// Content
-		$mail->isHTML();
+		$mail->isHTML(true); // Added true to here as well
 		$mail->Subject = $subject;
 		$mail->Body = $body;
 		
