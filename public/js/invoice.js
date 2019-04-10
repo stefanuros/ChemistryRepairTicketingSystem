@@ -179,7 +179,10 @@ function generatePDF()
 		to: "Queen's Chemistry Finance Dept\n" + superName + "\n" + superCode,
 		logo: "https://www.chem.queensu.ca/sites/webpublish.queensu.ca.chemwww/files/images/chemlogocolour%20JPEG.jpg",
 		number: ticket_id,
-		items: rows
+		items: rows,
+		terms: "X",
+		invoice_number_title: "Ticket No.",
+		terms_title: "Supervisor Signature"
 	};
 
 	// Create the url
@@ -227,7 +230,10 @@ function sendInvoice()
 		to: "Queen's Chemistry Finance Dept\n" + superName + "\n" + superCode,
 		logo: "https://www.chem.queensu.ca/sites/webpublish.queensu.ca.chemwww/files/images/chemlogocolour%20JPEG.jpg",
 		number: ticket_id,
-		items: rows
+		items: rows,
+		terms: "X",
+		invoice_number_title: "Ticket No.",
+		terms_title: "Supervisor Signature"
 	};
 	
 	// Create the url

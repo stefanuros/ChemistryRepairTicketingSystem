@@ -120,10 +120,10 @@
 				<!-- Row 3 -->
 				<div class="form-row m-auto pt-3">
 					<div class="form-group col-md-6 pl-0">
-						<label for="inputSuperCode">Supervisor Code</label>
-						<input type="text" class="form-control" maxlength="256" id="inputSuperCode" name="super_code">
+						<label for="inputSuperCode">Project Code</label>
+						<input type="text" pattern="\d{6}" class="form-control" maxlength="256" id="inputSuperCode" name="super_code">
 						<div class="invalid-feedback">
-							Please enter a valid code
+							Please enter a valid code (6 digits)
 						</div>
 						<div class="valid-feedback">
 							Looks good

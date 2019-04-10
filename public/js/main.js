@@ -86,7 +86,7 @@ $(document).ready(function() {
 
 	function toggleFeedback(id)
 	{
-		if($(id)[0].value.length > 0)
+		if($(id)[0].value.length > 0 && (id !== "#inputSuperCode" || /^\d{6}$/.test($(id)[0].value)))
 		{
 			$(id).addClass("is-valid");
 			$(id).removeClass("is-invalid");
@@ -111,11 +111,11 @@ $(document).ready(function() {
 		var comment = $('#inputComments')[0].value;
 
 		// Doing error checking for the values
-		var submitReady = 	$("#inputMachineName")[0].value.length &&
-							$("#inputRoom")[0].value.length &&
-							$("#problemDescription")[0].value.length &&
-							$("#inputSuperCode")[0].value.length &&
-							$("#inputSuperName")[0].value.length;
+		var submitReady = 	$("#inputMachineName")[0].value.length > 0 &&
+							$("#inputRoom")[0].value.length > 0 &&
+							$("#problemDescription")[0].value.length > 0 &&
+							/^\d{6}$/.test($("#inputSuperCode")[0].value) &&
+							$("#inputSuperName")[0].value.length > 0;
 
 		//Create the proper feedback
 		toggleFeedback("#inputMachineName");
