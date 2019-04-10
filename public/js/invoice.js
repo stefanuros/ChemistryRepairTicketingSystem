@@ -196,6 +196,51 @@ function generatePDF()
 	// 	setAlert("PDF Created", "success");
 	// 	console.log(data);
 	// });
+}
 
 
+// Function that will create a message with the invoice link
+function sendInvoice()
+{
+	var rows = [];
+	
+	// Gather the invoice items
+	var items = $(".item-general");
+	var quanities = $(".quantity-general");
+	var prices = $(".price-general");
+	
+	// console.log(items);
+	
+	// Get the values of them and make the list
+	for (var i = 0; i < items.length; i++)
+	{
+		rows.push({
+			name: items[i].value,
+			quantity: quanities[i].value,
+			unit_cost: prices[i].value
+		})
+	}
+	
+	// Create the rest of the pdf data
+	var pdfData = {
+		from: "Queen's Chemistry Repair Dept",
+		to: "Queen's Chemistry Finance Dept\n" + superName + "\n" + superCode,
+		logo: "https://www.chem.queensu.ca/sites/webpublish.queensu.ca.chemwww/files/images/chemlogocolour%20JPEG.jpg",
+		number: ticket_id,
+		items: rows
+	};
+	
+	// Create the url
+	var pdfurl = 'link./includes/DBinteractivity/generatePDF.php?data=' + JSON.stringify(pdfData) + "&t=" + ticket_id; 
+	
+	// Post request to send the pdf link to the messages page
+	$.post("./includes/DBinteractivity/messageFunc.php",
+	{
+		ticket_id: ticket_id,
+		msg: encodeURI(pdfurl),
+		info: true
+	}, function(data){
+		setAlert("Invoice has been sent to messages page", "success");
+
+	});
 }

@@ -26,24 +26,39 @@ if(isset($_POST["ticket_id"]))
 {
 	include_once $path . '/includes/connect.php';
 
-	// Prepare the select statement
-	$stmt = $conn->prepare('INSERT INTO messages_list VALUES (:t, NULL, :u, NULL, :m, DEFAULT);'); 
-	// Execute it
-	$stmt->execute(array(
-		':t' => $_POST['ticket_id'],
-		':u' => $uid,
-		':m' => $_POST['msg']
-	));
-
-	// Getting the name
-	$stmt = $conn->prepare('SELECT concat(first_name, " ", last_name) as name FROM profile WHERE unique_id = :u'); 
-	$stmt->execute(array(
-		':u' => $uid
-	));
-	$name = $stmt->fetch(PDO::FETCH_ASSOC);
-
-	// echo $uid;
-	echo $name['name'];
+	// If the message is info
+	if(isset($_POST['info']))
+	{
+		// Prepare the select statement
+		$stmt = $conn->prepare('INSERT INTO messages_list VALUES (:t, NULL, :u, NULL, :m, "1");'); 
+		// Execute it
+		$stmt->execute(array(
+			':t' => $_POST['ticket_id'],
+			':u' => $uid,
+			':m' => $_POST['msg']
+		));		
+	}
+	else
+	{
+		// Prepare the select statement
+		$stmt = $conn->prepare('INSERT INTO messages_list VALUES (:t, NULL, :u, NULL, :m, DEFAULT);'); 
+		// Execute it
+		$stmt->execute(array(
+			':t' => $_POST['ticket_id'],
+			':u' => $uid,
+			':m' => $_POST['msg']
+		));
+	
+		// Getting the name
+		$stmt = $conn->prepare('SELECT concat(first_name, " ", last_name) as name FROM profile WHERE unique_id = :u'); 
+		$stmt->execute(array(
+			':u' => $uid
+		));
+		$name = $stmt->fetch(PDO::FETCH_ASSOC);
+	
+		// echo $uid;
+		echo $name['name'];
+	}
 
 }
 
