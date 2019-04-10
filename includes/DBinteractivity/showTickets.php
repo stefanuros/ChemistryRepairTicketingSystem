@@ -302,7 +302,7 @@ function getTableHeader($isAdmin){
             <th class='ticketHeader'>Closed</th>
             <th class='ticketHeader'>Requested By</th>
             <th class='ticketHeader'>Requested By</th>
-            <th class='ticketHeader'>Supervisor</th>
+            <th class='ticketHeader'>Supervisor Info</th>
             <th class='ticketHeader'>Assigned Tech</th>
             <th class='ticketHeader'>Invoice</th>
         ";
@@ -317,7 +317,7 @@ function getTableHeader($isAdmin){
             <th class='ticketHeader'>Comments</th>
             <th class='ticketHeader'>Created</th>
             <th class='ticketHeader'>Closed</th>
-            <th class='ticketHeader'>Supervisor</th>
+            <th class='ticketHeader'>Supervisor Info</th>
             <th class='ticketHeader'>Assigned Tech</th>
         ";
     }
