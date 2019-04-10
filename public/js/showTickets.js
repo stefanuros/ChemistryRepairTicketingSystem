@@ -75,16 +75,20 @@ $(document).ready(function(){
 		}, 
 		//data = echo in saveTicketInfo.php
 		function(data){
-			sendToEmailer(data);
 
-			if(data.length > 0)
-			{
-				setAlert("Saving date. Please wait...", "warning");
-			}
-			else
-			{
-				setAlert("Data saved.", "success");
-			}
+			// TODO UNCOMMENT FROM HERE (emailing is temp down due to some changes) 
+			// sendToEmailer(data);
+
+			// if(data.length > 0)
+			// {
+			// 	setAlert("Saving date. Please wait...", "warning");
+			// }
+			// else
+			// {
+			// 	setAlert("Data saved.", "success");
+			// }
+			// TODO TO HERE
+
 
 		});//end $.post
 		// location.reload(); 

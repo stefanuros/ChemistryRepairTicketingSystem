@@ -1,0 +1,6 @@
+As emailing is currently down (I believe due to changing from gmail -> queensu.ca)
+showTickets.js lines 79-90 have been commented out.
+This means no emailing will occur during any submit changes (status changes) 
+
+This also means the status message saying "Saving changes please wait" Will pop up for 0.1 seconds while changes are saved, and disapear
+this message will be displayed for longer when the emails are being sent.
