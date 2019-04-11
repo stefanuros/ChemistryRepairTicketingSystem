@@ -95,8 +95,8 @@
             <div class="square">
                 <div class="col">
                     <h1>2</h1>
-                    <h3 id="heading">Wait for Technician Email Response</h3>
-                    <p>A technician will be assigned to your submitted ticket and once received, they will be in contact with you via. email with a repairs estimate.</p>
+                    <h3 id="heading">Wait for Technician Response</h3>
+                    <p>A technician will be assigned to your submitted ticket and once received, repairs will be inspected and a technician will be in contact with you through the comments forum in the <a href="showTicketsPage.php">Tickets tab</a>.</p>
                 </div>
             </div>
          </div>
@@ -105,8 +105,8 @@
             <div class="square">
                 <div class="col">
                     <h1>3</h1>
-                    <h3 id="heading">Confirm Repair Costs</h3>
-                    <p>In order for the repairs to begin, you must confirm with the repairs estimate to be charged. Once the repairs are complete, an invoice will be charged and sent to Dept. of Chemistry's Finances.</p>
+                    <h3 id="heading">Confirm Repair Costs Invoice</h3>
+                    <p>In order for the repairs to begin, you must confirm with the repairs charges by getting the invoice signed by project supervisor. Once the repairs are complete, the invoice will be charged and sent to Dept. of Chemistry's Finances.</p>
                 </div>
             </div>
          </div>
