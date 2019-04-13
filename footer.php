@@ -29,8 +29,8 @@
                     <span title="LinkedIn Group link" style="color: #F5F5F5;"><i class="fab fa-linkedin-in fa-3x"></i></span>
                 </a>
                     
-                <!--Mail icon (using Ben's email)-->
-                <a id="mail" href="mailto:bsg3@queensu.ca?Subject=Equipment Repair" target="_top">
+                <!--Mail icon-->
+                <a id="mail" href="mailto:chemrepair@queensu.ca?Subject=Equipment Repair" target="_top">
                     <span title="Technician email" style="color: #F5F5F5;"><i class="far fa-envelope fa-3x"></i></span>
                 </a> 
                 
