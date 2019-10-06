@@ -62,6 +62,10 @@ can contact the user about it.
 Along with the communication feature, if the Admin pressed the "Send Invoice to User"
 button, a copy of the invoice would be sent to the user so they can look over it
 and get approval from their supervisor for the repair if needed.
+
+The chat page also shows a history of status changes with the ticket. If a tech changes
+the status, and then another tech changes it back, that interaction would be logged and
+displayed to the techs and the user.
 ![Admin Chat Feature and Send PDF Invoice](/assets/adminChat.png)
 
 Admins can also view a page full of charts and graphs so they can easily see what
