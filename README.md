@@ -38,7 +38,7 @@ If an admin logs in, they are
 initially taken to this page. This is a list of all tickets. From this page the
 admins are also able to edit some of the information a user entered. This is 
 required in case the user enters some incorrect information.
-![Admin Ticket List](/assets/AdminTicketList.png)
+![Admin Ticket List](/assets/adminTicketList.png)
 
 This list of tickets can also be filtered by the filter fields at the top left
 of the page. If the admin is looking for a specific ticket that was made by 
